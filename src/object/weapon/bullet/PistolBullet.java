@@ -1,4 +1,4 @@
-package object.item.weapon.bullet;
+package object.weapon.bullet;
 
 public class PistolBullet {
 

@@ -1,4 +1,4 @@
-package object.item.weapon.grenade;
+package object.weapon.grenade;
 
 public class FragGrenade extends Grenade {
 

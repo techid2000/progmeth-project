@@ -1,4 +1,4 @@
-package object.item.loot;
+package object.loot;
 
 public class Coins extends Loot {
 

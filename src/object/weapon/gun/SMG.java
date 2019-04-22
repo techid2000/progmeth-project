@@ -1,4 +1,4 @@
-package object.item.weapon.gun;
+package object.weapon.gun;
 
 public class SMG extends Gun {
 

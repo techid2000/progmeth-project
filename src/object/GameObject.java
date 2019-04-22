@@ -2,6 +2,7 @@ package object;
 
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -12,6 +13,7 @@ import interfaces.IBehaviour;
 import interfaces.IRenderable;
 
 public abstract class GameObject implements IBehaviour, IRenderable {
+	//Fields
 	private Image renderSprite;
 	private Point2D position = new Point2D(0, 0);
 	private Rotate rotation = new Rotate(0);
@@ -19,30 +21,10 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	private Point2D pivot = new Point2D(0, 0);
 	private int zOrder = 0;
 
-	public GameObject(Image renderSprite, Point2D position, Rotate rotation, Point2D scale, Point2D pivot, int zOrder) {
-		this(renderSprite, position, rotation, scale, pivot);
-		this.zOrder = zOrder;
-	}
-	public GameObject(Image renderSprite, Point2D position, Rotate rotation, Point2D scale, Point2D pivot) {
-		this(renderSprite, position, rotation, scale);
-		this.pivot = pivot;
-	}
-	public GameObject(Image renderSprite, Point2D position, Rotate rotation, Point2D scale) {
-		this(renderSprite, position, rotation);
-		this.scale = scale;
-	}
-	public GameObject(Image renderSprite, Point2D position, Rotate rotation) {
-		this(renderSprite, position);
-		this.rotation = rotation;
-	}
-	public GameObject(Image renderSprite, Point2D position) {
-		this(renderSprite);
-		this.position = position;
-	}
-	public GameObject(Image renderSprite) {
-		this.renderSprite = renderSprite;
-	}
-	
+	//Constructor
+	public GameObject() { }
+
+	//Fields getter-setter method
 	public Image getRenderSprite() {
 		return renderSprite;
 	}
@@ -82,6 +64,7 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 		this.zOrder = zOrder;
 	}
 	
+	//General functions
 	public Point2D getScaledSize() {
 		return new Point2D(getRenderSprite().getWidth(), getRenderSprite().getHeight()).multiply(1.0/GameCanvas.PIXEL_CELLSIZE);
 	}
@@ -91,7 +74,21 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	public boolean intersects(GameObject other, GraphicsContext gg) {
 		return this.cornerOverlapped(other) || other.cornerOverlapped(this);
 	}
-	
+	public void renderOver(GameCanvas canvas) {
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		
+		double scaledWidth = getRenderSprite().getWidth() * getScale().getX();
+		double scaledHeight = getRenderSprite().getHeight() * getScale().getY();
+		
+		Point2D pixeledPivot = GameCanvas.pixeledPoint2D(getPivot());
+		Point2D pixeledPosition = GameCanvas.pixeledPoint2D(getPosition());
+		
+		gc.translate(pixeledPosition.getX(), pixeledPosition.getY());
+		gc.rotate(getRotation().getAngle());
+		gc.drawImage(getRenderSprite(), -pixeledPivot.getX(), -pixeledPivot.getY(), scaledWidth, scaledHeight);
+		gc.rotate(-getRotation().getAngle());
+		gc.translate(-pixeledPosition.getX(), -pixeledPosition.getY());
+	}
 	private BoundingBox noRotatedBound() {
 		Point2D topLeft = position.subtract(pivot);
 		return new BoundingBox(topLeft.getX(), topLeft.getY(), 

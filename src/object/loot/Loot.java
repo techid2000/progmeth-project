@@ -1,8 +1,8 @@
-package object.item.loot;
+package object.loot;
 
 import interfaces.ICollectable;
-import object.item.Item;
+import object.GameObject;
 
-public abstract class Loot extends Item implements ICollectable {
+public abstract class Loot extends GameObject implements ICollectable {
 
 }

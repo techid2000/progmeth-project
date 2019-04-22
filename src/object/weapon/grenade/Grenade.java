@@ -1,7 +1,7 @@
-package object.item.weapon.grenade;
+package object.weapon.grenade;
 
 import interfaces.IThrowable;
-import object.item.weapon.Weapon;
+import object.weapon.Weapon;
 
 public abstract class Grenade extends Weapon implements IThrowable {
 
