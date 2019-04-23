@@ -8,28 +8,40 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import utility.Utility;
+import animation.AnimationClip;
 import gui.GameCanvas;
 import interfaces.IBehaviour;
 import interfaces.IRenderable;
 
 public abstract class GameObject implements IBehaviour, IRenderable {
-	//Fields
+	//fields
+	public boolean isStatic;
+
 	private Image renderSprite;
+	private AnimationClip clip;
 	private Point2D position = new Point2D(0, 0);
 	private Rotate rotation = new Rotate(0);
 	private Point2D scale = new Point2D(1, 1);
 	private Point2D pivot = new Point2D(0, 0);
 	private int zOrder = 0;
-
-	//Constructor
+	
+	//constructor
 	public GameObject() { }
 
-	//Fields getter-setter method
+	//fields getter-setter method
 	public Image getRenderSprite() {
 		return renderSprite;
 	}
 	public void setRenderSprite(Image renderSprite) {
 		this.renderSprite = renderSprite;
+	}
+	public void setAnimationClip(AnimationClip clip) {
+		this.clip = clip;
+		this.renderSprite = clip.getSpriteList().get(0);
+		clip.setBindGameObject(this);
+	}
+	public AnimationClip getAnimationClip() {
+		return this.clip;
 	}
 	public Point2D getPosition() {
 		return position;
@@ -64,7 +76,7 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 		this.zOrder = zOrder;
 	}
 	
-	//General functions
+	//general functions
 	public Point2D getScaledSize() {
 		return new Point2D(getRenderSprite().getWidth(), getRenderSprite().getHeight()).multiply(1.0/GameCanvas.PIXEL_CELLSIZE);
 	}
