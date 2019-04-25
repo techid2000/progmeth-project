@@ -5,10 +5,14 @@ import interfaces.IDestroyable;
 
 public class BreakableBlock extends Block implements IDestroyable {
 
+	public BreakableBlock() {
+		super();
+		setRenderSprite(ImageHolder.getInstance().destroyableBlock);
+	}
+	
 	@Override
 	public void start() {
 		// TODO Auto-generated method stub
-		setRenderSprite(ImageHolder.getInstance().destroyableBlock);
 	}
 
 	@Override

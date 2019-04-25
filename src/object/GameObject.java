@@ -1,21 +1,26 @@
 package object;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import animation.AnimationClip;
+import constants.SystemCache;
+import gui.GameCanvas;
+import interfaces.IBehaviour;
+import interfaces.IRenderable;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
+import logic.GameObjectTag;
 import utility.Utility;
-import animation.AnimationClip;
-import gui.GameCanvas;
-import interfaces.IBehaviour;
-import interfaces.IRenderable;
 
 public abstract class GameObject implements IBehaviour, IRenderable {
 	//fields
 	public boolean isStatic;
+	private GameObjectTag tag = new GameObjectTag();
 
 	private Image renderSprite;
 	private AnimationClip clip;
@@ -86,7 +91,7 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	public boolean intersects(GameObject other) {
 		return this.cornerOverlapped(other) || other.cornerOverlapped(this);
 	}
-	public void renderOver(GameCanvas canvas) {
+	public void renderOver(GameCanvas canvas, boolean displayHitbox) {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
 		double scaledWidth = getRenderSprite().getWidth() * getScale().getX();
@@ -98,8 +103,15 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 		gc.translate(pixeledPosition.getX(), pixeledPosition.getY());
 		gc.rotate(getRotation().getAngle());
 		gc.drawImage(getRenderSprite(), -pixeledPivot.getX(), -pixeledPivot.getY(), scaledWidth, scaledHeight);
+		if(displayHitbox) {
+			gc.setStroke(Color.RED);
+			gc.strokeRect(-pixeledPivot.getX(), -pixeledPivot.getY(), scaledWidth, scaledHeight);
+		}
 		gc.rotate(-getRotation().getAngle());
 		gc.translate(-pixeledPosition.getX(), -pixeledPosition.getY());
+	}
+	public void renderOver(GameCanvas canvas) {
+		renderOver(canvas, false);
 	}
 	private BoundingBox noRotatedBound() {
 		Point2D topLeft = position.subtract(Utility.timesAxis(pivot, getScale()));
@@ -120,5 +132,23 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 		p4 = Utility.rotatePoint2D(p4.subtract(getPosition()), getRotation().getAngle()).add(getPosition());
 		
 		return other.overlapped(p1) || other.overlapped(p2) || other.overlapped(p3) || other.overlapped(p4);
+	}
+
+	public List<GameObject> getIntersectedObjects() {
+		return getIntersectedObjects(GameObjectTag.UNDEFINED);
+	}
+	public List<GameObject> getIntersectedObjects(long tagBitmask) {
+		List<GameObject> objects = new ArrayList<GameObject>();
+		for(GameObject object : SystemCache.getInstance().gameCanvas.getGameObjects()) {
+			if(object == this) continue;
+			if(!(object.getTag().contains(tagBitmask))) continue;
+			if(intersects(object)) {
+				objects.add(object);
+			}
+		}
+		return objects;
+	}
+	public GameObjectTag getTag() {
+		return this.tag;
 	}
 }

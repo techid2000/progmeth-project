@@ -32,7 +32,7 @@ public class GameCanvas extends Canvas {
 
 	//gameobjects
 	private GameObject pursueObject;
-	public Set<GameObject> gameObjects;
+	private Set<GameObject> gameObjects;
 	
 	//animation
 	private double deltaTime;
@@ -41,46 +41,41 @@ public class GameCanvas extends Canvas {
 	public GameCanvas() {
 		
 		SystemCache.getInstance().gameCanvas = this;
-		
 		this.gc = getGraphicsContext2D();
 		this.gameObjects = new TreeSet<GameObject>((GameObject a, GameObject b) -> {
 			if(a.getZOrder() == b.getZOrder()) 
 				return a.hashCode() - b.hashCode();
 			return a.getZOrder() - b.getZOrder();
 		});
-		
 		setWidth(MainApp.WINDOW_WIDTH);
 		setHeight(MainApp.WINDOW_HEIGHT);
 		setViewPosition(scaledPoint2D(getPixelScreenSize().multiply(0.5)));
 		
-		Player slime = new Player() {
-			public void start() {}
-		};
-		slime.setMoveSpeed(2);
-		slime.setAnimationClip(new AnimationClip(ImageHolder.getInstance().slime, 500));
-		slime.setZOrder(0);
-		slime.setPivot(new Point2D(0.5, 0.5));
-		slime.setPosition(new Point2D(0,0));
+		//wait for manage
+		Player slime = new Player();
 		
 		UnbreakableBlock block = new UnbreakableBlock();
 		block.setPosition(new Point2D(3,1));
-		block.setZOrder(1);
 
 		BreakableBlock block2 = new BreakableBlock();
 		block2.setPosition(new Point2D(2,1));
 		block2.setPivot(new Point2D(1,1));
-		block2.setZOrder(2);
 		
 		BreakableBlock block3 = new BreakableBlock();
 		block3.setPosition(new Point2D(3,2));
-		block3.setZOrder(2);
 
+		UnbreakableBlock block4 = new UnbreakableBlock();
+		block4.setPosition(new Point2D(3, 5));
+		block4.setScale(new Point2D(3,3));
+		block4.setRotation(new Rotate(30));
+		
 		gameObjects.add(block);
 		gameObjects.add(block2);
 		gameObjects.add(block3);
 		gameObjects.add(slime);
+		gameObjects.add(block4);
 		gameObjects.add(new Pointer());
-		pursueObject = slime;
+		setPursueObject(slime);
 		
 		
 		
@@ -121,7 +116,7 @@ public class GameCanvas extends Canvas {
 			//reduce process of updating some gameobject
 			if(!gameObject.isStatic)
 				gameObject.update(deltaTime);
-			gameObject.renderOver(this);
+			gameObject.renderOver(this, true);
 		}
 		
 		//translate graphics context back
@@ -164,5 +159,8 @@ public class GameCanvas extends Canvas {
 	}
 	private void setDeltaTime(double deltaTime) {
 		this.deltaTime = deltaTime;
+	}
+	public Set<GameObject> getGameObjects() {
+		return this.gameObjects;
 	}
 }

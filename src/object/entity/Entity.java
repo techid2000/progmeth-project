@@ -4,8 +4,12 @@ import interfaces.IAlive;
 import object.GameObject;
 
 public abstract class Entity extends GameObject implements IAlive {
-	public double moveSpeed;
-
+	private double moveSpeed;
+	private int health;
+	private int maxHealth;
+	private int attack;
+	private int defense;
+	
 	public double getMoveSpeed() {
 		return moveSpeed;
 	}

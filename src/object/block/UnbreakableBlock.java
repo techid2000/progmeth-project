@@ -5,6 +5,7 @@ import constants.ImageHolder;
 public class UnbreakableBlock extends Block {
 
 	public UnbreakableBlock() {
+		super();
 		setRenderSprite(ImageHolder.getInstance().unbreakableBlock);
 	}
 	
