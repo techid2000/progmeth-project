@@ -1,28 +1,56 @@
 package gui;
 
 import app.MainApp;
+import constants.FontHolder;
+import constants.ImageHolder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class GameUI extends BorderPane{
+	private Label scoreLabel;
+	private Label cashLabel;
+	private ImageView cashIcon;
+	
 	public GameUI() {
+		this.setMouseTransparent(true);
 		this.setWidth(MainApp.WINDOW_WIDTH);
 		this.setHeight(MainApp.WINDOW_HEIGHT);
 		this.setPadding(new Insets(10));
 		
-		BorderPane topBP = new BorderPane();
-		topBP.setLeft(new Button("Score"));
-		topBP.setCenter(new Button("Pause"));
-		topBP.setRight(new Button("Enermy Info"));
+		scoreLabel = new Label("Score 000000");
+		cashLabel = new Label("15000");
+		cashIcon = new ImageView(ImageHolder.getInstance().coinPile0);
 		
-		FlowPane fp = new FlowPane();
-		fp.setAlignment(Pos.BOTTOM_RIGHT);
-		fp.getChildren().add(new Button("Weapon Info"));
-		this.setTop(topBP);
-		this.setBottom(fp);
+		scoreLabel.setFont(FontHolder.getInstance().font1);
+		cashLabel.setFont(FontHolder.getInstance().font1);
+		
+		BorderPane top = new BorderPane();
+		top.setLeft(scoreLabel);
+		top.setRight(new Button("Enermy Info"));
+		
+		BorderPane bottom = new BorderPane();
+		HBox hbox = new HBox(cashIcon, cashLabel);
+		hbox.setSpacing(15);
+		hbox.setAlignment(Pos.CENTER_LEFT);
+		bottom.setLeft(hbox);
+		bottom.setRight(new Button("Weapon Info"));
+
+		this.setTop(top);
+		this.setBottom(bottom);
+	}
+	
+	public void setScore(int score) {
+		scoreLabel.setText(String.format("Score 06%d", score));
+	}
+	
+	public void setCash(int cash) {
+		cashLabel.setText(String.format("%d", cash));
 	}
 }

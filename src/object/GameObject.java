@@ -78,12 +78,12 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	
 	//general functions
 	public Point2D getScaledSize() {
-		return new Point2D(getRenderSprite().getWidth(), getRenderSprite().getHeight()).multiply(1.0/GameCanvas.PIXEL_CELLSIZE);
+		return GameCanvas.scaledPoint2D(new Point2D(getRenderSprite().getWidth(), getRenderSprite().getHeight()));
 	}
 	public boolean overlapped(Point2D point) {
 		return noRotatedBound().contains(Utility.rotatePoint2D(point.subtract(getPosition()), -getRotation().getAngle()).add(getPosition()));
 	}
-	public boolean intersects(GameObject other, GraphicsContext gg) {
+	public boolean intersects(GameObject other) {
 		return this.cornerOverlapped(other) || other.cornerOverlapped(this);
 	}
 	public void renderOver(GameCanvas canvas) {
@@ -92,7 +92,7 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 		double scaledWidth = getRenderSprite().getWidth() * getScale().getX();
 		double scaledHeight = getRenderSprite().getHeight() * getScale().getY();
 		
-		Point2D pixeledPivot = GameCanvas.pixeledPoint2D(getPivot());
+		Point2D pixeledPivot = Utility.timesAxis(GameCanvas.pixeledPoint2D(getPivot()), getScale());
 		Point2D pixeledPosition = GameCanvas.pixeledPoint2D(getPosition());
 		
 		gc.translate(pixeledPosition.getX(), pixeledPosition.getY());
@@ -102,7 +102,7 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 		gc.translate(-pixeledPosition.getX(), -pixeledPosition.getY());
 	}
 	private BoundingBox noRotatedBound() {
-		Point2D topLeft = position.subtract(pivot);
+		Point2D topLeft = position.subtract(Utility.timesAxis(pivot, getScale()));
 		return new BoundingBox(topLeft.getX(), topLeft.getY(), 
 				getScaledSize().getX()*getScale().getX(), getScaledSize().getY()*getScale().getY());
 	}

@@ -1,10 +1,12 @@
 package constants;
 
-import scene.GameScene;
+import event.GameEvent;
+import gui.GameCanvas;
 
 public class SystemCache {
 	public static SystemCache instance = new SystemCache();
 	public static SystemCache getInstance() { return instance; }
 
-	public GameScene gameScene;
+	public GameEvent gameEvent;
+	public GameCanvas gameCanvas;
 }

@@ -7,12 +7,13 @@ import scene.SceneHolder;
 public class MainApp extends Application {
 	public static final int WINDOW_WIDTH = 1280;
 	public static final int WINDOW_HEIGHT = 960;
-	public static SceneHolder sceneHolder;
 	
+	public static SceneHolder sceneHolder;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		sceneHolder = new SceneHolder(primaryStage);
 		sceneHolder.initialize();
+		primaryStage.setTitle("GUN WARFARE");
 		primaryStage.show();
 	}
 	
