@@ -63,7 +63,7 @@ public class GameCanvas extends Canvas {
 		block2.setPivot(new Point2D(1,1));
 		
 		BreakableBlock block3 = new BreakableBlock();
-		block3.setPosition(new Point2D(3,2));
+		block3.setPosition(new Point2D(3,3));
 
 		UnbreakableBlock block4 = new UnbreakableBlock();
 		block4.setPosition(new Point2D(3, 5));
@@ -117,7 +117,11 @@ public class GameCanvas extends Canvas {
 			//reduce process of updating some gameobject
 			if(!gameObject.isStatic)
 				gameObject.update(deltaTime);
-			gameObject.renderOver(this, true);
+			gameObject.renderOver(this);
+		}
+		//debug
+		for(GameObject gameObject : this.gameObjects) {
+			gameObject.renderHitbox(this);
 		}
 		
 		//translate graphics context back

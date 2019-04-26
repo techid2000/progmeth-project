@@ -30,6 +30,8 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	private Point2D pivot = new Point2D(0, 0);
 	private int zOrder = 0;
 	
+	private BoundingBox customBound;
+	
 	//constructor
 	public GameObject() { }
 
@@ -75,6 +77,13 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	public void setPivot(Point2D pivot) {
 		Point2D offset = pivot.subtract(getPivot());
 		setPosition(getPosition().add(offset));
+		
+		//added
+		if(this.customBound != null) {
+			Point2D topLeft = new Point2D(customBound.getMinX(),customBound.getMinY()).subtract(offset);
+			this.customBound = new BoundingBox(topLeft.getX(),topLeft.getY(),customBound.getWidth(),customBound.getHeight());
+		}
+		
 		this.pivot = pivot;
 	}	
 	public void setZOrder(int zOrder) {
@@ -91,9 +100,8 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	public boolean intersects(GameObject other) {
 		return this.cornerOverlapped(other) || other.cornerOverlapped(this);
 	}
-	public void renderOver(GameCanvas canvas, boolean displayHitbox) {
+	public void renderOver(GameCanvas canvas) {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		
 		double scaledWidth = getRenderSprite().getWidth() * getScale().getX();
 		double scaledHeight = getRenderSprite().getHeight() * getScale().getY();
 		
@@ -103,22 +111,57 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 		gc.translate(pixeledPosition.getX(), pixeledPosition.getY());
 		gc.rotate(getRotation().getAngle());
 		gc.drawImage(getRenderSprite(), -pixeledPivot.getX(), -pixeledPivot.getY(), scaledWidth, scaledHeight);
-		if(displayHitbox) {
-			gc.setStroke(Color.RED);
-			gc.setFill(Color.AQUA);
-			gc.strokeRect(-pixeledPivot.getX(), -pixeledPivot.getY(), scaledWidth, scaledHeight);
-			gc.fillRect(-3, -3, 6, 6);
-		}
 		gc.rotate(-getRotation().getAngle());
 		gc.translate(-pixeledPosition.getX(), -pixeledPosition.getY());
 	}
-	public void renderOver(GameCanvas canvas) {
-		renderOver(canvas, false);
+	public void renderHitbox(GameCanvas canvas) {
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+
+		Point2D pixeledPosition = GameCanvas.pixeledPoint2D(getPosition());
+		
+		gc.translate(pixeledPosition.getX(), pixeledPosition.getY());
+		gc.rotate(getRotation().getAngle());
+		gc.setStroke(Color.RED);
+		
+		//added
+		BoundingBox b = noRotatedBoundLocally();
+		Point2D tl = GameCanvas.pixeledPoint2D(new Point2D(b.getMinX()*getScale().getX(), b.getMinY()*getScale().getY()));
+		Point2D wh = GameCanvas.pixeledPoint2D(new Point2D(b.getWidth()*getScale().getX(), b.getHeight()*getScale().getY()));
+		gc.strokeRect(tl.getX(), tl.getY(), wh.getX(), wh.getY());
+		
+		gc.rotate(-getRotation().getAngle());
+		gc.translate(-pixeledPosition.getX(), -pixeledPosition.getY());
 	}
+	public void renderPivot(GameCanvas canvas) {
+	}
+	
+	//added
+	private BoundingBox noRotatedBoundLocally() {
+		if(this.customBound == null) 
+			return new BoundingBox(-getPivot().getX(), -getPivot().getY(), getScaledSize().getX(), getScaledSize().getY());
+		else {
+			return this.customBound;
+		}
+	}
+	public void setCustomBound(BoundingBox bound) {
+		this.customBound = bound;
+	}
+	
+	public void useImageBound() {
+		this.customBound = null;
+	}
+	
+	//added
 	private BoundingBox noRotatedBound() {
-		Point2D topLeft = position.subtract(Utility.timesAxis(pivot, getScale()));
-		return new BoundingBox(topLeft.getX(), topLeft.getY(), 
-				getScaledSize().getX()*getScale().getX(), getScaledSize().getY()*getScale().getY());
+		BoundingBox local = noRotatedBoundLocally();
+		return new BoundingBox(getPosition().getX() + local.getMinX()*getScale().getX(),
+				getPosition().getY() + local.getMinY()*getScale().getY(),
+				local.getWidth()*getScale().getX(),
+				local.getHeight()*getScale().getY());
+		
+//		Point2D topLeft = position.subtract(Utility.timesAxis(pivot, getScale()));
+//		return new BoundingBox(topLeft.getX(), topLeft.getY(), 
+//				getScaledSize().getX()*getScale().getX(), getScaledSize().getY()*getScale().getY());
 	}
 	private boolean cornerOverlapped(GameObject other) {
 		BoundingBox bound = noRotatedBound();
@@ -153,4 +196,8 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	public GameObjectTag getTag() {
 		return this.tag;
 	}
+	
+	//experimental
+	public ColliderSystem colliderSystem;
+	public ColliderSystem getColliderSystem() { return this.colliderSystem; }
 }

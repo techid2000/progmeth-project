@@ -8,6 +8,7 @@ import constants.ImageHolder;
 import constants.SystemCache;
 import event.GameEvent;
 import gui.GameCanvas;
+import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.transform.Rotate;
@@ -22,9 +23,17 @@ public class Player extends Entity {
 	public List<AnimationClip> clips;
 	public Player() { 
 		//config later
-		setMoveSpeed(2.5);
+		setMoveSpeed(2);
 		setPivot(new Point2D(0.5, 0.5));
 		setPosition(new Point2D(0,0));
+		
+		//added
+		setPivot(new Point2D(0.5,1));
+		setCustomBound(new BoundingBox(-0.25, -0.5, 0.5, 0.5));
+		setZOrder(100);
+		
+		//exp
+		
 		
 		clips = new ArrayList<AnimationClip>();
 		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunRight, 500));
