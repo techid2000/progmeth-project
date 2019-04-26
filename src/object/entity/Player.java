@@ -1,5 +1,8 @@
 package object.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import animation.AnimationClip;
 import constants.ImageHolder;
 import constants.SystemCache;
@@ -16,13 +19,24 @@ import utility.Utility;
 
 public class Player extends Entity {
 	public GoodsHolder weaponHolder;
-	
+	public List<AnimationClip> clips;
 	public Player() { 
 		//config later
-		setMoveSpeed(2);
-		setAnimationClip(new AnimationClip(ImageHolder.getInstance().slime, 500));
+		setMoveSpeed(2.5);
 		setPivot(new Point2D(0.5, 0.5));
 		setPosition(new Point2D(0,0));
+		
+		clips = new ArrayList<AnimationClip>();
+		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunRight, 500));
+		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunRightDown, 500));
+		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunDown, 500));
+		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunLeftDown, 500));
+		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunLeft, 500));
+		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunLeftUp, 500));
+		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunUp, 500));
+		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunRightUp, 500));
+		
+		setAnimationClip(clips.get(0));
 	}
 	
 	public void moveControl(double deltaTime) {
@@ -44,18 +58,29 @@ public class Player extends Entity {
 			System.out.println("test");
 		}
 		
-		//wait for manage
-		if(fraction.magnitude() == 0) {
-			if(getAnimationClip().getFrameIndex() == 0)
-			getAnimationClip().pause();
-		} else {
-			getAnimationClip().play();
-		}
 		
 		//wait for manage
 		Point2D dir = gameCanvas.mouseToScaledPoint2D(gameEvent.getMousePosition()).subtract(getPosition());
 		Rotate rot = Utility.pointToRotate(dir);
-		rot.getAngle();
+		double MIN = Double.MAX_VALUE;
+		int index = 0;
+		for(int angle = 0; angle < 360; angle += 45) {
+			if(Math.abs(angle - rot.getAngle()) < MIN) {
+				MIN = Math.abs(angle - rot.getAngle());
+				index = angle / 45;
+			}
+		}
+
+		setAnimationClip(clips.get(index));
+		
+		//wait for manage
+		if(fraction.magnitude() == 0) {
+//			System.out.println("true");
+			if(getAnimationClip().getFrameIndex() == 0)
+				getAnimationClip().pause();
+		} else {
+			getAnimationClip().play();
+		}
 	}
 	
 	private void setPositionByColliderCheck(Point2D nextPosition) {

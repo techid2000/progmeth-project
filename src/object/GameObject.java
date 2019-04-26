@@ -42,7 +42,7 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	}
 	public void setAnimationClip(AnimationClip clip) {
 		this.clip = clip;
-		this.renderSprite = clip.getSpriteList().get(0);
+		this.renderSprite = clip.getSpriteList().get(clip.getFrameIndex());
 		clip.setBindGameObject(this);
 	}
 	public AnimationClip getAnimationClip() {
@@ -105,7 +105,9 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 		gc.drawImage(getRenderSprite(), -pixeledPivot.getX(), -pixeledPivot.getY(), scaledWidth, scaledHeight);
 		if(displayHitbox) {
 			gc.setStroke(Color.RED);
+			gc.setFill(Color.AQUA);
 			gc.strokeRect(-pixeledPivot.getX(), -pixeledPivot.getY(), scaledWidth, scaledHeight);
+			gc.fillRect(-3, -3, 6, 6);
 		}
 		gc.rotate(-getRotation().getAngle());
 		gc.translate(-pixeledPosition.getX(), -pixeledPosition.getY());
@@ -133,7 +135,7 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 		
 		return other.overlapped(p1) || other.overlapped(p2) || other.overlapped(p3) || other.overlapped(p4);
 	}
-
+	
 	public List<GameObject> getIntersectedObjects() {
 		return getIntersectedObjects(GameObjectTag.UNDEFINED);
 	}

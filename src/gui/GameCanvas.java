@@ -53,6 +53,7 @@ public class GameCanvas extends Canvas {
 		
 		//wait for manage
 		Player slime = new Player();
+		slime.setPosition(new Point2D(5,5));
 		
 		UnbreakableBlock block = new UnbreakableBlock();
 		block.setPosition(new Point2D(3,1));
@@ -67,8 +68,8 @@ public class GameCanvas extends Canvas {
 		UnbreakableBlock block4 = new UnbreakableBlock();
 		block4.setPosition(new Point2D(3, 5));
 		block4.setScale(new Point2D(3,3));
-		block4.setRotation(new Rotate(30));
-		
+		block4.setRotation(new Rotate(135));
+//		block4.
 		gameObjects.add(block);
 		gameObjects.add(block2);
 		gameObjects.add(block3);

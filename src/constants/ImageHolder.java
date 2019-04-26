@@ -17,12 +17,33 @@ public class ImageHolder {
 	public Image unbreakableBlock;
 	public Image destroyableBlock;
 	public Image coinPile0;
+	
+	public List<Image> playerStandStill;
+	public List<Image> playerRunUp;
+	public List<Image> playerRunDown;
+	public List<Image> playerRunLeft;
+	public List<Image> playerRunRight;
+	public List<Image> playerRunLeftUp;
+	public List<Image> playerRunRightUp;
+	public List<Image> playerRunLeftDown;
+	public List<Image> playerRunRightDown;
+	
 	public ImageHolder() {
 		slime = loadImageList("slime/slime", PNG, 8);
 		pointer = loadImage("overlay/pointer",PNG);
 		unbreakableBlock = loadImage("block/unbreakable_block", PNG);
 		destroyableBlock = loadImage("block/destroyable_block", PNG);
 		coinPile0 = loadImage("loot/coinpile0", PNG);
+		
+		playerStandStill = loadImageList("player/standstill/standstill",PNG,8);
+		playerRunUp = loadImageList("player/run_up/run",PNG,6);
+		playerRunDown = loadImageList("player/run_down/run",PNG,6);
+		playerRunLeft = loadImageList("player/run_left/run",PNG,6);
+		playerRunRight = loadImageList("player/run_right/run",PNG,6);
+		playerRunLeftUp = loadImageList("player/run_leftup/run",PNG,6);
+		playerRunRightUp = loadImageList("player/run_rightup/run",PNG,6);
+		playerRunLeftDown = loadImageList("player/run_leftdown/run",PNG,6);
+		playerRunRightDown = loadImageList("player/run_rightdown/run",PNG,6);
 	}
 	
 	public Image loadImage(String prefixName, String fileType) {
