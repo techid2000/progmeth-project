@@ -2,7 +2,7 @@ package logic;
 
 public class GameObjectTag {
 	
-	public static final long UNDEFINED = 0;
+	public static final long EVERYTHING = Long.MAX_VALUE;
 	public static final long OVERLAY = 1;
 	public static final long BLOCK = 2;
 	

@@ -12,6 +12,7 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.transform.Rotate;
+import logic.BoxCollider;
 import logic.GameObjectTag;
 import logic.GoodsHolder;
 import object.GameObject;
@@ -24,16 +25,9 @@ public class Player extends Entity {
 	public Player() { 
 		//config later
 		setMoveSpeed(2);
-		setPivot(new Point2D(0.5, 0.5));
-		setPosition(new Point2D(0,0));
-		
-		//added
 		setPivot(new Point2D(0.5,1));
-		setCustomBound(new BoundingBox(-0.25, -0.5, 0.5, 0.5));
-		setZOrder(100);
-		
-		//exp
-		
+		getCollisionSystem().addBoxCollider(-0.25, -0.5, 0.5, 0.5);
+		setZOrder(1);
 		
 		clips = new ArrayList<AnimationClip>();
 		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunRight, 500));
@@ -84,7 +78,6 @@ public class Player extends Entity {
 		
 		//wait for manage
 		if(fraction.magnitude() == 0) {
-//			System.out.println("true");
 			if(getAnimationClip().getFrameIndex() == 0)
 				getAnimationClip().pause();
 		} else {
@@ -97,11 +90,12 @@ public class Player extends Entity {
 		Point2D nextPosX = new Point2D(nextPosition.getX(), origin.getY());
 		Point2D nextPosY = new Point2D(origin.getX(), nextPosition.getY());
 		setPosition(nextPosition);
-		if(getIntersectedObjects(GameObjectTag.BLOCK).size() == 0) return;
+		BoxCollider walkingCollider = getCollisionSystem().getBoxColliders().get(0);
+		if(walkingCollider.getIntersectedCollider(GameObjectTag.BLOCK).size() == 0)return;
 		setPosition(nextPosX);
-		if(getIntersectedObjects(GameObjectTag.BLOCK).size() == 0) return;
+		if(walkingCollider.getIntersectedCollider(GameObjectTag.BLOCK).size() == 0)return;
 		setPosition(nextPosY);
-		if(getIntersectedObjects(GameObjectTag.BLOCK).size() == 0) return;
+		if(walkingCollider.getIntersectedCollider(GameObjectTag.BLOCK).size() == 0)return;
 		setPosition(origin);
 	}
 	

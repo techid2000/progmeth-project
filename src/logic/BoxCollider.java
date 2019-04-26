@@ -1,4 +1,4 @@
-package object;
+package logic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import object.GameObject;
 import utility.Utility;
 
 public class BoxCollider extends BoundingBox {
@@ -21,18 +22,26 @@ public class BoxCollider extends BoundingBox {
 	}
 	
 	public boolean boxContains(Point2D point) {
-		return contains(Utility.rotatePoint2D(point.subtract(gameObject.getPosition()),-gameObject.getRotation().getAngle()).add(gameObject.getPosition()));
+		return getGlobalBoundingBox().contains(Utility.rotatePoint2D(point.subtract(gameObject.getPosition()),-gameObject.getRotation().getAngle()).add(gameObject.getPosition()));
 	}
 	
 	public boolean intersects(BoxCollider other) {
 		return this.cornerInside(other) || other.cornerInside(this);
 	}
 	
+	private BoundingBox getGlobalBoundingBox() {
+		Point2D topLeft = Utility.timesAxis(new Point2D(getMinX(), getMinY()), gameObject.getScale()).add(gameObject.getPosition());
+		Point2D widthHeight = Utility.timesAxis(new Point2D(getWidth(), getHeight()), gameObject.getScale());
+		return new BoundingBox(topLeft.getX(),topLeft.getY(),widthHeight.getX(),widthHeight.getY());
+	}
+	
 	private boolean cornerInside(BoxCollider other) {
-		Point2D p1 = new Point2D(getMinX(), getMinY());
-		Point2D p2 = new Point2D(getMaxX(), getMinY());
-		Point2D p3 = new Point2D(getMinX(), getMaxY());
-		Point2D p4 = new Point2D(getMaxX(), getMaxY());
+		BoundingBox globally = getGlobalBoundingBox();
+		
+		Point2D p1 = new Point2D(globally.getMinX(), globally.getMinY());
+		Point2D p2 = new Point2D(globally.getMaxX(), globally.getMinY());
+		Point2D p3 = new Point2D(globally.getMinX(), globally.getMaxY());
+		Point2D p4 = new Point2D(globally.getMaxX(), globally.getMaxY());
 		
 		p1 = Utility.rotatePoint2D(p1.subtract(gameObject.getPosition()), gameObject.getRotation().getAngle()).add(gameObject.getPosition());
 		p2 = Utility.rotatePoint2D(p2.subtract(gameObject.getPosition()), gameObject.getRotation().getAngle()).add(gameObject.getPosition());
@@ -55,7 +64,13 @@ public class BoxCollider extends BoundingBox {
 		for(GameObject object : SystemCache.getInstance().gameCanvas.getGameObjects()) {
 			if(object == gameObject) continue;
 			if(!(object.getTag().contains(tagBitmask))) continue;
-			for(BoxCollider collider : object.getColliderSystem().getBoxColliders()) {
+			
+			if(object.getCollisionSystem().isDefaultAvailable()) {
+				BoxCollider defaultOfObject = BoxCollider.getDefaultBox(object);
+				if(intersects(defaultOfObject))
+					colliders.add(defaultOfObject);
+			}
+			for(BoxCollider collider : object.getCollisionSystem().getBoxColliders()) {
 				if(intersects(collider)) {
 					colliders.add(collider);
 				}
@@ -64,7 +79,7 @@ public class BoxCollider extends BoundingBox {
 		return colliders;
 	}
 	
-	public void renderOver(GameCanvas canvas) {
+	public void renderOver(GameCanvas canvas, Color renderColor) {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
 		Point2D pixeledPosition = GameCanvas.pixeledPoint2D(gameObject.getPosition());
@@ -72,11 +87,9 @@ public class BoxCollider extends BoundingBox {
 		gc.translate(pixeledPosition.getX(), pixeledPosition.getY());
 		gc.rotate(gameObject.getRotation().getAngle());
 		
-		gc.setStroke(Color.RED);
-		Point2D topLeft = GameCanvas.pixeledPoint2D(new Point2D(getMinX()*gameObject.getScale().getX(),
-				getMinY()*gameObject.getScale().getY()));
-		Point2D widthHeight = GameCanvas.pixeledPoint2D(new Point2D(getWidth()*gameObject.getScale().getX(),
-				getHeight()*gameObject.getScale().getY()));
+		gc.setStroke(renderColor);
+		Point2D topLeft = GameCanvas.pixeledPoint2D(Utility.timesAxis(new Point2D(getMinX(),getMinY()),gameObject.getScale()));
+		Point2D widthHeight = GameCanvas.pixeledPoint2D(Utility.timesAxis(new Point2D(getWidth(),getHeight()), gameObject.getScale()));
 		gc.strokeRect(topLeft.getX(), topLeft.getY(), widthHeight.getX(), widthHeight.getY());
 		
 		gc.rotate(-gameObject.getRotation().getAngle());

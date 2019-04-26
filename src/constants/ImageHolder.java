@@ -12,6 +12,8 @@ public class ImageHolder {
 	private static final ImageHolder instance = new ImageHolder(); 
 	public static ImageHolder getInstance() {return instance;}
 	
+	public Image nothing;
+	
 	public List<Image> slime;
 	public Image pointer;
 	public Image unbreakableBlock;
@@ -29,6 +31,7 @@ public class ImageHolder {
 	public List<Image> playerRunRightDown;
 	
 	public ImageHolder() {
+		nothing = loadImage("nothing", PNG);
 		slime = loadImageList("slime/slime", PNG, 8);
 		pointer = loadImage("overlay/pointer",PNG);
 		unbreakableBlock = loadImage("block/unbreakable_block", PNG);
