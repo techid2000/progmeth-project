@@ -18,6 +18,7 @@ import utility.Utility;
 public abstract class GameObject implements IBehaviour, IRenderable {
 	//fields
 	public boolean isStatic;
+	private boolean isDestroyed;
 	private GameObjectTag tag = new GameObjectTag();
 
 	private Image renderSprite = ImageHolder.getInstance().nothing;
@@ -116,5 +117,13 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	
 	public GameObjectTag getTag() {
 		return this.tag;
+	}
+	
+	public void destroy() {
+		this.isDestroyed  = true;
+	}
+	
+	public boolean isDestroyed() {
+		return this.isDestroyed;
 	}
 }

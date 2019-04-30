@@ -39,6 +39,8 @@ public class Player extends Entity {
 		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunUp, 500));
 		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunRightUp, 500));
 		
+		
+		
 		setAnimationClip(clips.get(0));
 	}
 	
@@ -55,6 +57,10 @@ public class Player extends Entity {
 		Point2D nextPositionY = new Point2D(getPosition().getX(), nextPosition.getY());
 		
 		setPositionByColliderCheck(nextPosition);
+		
+		if(gameEvent.getSingleKeyUp(KeyCode.B)) {
+			gameCanvas.sample.destroy();
+		}
 		
 		//wait for manage
 		if(gameEvent.getSingleKeyDown(KeyCode.E)) {

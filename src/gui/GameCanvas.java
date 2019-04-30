@@ -1,5 +1,8 @@
 package gui;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -15,6 +18,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+import logic.GameObjectTag;
 import object.GameObject;
 import object.block.BreakableBlock;
 import object.block.UnbreakableBlock;
@@ -24,7 +28,10 @@ import utility.Utility;
 
 public class GameCanvas extends Canvas {
 	public static final int PIXEL_CELLSIZE = 80;
-	public static final double CAMERA_LERP_FACTOR = 0.03;
+	public static final double CAMERA_LERP_FACTOR = 0.1;
+	
+	private int cellsWidth;
+	private int cellsHeight;
 	
 	private GraphicsContext gc;
 
@@ -34,7 +41,7 @@ public class GameCanvas extends Canvas {
 	//gameobjects
 	private GameObject pursueObject;
 	private Set<GameObject> gameObjects;
-	
+	public GameObject sample;
 	//animation
 	private double deltaTime;
 	private AnimationTimer gameLoop;
@@ -43,6 +50,8 @@ public class GameCanvas extends Canvas {
 	private boolean debug;
 
 	public GameCanvas() {
+		
+		
 		
 		SystemCache.getInstance().gameCanvas = this;
 		this.gc = getGraphicsContext2D();
@@ -55,6 +64,7 @@ public class GameCanvas extends Canvas {
 		setHeight(MainApp.WINDOW_HEIGHT);
 		setViewPosition(scaledPoint2D(getPixelScreenSize().multiply(0.5)));
 		
+		setCellDimension(13, 15);
 		//wait for manage
 		Player slime = new Player();
 
@@ -65,16 +75,11 @@ public class GameCanvas extends Canvas {
 
 		BreakableBlock block2 = new BreakableBlock();
 		block2.setPosition(new Point2D(2,1));
-		block2.setPivot(new Point2D(1,1));
 		
 		BreakableBlock block3 = new BreakableBlock();
 		block3.setPosition(new Point2D(3,3));
+		sample = block3;
 		
-		UnbreakableBlock block4 = new UnbreakableBlock();
-		block4.setPosition(new Point2D(3, 5));
-		block4.setScale(new Point2D(3,3));
-		block4.setRotation(new Rotate(135));
-
 		GameObject unknown = new GameObject() {
 			@Override
 			public void update(double deltaTime) {}
@@ -90,7 +95,6 @@ public class GameCanvas extends Canvas {
 		gameObjects.add(block2);
 		gameObjects.add(block3);
 		gameObjects.add(slime);
-		gameObjects.add(block4);
 		gameObjects.add(unknown);
 		gameObjects.add(new Pointer());
 		setPursueObject(slime);
@@ -130,19 +134,27 @@ public class GameCanvas extends Canvas {
 		Point2D translatePos = pixeledPoint2D(getViewPosition()).subtract(getPixelScreenSize().multiply(0.5));
 		gc.translate(-translatePos.getX(), -translatePos.getY());	
 
+		//remove destroyed gameobject from set
+		List<GameObject> preparedDestroy = new ArrayList<GameObject>();
+		for(GameObject gameObject : getGameObjects())
+			if(gameObject.isDestroyed())
+				preparedDestroy.add(gameObject);
+		for(GameObject gameObject : preparedDestroy)
+			getGameObjects().remove(gameObject);
+		
 		//iterate over gameobject and render
-		for(GameObject gameObject : this.gameObjects) {
-			//reduce process of updating some gameobject
+		for(GameObject gameObject : getGameObjects()) {
+			//reduce process of updating some gameobjects
 			if(!gameObject.isStatic)
 				gameObject.update(deltaTime);
 			gameObject.renderOver(this);
 		}
 		//(if) debug (draw hitbox/pivot)
 		if(this.debug) {
-			for(GameObject gameObject : this.gameObjects) {
+			for(GameObject gameObject : getGameObjects()) {
 				gameObject.getCollisionSystem().renderOver(this);
 			}
-			for(GameObject gameObject : this.gameObjects) {
+			for(GameObject gameObject : getGameObjects()) {
 				gameObject.renderPivot(this);
 			}
 		}
@@ -174,7 +186,13 @@ public class GameCanvas extends Canvas {
 		return this.viewPosition;
 	}
 	public void setViewPosition(Point2D viewPosition) {
-		this.viewPosition = viewPosition;
+		Point2D topLeft = scaledPoint2D(getPixelScreenSize().multiply(0.5));
+		Point2D bottomRight = new Point2D(this.cellsWidth, this.cellsHeight).subtract(topLeft);
+		Point2D clampedPosition = new Point2D(
+				Math.max(Math.min(viewPosition.getX(), bottomRight.getX()), topLeft.getX()),
+				Math.max(Math.min(viewPosition.getY(), bottomRight.getY()), topLeft.getY()));
+		this.viewPosition = clampedPosition;
+	
 	}
 	public GameObject getPursueObject() {
 		return this.pursueObject;
@@ -191,8 +209,17 @@ public class GameCanvas extends Canvas {
 	public Set<GameObject> getGameObjects() {
 		return this.gameObjects;
 	}
-	
 	public void toggleDebug() {
 		this.debug = !this.debug;
+	}
+	public void setCellDimension(int width, int height) {
+		this.cellsWidth = Math.max(width, (int)Math.ceil(1.0*MainApp.WINDOW_WIDTH/PIXEL_CELLSIZE));
+		this.cellsHeight = Math.max(height, (int)Math.ceil(1.0*MainApp.WINDOW_HEIGHT/PIXEL_CELLSIZE));
+	}
+	public int getCellWidth() {
+		return this.cellsWidth;
+	}
+	public int getCellHeight() {
+		return this.cellsHeight;
 	}
 }
