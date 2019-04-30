@@ -13,7 +13,6 @@ public class Pointer extends Overlay {
 		super();
 		setRenderSprite(ImageHolder.getInstance().pointer);
 		setPivot(new Point2D(0.5,0.5));
-		getCollisionSystem().setDefaultAvailable(false);
 	}
 	
 	@Override

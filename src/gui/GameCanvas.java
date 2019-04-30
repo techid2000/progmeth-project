@@ -23,7 +23,10 @@ import object.GameObject;
 import object.block.BreakableBlock;
 import object.block.UnbreakableBlock;
 import object.entity.Player;
+import object.loot.Mint;
+import object.overlay.Bar;
 import object.overlay.Pointer;
+import object.tile.Ground;
 import utility.Utility;
 
 public class GameCanvas extends Canvas {
@@ -49,10 +52,7 @@ public class GameCanvas extends Canvas {
 	//debug
 	private boolean debug;
 
-	public GameCanvas() {
-		
-		
-		
+	public GameCanvas() {		
 		SystemCache.getInstance().gameCanvas = this;
 		this.gc = getGraphicsContext2D();
 		this.gameObjects = new TreeSet<GameObject>((GameObject a, GameObject b) -> {
@@ -64,7 +64,7 @@ public class GameCanvas extends Canvas {
 		setHeight(MainApp.WINDOW_HEIGHT);
 		setViewPosition(scaledPoint2D(getPixelScreenSize().multiply(0.5)));
 		
-		setCellDimension(13, 15);
+		setCellDimension(13, 13);
 		//wait for manage
 		Player slime = new Player();
 
@@ -80,12 +80,29 @@ public class GameCanvas extends Canvas {
 		block3.setPosition(new Point2D(3,3));
 		sample = block3;
 		
+		Mint coins = new Mint(Mint.Type.COIN_PILE_1);
+		coins.setPosition(new Point2D(4,4));
+		coins.setScale(new Point2D(0.8,0.8));
+		Mint coins2 = new Mint(Mint.Type.SINGLE_COIN);
+		coins2.setPosition(new Point2D(4.5,5));
+		Mint coins3 = new Mint(Mint.Type.COIN_PILE_0);
+		coins3.setScale(new Point2D(0.8,0.8));
+		coins3.setPosition(new Point2D(5,4.5));
+		
 		GameObject unknown = new GameObject() {
 			@Override
 			public void update(double deltaTime) {}
 			@Override
 			public void start() {}
 		};
+		
+		for(int i = 0; i < getCellWidth(); i++) {
+			for(int j = 0; j < getCellHeight(); j++) {
+				Ground ground = new Ground(Ground.Style.GROUND);
+				ground.setPosition(new Point2D(i, j));
+				getGameObjects().add(ground);
+			}
+		}
 		unknown.setPosition(new Point2D(6,6));
 		unknown.getCollisionSystem().addBoxCollider(-0.5, -0.5,1, 1.25);
 		unknown.setPivot(new Point2D(0.7, 0.7));
@@ -95,7 +112,13 @@ public class GameCanvas extends Canvas {
 		gameObjects.add(block2);
 		gameObjects.add(block3);
 		gameObjects.add(slime);
-		gameObjects.add(unknown);
+//		gameObjects.add(unknown);
+		gameObjects.add(coins);
+		gameObjects.add(coins2);
+		gameObjects.add(coins3);
+		Bar bar = new Bar();
+		bar.gameObject = slime;
+		gameObjects.add(bar);
 		gameObjects.add(new Pointer());
 		setPursueObject(slime);
 		
@@ -124,7 +147,7 @@ public class GameCanvas extends Canvas {
 
 	public void invokeStartOverGameObjects() {
 		for(GameObject gameObject : this.gameObjects) {
-			if(!gameObject.isStatic) {
+			if(!gameObject.isStatic()) {
 				gameObject.start();
 			}
 		}
@@ -145,7 +168,7 @@ public class GameCanvas extends Canvas {
 		//iterate over gameobject and render
 		for(GameObject gameObject : getGameObjects()) {
 			//reduce process of updating some gameobjects
-			if(!gameObject.isStatic)
+			if(!gameObject.isStatic())
 				gameObject.update(deltaTime);
 			gameObject.renderOver(this);
 		}

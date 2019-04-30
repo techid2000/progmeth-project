@@ -18,8 +18,10 @@ public class ImageHolder {
 	public Image pointer;
 	public Image unbreakableBlock;
 	public Image destroyableBlock;
+	public Image ground;
 	public Image coinPile0;
-	
+	public Image coinPile1;
+	public Image singleCoin;
 	public List<Image> playerStandStill;
 	public List<Image> playerRunUp;
 	public List<Image> playerRunDown;
@@ -37,6 +39,9 @@ public class ImageHolder {
 		unbreakableBlock = loadImage("block/unbreakable_block", PNG);
 		destroyableBlock = loadImage("block/destroyable_block", PNG);
 		coinPile0 = loadImage("loot/coinpile0", PNG);
+		coinPile1 = loadImage("loot/coinpile1",PNG);
+		singleCoin = loadImage("loot/singlecoin",PNG);
+		ground = loadImage("block/ground", PNG);
 		
 		playerStandStill = loadImageList("player/standstill/standstill",PNG,8);
 		playerRunUp = loadImageList("player/run_up/run",PNG,6);

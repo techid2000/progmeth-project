@@ -5,6 +5,7 @@ import java.util.Map;
 
 import event.GameEvent;
 import gui.GameCanvas;
+import gui.GameUI;
 import object.GameObject;
 
 public class SystemCache {
@@ -13,4 +14,5 @@ public class SystemCache {
 
 	public GameEvent gameEvent;
 	public GameCanvas gameCanvas;
+	public GameUI gameUI;
 }

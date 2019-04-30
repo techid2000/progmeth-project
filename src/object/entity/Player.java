@@ -14,16 +14,18 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.transform.Rotate;
 import logic.BoxCollider;
 import logic.GameObjectTag;
-import logic.GoodsHolder;
+import logic.Accessories;
 import object.GameObject;
+import object.loot.Mint;
 import object.overlay.Pointer;
 import utility.Utility;
 
 public class Player extends Entity {
-	public GoodsHolder weaponHolder;
+	public Accessories accessories;
 	public List<AnimationClip> clips;
 	public Player() { 
 		//config later
+		this.accessories = new Accessories();
 		setMoveSpeed(2);
 		setPivot(new Point2D(0.5,1));
 		getCollisionSystem().addBoxCollider(-0.25, -0.5, 0.5, 0.5);
@@ -91,6 +93,14 @@ public class Player extends Entity {
 		}
 	}
 	
+	public void lootControl() {
+		BoxCollider walkingCollider = getCollisionSystem().getBoxColliders().get(0);
+		List<BoxCollider> loots = walkingCollider.getIntersectedCollider(GameObjectTag.LOOT);
+		for(BoxCollider loot : loots) {
+			((Mint)loot.gameObject).pick(this);
+		}
+	}
+	
 	private void setPositionByColliderCheck(Point2D nextPosition) {
 		Point2D origin = getPosition();
 		Point2D nextPosX = new Point2D(nextPosition.getX(), origin.getY());
@@ -109,6 +119,7 @@ public class Player extends Entity {
 	@Override
 	public void update(double deltaTime) {
 		moveControl(deltaTime);
+		lootControl();
 	}
 
 	@Override

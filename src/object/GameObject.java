@@ -17,10 +17,16 @@ import utility.Utility;
 
 public abstract class GameObject implements IBehaviour, IRenderable {
 	//fields
-	public boolean isStatic;
+	
+	//config
+	private boolean isRenderDebug = true;
+	
+	//status
+	private boolean isStatic;
 	private boolean isDestroyed;
 	private GameObjectTag tag = new GameObjectTag();
 
+	//visual
 	private Image renderSprite = ImageHolder.getInstance().nothing;
 	private AnimationClip clip;
 	private Point2D position = new Point2D(0, 0);
@@ -105,6 +111,8 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 		gc.translate(-pixeledPosition.getX(), -pixeledPosition.getY());
 	}
 	public void renderPivot(GameCanvas canvas) {
+		if(!this.isRenderDebug) return;
+
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
 		Point2D pixeledPosition = GameCanvas.pixeledPoint2D(getPosition());
@@ -115,15 +123,11 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 		gc.translate(-pixeledPosition.getX(), -pixeledPosition.getY());
 	}
 	
-	public GameObjectTag getTag() {
-		return this.tag;
-	}
-	
-	public void destroy() {
-		this.isDestroyed  = true;
-	}
-	
-	public boolean isDestroyed() {
-		return this.isDestroyed;
-	}
+	public GameObjectTag getTag() { return this.tag; }
+	public void destroy() { this.isDestroyed  = true; }
+	public boolean isDestroyed() { return this.isDestroyed; }
+	public boolean isStatic() { return this.isStatic; }
+	public void setStatic(boolean isStatic) { this.isStatic = isStatic; }
+	public boolean isRenderDebug() { return this.isRenderDebug; }
+	public void setRenderDebug(boolean render) { this.isRenderDebug = render; }
 }
