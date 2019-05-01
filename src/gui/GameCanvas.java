@@ -48,6 +48,8 @@ public class GameCanvas extends Canvas {
 	private GameObject pursueObject;
 	private Set<GameObject> gameObjects;
 	private Queue<GameObject> instantiationQueue;
+	private Queue<GameObject> destroyQueue;
+	
 	public GameObject sample;
 	//animation
 	private double deltaTime;
@@ -65,6 +67,7 @@ public class GameCanvas extends Canvas {
 			return a.getZOrder() - b.getZOrder();
 		});
 		this.instantiationQueue = new LinkedList<GameObject>();
+		this.destroyQueue = new LinkedList<GameObject>();
 		setWidth(MainApp.WINDOW_WIDTH);
 		setHeight(MainApp.WINDOW_HEIGHT);
 		setViewPosition(scaledPoint2D(getPixelScreenSize().multiply(0.5)));
@@ -87,12 +90,16 @@ public class GameCanvas extends Canvas {
 		
 		Mint coins = new Mint(Mint.Type.COIN_PILE_1);
 		coins.setPosition(new Point2D(4,4));
-		coins.setScale(new Point2D(0.8,0.8));
+		coins.setScale(new Point2D(1,1));
 		Mint coins2 = new Mint(Mint.Type.SINGLE_COIN);
 		coins2.setPosition(new Point2D(4.5,5));
 		Mint coins3 = new Mint(Mint.Type.COIN_PILE_0);
+		coins3.setScale(new Point2D(1,1));
+		coins3.setPosition(new Point2D(5.5, 5));
+		
+		coins.setScale(new Point2D(0.8,0.8));
+		coins2.setScale(new Point2D(0.8,0.8));
 		coins3.setScale(new Point2D(0.8,0.8));
-		coins3.setPosition(new Point2D(5,4.5));
 		
 		GameObject unknown = new GameObject() {
 			@Override
@@ -100,28 +107,21 @@ public class GameCanvas extends Canvas {
 			@Override
 			public void start() {}
 		};
-		
 		for(int i = 0; i < getCellWidth(); i++) {
 			for(int j = 0; j < getCellHeight(); j++) {
 				Ground ground = new Ground(Ground.Style.GROUND);
 				ground.setPosition(new Point2D(i, j));
-				getGameObjects().add(ground);
+				instantiate(ground);
 			}
 		}
-		unknown.setPosition(new Point2D(6,6));
-		unknown.getCollisionSystem().addBoxCollider(-0.5, -0.5,1, 1.25);
-		unknown.setPivot(new Point2D(0.7, 0.7));
-		unknown.setRotation(new Rotate(30));
-		unknown.setScale(new Point2D(1.5,1));
-		gameObjects.add(block);
-		gameObjects.add(block2);
-		gameObjects.add(block3);
-		gameObjects.add(slime);
-		gameObjects.add(unknown);
-		gameObjects.add(coins);
-		gameObjects.add(coins2);
-		gameObjects.add(coins3);
-		gameObjects.add(new Pointer());
+		instantiate(block);
+		instantiate(block2);
+		instantiate(block3);
+		instantiate(slime);
+		instantiate(coins);
+		instantiate(coins2);
+		instantiate(coins3);
+		instantiate(new Pointer());
 		
 		setPursueObject(slime);
 		
@@ -152,12 +152,11 @@ public class GameCanvas extends Canvas {
 		gc.translate(-translatePos.getX(), -translatePos.getY());	
 
 		//remove destroyed gameobject from set
-		List<GameObject> preparedDestroy = new ArrayList<GameObject>();
 		for(GameObject gameObject : getGameObjects())
 			if(gameObject.isDestroyed())
-				preparedDestroy.add(gameObject);
-		for(GameObject gameObject : preparedDestroy)
-			getGameObjects().remove(gameObject);
+				destroyQueue.add(gameObject);
+		while(!destroyQueue.isEmpty())
+			getGameObjects().remove(destroyQueue.poll());
 		
 		//instantiate objects in queue (for avoiding concurrent modification)
 		while(!this.instantiationQueue.isEmpty()) {
@@ -188,6 +187,7 @@ public class GameCanvas extends Canvas {
 		gc.translate(translatePos.getX(), translatePos.getY());
 	}
 	
+	//general functions
 	public void clearScreen() {
 		this.gc.clearRect(0, 0, MainApp.WINDOW_WIDTH, MainApp.WINDOW_HEIGHT);
 	}
@@ -206,7 +206,14 @@ public class GameCanvas extends Canvas {
 	public Point2D mouseToScaledPoint2D(Point2D mousePoint) {
 		return scaledPoint2D(mousePoint).subtract(scaledPoint2D(getPixelScreenSize()).multiply(0.5)).add(getViewPosition());
 	}
+	public void toggleDebug() {
+		this.debug = !this.debug;
+	}
+	public void instantiate(GameObject gameObject) {
+		this.instantiationQueue.add(gameObject);
+	}
 	
+	//getter and setter
 	public Point2D getViewPosition() {
 		return this.viewPosition;
 	}
@@ -234,9 +241,6 @@ public class GameCanvas extends Canvas {
 	public Set<GameObject> getGameObjects() {
 		return this.gameObjects;
 	}
-	public void toggleDebug() {
-		this.debug = !this.debug;
-	}
 	public void setCellDimension(int width, int height) {
 		this.cellsWidth = Math.max(width, (int)Math.ceil(1.0*MainApp.WINDOW_WIDTH/PIXEL_CELLSIZE));
 		this.cellsHeight = Math.max(height, (int)Math.ceil(1.0*MainApp.WINDOW_HEIGHT/PIXEL_CELLSIZE));
@@ -246,9 +250,5 @@ public class GameCanvas extends Canvas {
 	}
 	public int getCellHeight() {
 		return this.cellsHeight;
-	}
-	
-	public void instantiate(GameObject gameObject) {
-		this.instantiationQueue.add(gameObject);
 	}
 }

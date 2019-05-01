@@ -36,26 +36,25 @@ public class Popup extends Overlay {
 		
 	}
 	
-	public GameObject gameObject;
-	
 	public static final double width = 0.7;
 	public static final double height = 0.15;
 	public static final double offsetY = 1.2;
 	
+	public GameObject gameObject;
 	public int value;
 	public Type type;
 	
-	public Popup(Type type, int value) {
+	public Popup(GameObject gameObject, Type type, int value) {
 		this.type = type;
 		this.value = value;
+		this.gameObject = gameObject;
 	}
 	
 	@Override
 	public void start() {
 		Point2D startPosition = gameObject.getPosition().subtract(new Point2D(0, offsetY));
-		Point2D endPosition = startPosition.subtract(new Point2D(0, 0.8));
+		Point2D endPosition = startPosition.subtract(new Point2D(0, 0.5));
 		this.setPosition(startPosition);
-		
 		Transition floatUp = new Transition() {
 			{
 				setCycleCount(1);
@@ -64,15 +63,12 @@ public class Popup extends Overlay {
 			}
 			@Override
 			protected void interpolate(double frac) {
-				// TODO Auto-generated method stub
 				setPosition(startPosition.multiply(1-frac).add(endPosition.multiply(frac)));
 			}
 		};
 		floatUp.setOnFinished(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent event) {
-				destroy();
-			}
+			public void handle(ActionEvent event) { destroy(); }
 		});
 		floatUp.play();
 	}
@@ -82,7 +78,6 @@ public class Popup extends Overlay {
 	public void renderOver(GameCanvas canvas) {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		Point2D pixeledPosition = canvas.pixeledPoint2D(getPosition());
-		
 		gc.setFont(FontHolder.getInstance().font28);
 		gc.setTextAlign(TextAlignment.CENTER);
 		gc.setFill(value > 0 ? type.getGainColor() : type.getCostColor());

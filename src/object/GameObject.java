@@ -5,6 +5,8 @@ import constants.ImageHolder;
 import gui.GameCanvas;
 import interfaces.IBehaviour;
 import interfaces.IRenderable;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -36,10 +38,50 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	private int zOrder = 0;
 	public CollisionSystem collisionSystem = new CollisionSystem(this);
 	
+	//event
+	public EventHandler<ActionEvent> onDestroyed;
+	
 	//constructor
 	public GameObject() { }
+	
+	//general functions
+	public Point2D getScaledSize() {
+		return GameCanvas.scaledPoint2D(new Point2D(getRenderSprite().getWidth(), getRenderSprite().getHeight()));
+	}
+	public void renderOver(GameCanvas canvas) {
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		
+		double scaledWidth = getRenderSprite().getWidth() * getScale().getX();
+		double scaledHeight = getRenderSprite().getHeight() * getScale().getY();
+		
+		Point2D pixeledPivot = Utility.timesAxis(GameCanvas.pixeledPoint2D(getPivot()), getScale());
+		Point2D pixeledPosition = GameCanvas.pixeledPoint2D(getPosition());
+		
+		gc.translate(pixeledPosition.getX(), pixeledPosition.getY());
+		gc.rotate(getRotation().getAngle());
+		gc.drawImage(getRenderSprite(), -pixeledPivot.getX(), -pixeledPivot.getY(), scaledWidth, scaledHeight);
+		gc.rotate(-getRotation().getAngle());
+		gc.translate(-pixeledPosition.getX(), -pixeledPosition.getY());
+	}
+	public void renderPivot(GameCanvas canvas) {
+		if(!this.isRenderDebug) return;
 
-	//fields getter-setter method
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		
+		Point2D pixeledPosition = GameCanvas.pixeledPoint2D(getPosition());
+		
+		gc.translate(pixeledPosition.getX(), pixeledPosition.getY());
+		gc.setFill(Color.LIME);
+		gc.fillRect(-3, -3, 6, 6);
+		gc.translate(-pixeledPosition.getX(), -pixeledPosition.getY());
+	}
+	
+	public void destroy() { 
+		this.isDestroyed  = true;
+		if(onDestroyed != null) onDestroyed.handle(new ActionEvent());
+	}
+
+	//getter setter
 	public Image getRenderSprite() {
 		return renderSprite;
 	}
@@ -90,44 +132,22 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	public CollisionSystem getCollisionSystem() { 
 		return this.collisionSystem; 
 	}
-	
-	//general functions
-	public Point2D getScaledSize() {
-		return GameCanvas.scaledPoint2D(new Point2D(getRenderSprite().getWidth(), getRenderSprite().getHeight()));
+	public GameObjectTag getTag() { 
+		return this.tag; 
 	}
-	public void renderOver(GameCanvas canvas) {
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		
-		double scaledWidth = getRenderSprite().getWidth() * getScale().getX();
-		double scaledHeight = getRenderSprite().getHeight() * getScale().getY();
-		
-		Point2D pixeledPivot = Utility.timesAxis(GameCanvas.pixeledPoint2D(getPivot()), getScale());
-		Point2D pixeledPosition = GameCanvas.pixeledPoint2D(getPosition());
-		
-		gc.translate(pixeledPosition.getX(), pixeledPosition.getY());
-		gc.rotate(getRotation().getAngle());
-		gc.drawImage(getRenderSprite(), -pixeledPivot.getX(), -pixeledPivot.getY(), scaledWidth, scaledHeight);
-		gc.rotate(-getRotation().getAngle());
-		gc.translate(-pixeledPosition.getX(), -pixeledPosition.getY());
+	public boolean isDestroyed() { 
+		return this.isDestroyed; 
 	}
-	public void renderPivot(GameCanvas canvas) {
-		if(!this.isRenderDebug) return;
-
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		
-		Point2D pixeledPosition = GameCanvas.pixeledPoint2D(getPosition());
-		
-		gc.translate(pixeledPosition.getX(), pixeledPosition.getY());
-		gc.setFill(Color.LIME);
-		gc.fillRect(-3, -3, 6, 6);
-		gc.translate(-pixeledPosition.getX(), -pixeledPosition.getY());
+	public boolean isStatic() { 
+		return this.isStatic; 
 	}
-	
-	public GameObjectTag getTag() { return this.tag; }
-	public void destroy() { this.isDestroyed  = true; }
-	public boolean isDestroyed() { return this.isDestroyed; }
-	public boolean isStatic() { return this.isStatic; }
-	public void setStatic(boolean isStatic) { this.isStatic = isStatic; }
-	public boolean isRenderDebug() { return this.isRenderDebug; }
-	public void setRenderDebug(boolean render) { this.isRenderDebug = render; }
+	public void setStatic(boolean isStatic) { 
+		this.isStatic = isStatic; 
+	}
+	public boolean isRenderDebug() { 
+		return this.isRenderDebug; 
+	}
+	public void setRenderDebug(boolean render) { 
+		this.isRenderDebug = render; 
+	}
 }

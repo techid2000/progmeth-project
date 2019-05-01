@@ -1,6 +1,6 @@
 package interfaces;
 
 public interface IAlive {
-	public void getDamage(double damage);
-	public void doHeal(double heal);
+	public void getDamage(int damage);
+	public void doHeal(int heal);
 }

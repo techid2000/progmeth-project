@@ -30,7 +30,7 @@ public class GameUI extends BorderPane{
 		
 		scoreLabel = new Label("Score 000000");
 		cashLabel = new Label("0");
-		cashIcon = new ImageView(ImageHolder.getInstance().coinPile0);
+		cashIcon = new ImageView(ImageHolder.getInstance().coinPile1);
 		
 		scoreLabel.setFont(FontHolder.getInstance().font36);
 		cashLabel.setFont(FontHolder.getInstance().font36);

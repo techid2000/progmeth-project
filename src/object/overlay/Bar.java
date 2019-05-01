@@ -1,21 +1,41 @@
 package object.overlay;
 
 import gui.GameCanvas;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import object.GameObject;
 
 public class Bar extends Overlay {
-	
-	public GameObject gameObject;
+	public enum Type {
+		PLAYER_HEALTH(Color.LIME),
+		ENERMY_HEALTH(Color.RED);
+		
+		private Color barColor;
+		private Type(Color barColor) {
+			this.barColor = barColor;
+		}
+		public Color getBarColor() {
+			return this.barColor;
+		}
+	}
 	
 	public static final double width = 0.7;
 	public static final double height = 0.15;
-	public static final double offsetY = 1.2;
+	public static final double offsetY = 1.1;
+
+	public GameObject gameObject;
+	public Type type;
+	public SimpleIntegerProperty maxValue;
+	public SimpleIntegerProperty value;
 	
-	public int maxValue = 10;
-	public int value = 7;
+	public Bar(GameObject gameObject, Type type, SimpleIntegerProperty maxValue, SimpleIntegerProperty value) {
+		this.gameObject = gameObject;
+		this.maxValue = maxValue;
+		this.value = value;
+		this.type = type;
+	}
 	
 	@Override
 	public void start() { }
@@ -30,14 +50,25 @@ public class Bar extends Overlay {
 		Point2D pixeledTopLeft = canvas.pixeledPoint2D(getPosition().subtract(new Point2D(width/2, height)));
 		Point2D pixeledWidthHeight = canvas.pixeledPoint2D(new Point2D(width, height));
 		
-		gc.setFill(Color.RED);
+		gc.setFill(Color.BLACK);
 		canvas.getGraphicsContext2D().fillRect(pixeledTopLeft.getX(), pixeledTopLeft.getY(),
 				pixeledWidthHeight.getX(), pixeledWidthHeight.getY());
 	
-		pixeledWidthHeight = canvas.pixeledPoint2D(new Point2D((1.0*value/maxValue)*width, height));
+		pixeledWidthHeight = canvas.pixeledPoint2D(new Point2D((1.0*value.get()/maxValue.get())*width, height));
 		
-		gc.setFill(Color.LIME);
+		if(type == Type.PLAYER_HEALTH) {
+			if(getPercentage() >= 50)
+				gc.setFill(type.getBarColor());
+			else if(getPercentage() >= 20) 
+				gc.setFill(Color.YELLOW);
+			else
+				gc.setFill(Color.RED);
+		}
+		
 		canvas.getGraphicsContext2D().fillRect(pixeledTopLeft.getX(), pixeledTopLeft.getY(),
 				pixeledWidthHeight.getX(), pixeledWidthHeight.getY());
+	}
+	public double getPercentage() {
+		return 1.0*100*this.value.get()/this.maxValue.get();
 	}
 }

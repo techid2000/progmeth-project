@@ -11,7 +11,6 @@ public class Accessories {
 	
 	public void gainCash(int gain) {
 		this.cash += gain;
-		System.out.println(this.cash);
 		SystemCache.getInstance().gameUI.setCash(cash);
 	}
 }

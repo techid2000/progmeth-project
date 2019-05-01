@@ -23,14 +23,18 @@ import object.overlay.Pointer;
 import utility.Utility;
 
 public class Player extends Entity {
+	//logic
 	public Accessories accessories;
+	
+	//resources
 	public List<AnimationClip> clips;
+	
 	public Player() { 
 		//config later
-		Bar healthBar = new Bar();
-		healthBar.gameObject = this;
-		SystemCache.getInstance().gameCanvas.getGameObjects().add(healthBar);
+		getHealth().set(100);
+		getMaxHealth().set(100);
 		this.accessories = new Accessories();
+		
 		setMoveSpeed(2);
 		setPivot(new Point2D(0.5,1));
 		getCollisionSystem().addBoxCollider(-0.25, -0.5, 0.5, 0.5);
@@ -45,8 +49,6 @@ public class Player extends Entity {
 		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunLeftUp, 500));
 		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunUp, 500));
 		clips.add(new AnimationClip(ImageHolder.getInstance().playerRunRightUp, 500));
-		
-		
 		
 		setAnimationClip(clips.get(0));
 	}
@@ -68,17 +70,10 @@ public class Player extends Entity {
 		if(gameEvent.getSingleKeyUp(KeyCode.B)) {
 			gameCanvas.sample.destroy();
 		}
-		if(gameEvent.getSingleKeyUp(KeyCode.V)) {
-			Popup ok = new Popup(Popup.Type.CASH, 10);
-			ok.gameObject = this;
-			gameCanvas.instantiate(ok);
-		}
 		
 		//wait for manage
-		if(gameEvent.getSingleKeyDown(KeyCode.E)) {
-			System.out.println("test");
-		}
-		
+		if(gameEvent.getSingleKeyUp(KeyCode.V)) {getDamage(18);}
+		if(gameEvent.getSingleKeyUp(KeyCode.C)) {doHeal(36);}
 		
 		//wait for manage
 		Point2D dir = gameCanvas.mouseToScaledPoint2D(gameEvent.getMousePosition()).subtract(getPosition());
@@ -109,8 +104,7 @@ public class Player extends Entity {
 		for(BoxCollider loot : loots) {
 			((Mint)loot.gameObject).pick(this);
 			
-			Popup ok = new Popup(Popup.Type.CASH, ((Mint)loot.gameObject).type.getValue());
-			ok.gameObject = this;
+			Popup ok = new Popup(this, Popup.Type.CASH, ((Mint)loot.gameObject).type.getValue());
 			SystemCache.getInstance().gameCanvas.instantiate(ok);
 		}
 	}
@@ -136,8 +130,4 @@ public class Player extends Entity {
 		lootControl();
 	}
 
-	@Override
-	public void getDamage(double damage) {}
-	@Override
-	public void doHeal(double heal) {}
 }
