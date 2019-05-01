@@ -18,7 +18,7 @@ import logic.Accessories;
 import object.GameObject;
 import object.loot.Mint;
 import object.overlay.Bar;
-import object.overlay.DamagePopup;
+import object.overlay.Popup;
 import object.overlay.Pointer;
 import utility.Utility;
 
@@ -69,7 +69,7 @@ public class Player extends Entity {
 			gameCanvas.sample.destroy();
 		}
 		if(gameEvent.getSingleKeyUp(KeyCode.V)) {
-			DamagePopup ok = new DamagePopup();
+			Popup ok = new Popup(Popup.Type.CASH, 10);
 			ok.gameObject = this;
 			gameCanvas.instantiate(ok);
 		}
@@ -108,6 +108,10 @@ public class Player extends Entity {
 		List<BoxCollider> loots = walkingCollider.getIntersectedCollider(GameObjectTag.LOOT);
 		for(BoxCollider loot : loots) {
 			((Mint)loot.gameObject).pick(this);
+			
+			Popup ok = new Popup(Popup.Type.CASH, ((Mint)loot.gameObject).type.getValue());
+			ok.gameObject = this;
+			SystemCache.getInstance().gameCanvas.instantiate(ok);
 		}
 	}
 	

@@ -23,7 +23,7 @@ public class Mint extends Loot {
 		public Image getSprite() { return this.sprite; }
 	}
 	
-	private Type type;
+	public Type type;
 	
 	public Mint(Type type) {
 		super();

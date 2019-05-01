@@ -15,17 +15,43 @@ import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import object.GameObject;
 
-public class DamagePopup extends Overlay {
+public class Popup extends Overlay {
+	
+	public enum Type {
+		HEALTH(Color.LIME, Color.RED, "%s%d"),
+		CASH(Color.GOLD, Color.SILVER, "%s$%d");
+		
+		private Color gainColor, costColor;
+		private String formatter;
+		
+		private Type(Color gainColor, Color costColor, String formatter) {
+			this.gainColor = gainColor;
+			this.costColor = costColor;
+			this.formatter = formatter;
+		}
+		
+		public Color getGainColor() { return this.gainColor; }
+		public Color getCostColor() { return this.costColor; }
+		public String getFormatter() { return this.formatter; }
+		
+	}
+	
 	public GameObject gameObject;
 	
 	public static final double width = 0.7;
 	public static final double height = 0.15;
 	public static final double offsetY = 1.2;
 	
-	public int value = +93;
+	public int value;
+	public Type type;
+	
+	public Popup(Type type, int value) {
+		this.type = type;
+		this.value = value;
+	}
 	
 	@Override
-	public void start() { 
+	public void start() {
 		Point2D startPosition = gameObject.getPosition().subtract(new Point2D(0, offsetY));
 		Point2D endPosition = startPosition.subtract(new Point2D(0, 0.8));
 		this.setPosition(startPosition);
@@ -59,7 +85,7 @@ public class DamagePopup extends Overlay {
 		
 		gc.setFont(FontHolder.getInstance().font28);
 		gc.setTextAlign(TextAlignment.CENTER);
-		gc.setFill(value > 0 ? Color.LIME : Color.RED);
-		gc.fillText((value > 0 ? "+" : "" ) + value, pixeledPosition.getX(), pixeledPosition.getY());
+		gc.setFill(value > 0 ? type.getGainColor() : type.getCostColor());
+		gc.fillText(String.format(type.getFormatter(),value > 0 ? "+" : "-", (int)Math.abs(value)), pixeledPosition.getX(), pixeledPosition.getY());
 	}
 }

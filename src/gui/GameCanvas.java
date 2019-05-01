@@ -27,7 +27,7 @@ import object.block.UnbreakableBlock;
 import object.entity.Player;
 import object.loot.Mint;
 import object.overlay.Bar;
-import object.overlay.DamagePopup;
+import object.overlay.Popup;
 import object.overlay.Pointer;
 import object.tile.Ground;
 import utility.Utility;
@@ -122,10 +122,6 @@ public class GameCanvas extends Canvas {
 		gameObjects.add(coins2);
 		gameObjects.add(coins3);
 		gameObjects.add(new Pointer());
-		
-		DamagePopup damage = new DamagePopup();
-		damage.gameObject = slime;
-		instantiate(damage);
 		
 		setPursueObject(slime);
 		
