@@ -16,25 +16,7 @@ import javafx.util.Duration;
 import object.GameObject;
 
 public class Popup extends Overlay {
-	
-	public enum Type {
-		HEALTH(Color.LIME, Color.RED, "%s%d"),
-		CASH(Color.GOLD, Color.SILVER, "%s$%d");
-		
-		private Color gainColor, costColor;
-		private String formatter;
-		
-		private Type(Color gainColor, Color costColor, String formatter) {
-			this.gainColor = gainColor;
-			this.costColor = costColor;
-			this.formatter = formatter;
-		}
-		
-		public Color getGainColor() { return this.gainColor; }
-		public Color getCostColor() { return this.costColor; }
-		public String getFormatter() { return this.formatter; }
-		
-	}
+
 	
 	public static final double width = 0.7;
 	public static final double height = 0.15;
@@ -82,5 +64,40 @@ public class Popup extends Overlay {
 		gc.setTextAlign(TextAlignment.CENTER);
 		gc.setFill(value > 0 ? type.getGainColor() : type.getCostColor());
 		gc.fillText(String.format(type.getFormatter(),value > 0 ? "+" : "-", (int)Math.abs(value)), pixeledPosition.getX(), pixeledPosition.getY());
+	}
+	
+	//enum
+	public enum Type {
+		HEALTH,
+		CASH;
+
+		public Color getGainColor() { 
+			switch(this) {
+			case HEALTH:
+				return Color.LIME;
+			case CASH:
+				return Color.GOLD;
+			}
+			return Color.BLACK;
+		}
+		public Color getCostColor() {
+			switch(this) {
+			case HEALTH:
+				return Color.RED;
+			case CASH:
+				return Color.SILVER;
+			}
+			return Color.BLACK;
+		}
+		public String getFormatter() {
+			switch(this) {
+			case HEALTH:
+				return "%s%d";
+			case CASH:
+				return "%s$%d";
+			}
+			return "";
+		}
+		
 	}
 }

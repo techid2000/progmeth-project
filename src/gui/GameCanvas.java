@@ -90,17 +90,19 @@ public class GameCanvas extends Canvas {
 		
 		Mint coins = new Mint(Mint.Type.COIN_PILE_1);
 		coins.setPosition(new Point2D(4,4));
-		coins.setScale(new Point2D(1,1));
 		Mint coins2 = new Mint(Mint.Type.SINGLE_COIN);
 		coins2.setPosition(new Point2D(4.5,5));
 		Mint coins3 = new Mint(Mint.Type.COIN_PILE_0);
-		coins3.setScale(new Point2D(1,1));
 		coins3.setPosition(new Point2D(5.5, 5));
-		
+		Mint coins4 = new Mint(Mint.Type.SINGLE_COIN);
+		coins4.setPosition(new Point2D(6,4));
+		Mint coins5 = new Mint(Mint.Type.SINGLE_COIN);
+		coins5.setPosition(new Point2D(7,5));
 		coins.setScale(new Point2D(0.8,0.8));
 		coins2.setScale(new Point2D(0.8,0.8));
 		coins3.setScale(new Point2D(0.8,0.8));
-		
+		coins4.setScale(new Point2D(0.8,0.8));
+		coins5.setScale(new Point2D(0.8,0.8));
 		GameObject unknown = new GameObject() {
 			@Override
 			public void update(double deltaTime) {}
@@ -121,6 +123,8 @@ public class GameCanvas extends Canvas {
 		instantiate(coins);
 		instantiate(coins2);
 		instantiate(coins3);
+		instantiate(coins4);
+		instantiate(coins5);
 		instantiate(new Pointer());
 		
 		setPursueObject(slime);

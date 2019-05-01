@@ -8,18 +8,7 @@ import javafx.scene.paint.Color;
 import object.GameObject;
 
 public class Bar extends Overlay {
-	public enum Type {
-		PLAYER_HEALTH(Color.LIME),
-		ENERMY_HEALTH(Color.RED);
-		
-		private Color barColor;
-		private Type(Color barColor) {
-			this.barColor = barColor;
-		}
-		public Color getBarColor() {
-			return this.barColor;
-		}
-	}
+
 	
 	public static final double width = 0.7;
 	public static final double height = 0.15;
@@ -70,5 +59,20 @@ public class Bar extends Overlay {
 	}
 	public double getPercentage() {
 		return 1.0*100*this.value.get()/this.maxValue.get();
+	}
+	
+	//enum
+	public enum Type {
+		PLAYER_HEALTH,
+		ENERMY_HEALTH;
+		public Color getBarColor() {
+			switch(this) {
+			case PLAYER_HEALTH:
+				return Color.LIME;
+			case ENERMY_HEALTH:
+				return Color.RED;
+			}
+			return Color.BLACK;
+		}
 	}
 }

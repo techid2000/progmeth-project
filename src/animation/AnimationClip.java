@@ -8,10 +8,10 @@ import javafx.util.Duration;
 import object.GameObject;
 
 public class AnimationClip extends Transition {
-
 	private GameObject bindGameObject;
 	private List<Image> spriteList;
 	private int frameIndex;
+	private int frameIndexOffset;
 	private boolean reverseFrame;
 	
 	public AnimationClip(List<Image> spriteList, double cycleDuration) {
@@ -34,7 +34,7 @@ public class AnimationClip extends Transition {
 	protected void interpolate(double arg0) {
 		// TODO Auto-generated method stub
 		if(arg0 == 1) return;
-		setFrameIndex((int)(arg0 * getSpriteList().size()));
+		setFrameIndex((int)((isReverseFrame() ? (1-arg0) : arg0) * getSpriteList().size()));
 		bindGameObject.setRenderSprite(getSpriteList().get(getFrameIndex()));
 	}
 	
@@ -51,7 +51,7 @@ public class AnimationClip extends Transition {
 		this.spriteList = spriteList;
 	}
 	public int getFrameIndex() {
-		return frameIndex;
+		return (frameIndexOffset + frameIndex) % getSpriteList().size();
 	}
 	private void setFrameIndex(int frameIndex) {
 		this.frameIndex = frameIndex;
@@ -61,5 +61,11 @@ public class AnimationClip extends Transition {
 	}
 	public void setReverseFrame(boolean reverseFrame) {
 		this.reverseFrame = reverseFrame;
+	}
+	public void setFrameIndexOffset(int index) {
+		frameIndexOffset = index;
+	}
+	public void setRandomFrameIndexOffset() {
+		setFrameIndexOffset((int)Math.floor(Math.random() * getSpriteList().size()));
 	}
 }
