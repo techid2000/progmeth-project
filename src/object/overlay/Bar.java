@@ -15,7 +15,7 @@ public class Bar extends Overlay {
 	public static final double offsetY = 1.2;
 	
 	public int maxValue = 10;
-	public int value = 5;
+	public int value = 7;
 	
 	@Override
 	public void start() { }

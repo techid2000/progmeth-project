@@ -1,8 +1,10 @@
 package gui;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -25,6 +27,7 @@ import object.block.UnbreakableBlock;
 import object.entity.Player;
 import object.loot.Mint;
 import object.overlay.Bar;
+import object.overlay.DamagePopup;
 import object.overlay.Pointer;
 import object.tile.Ground;
 import utility.Utility;
@@ -44,6 +47,7 @@ public class GameCanvas extends Canvas {
 	//gameobjects
 	private GameObject pursueObject;
 	private Set<GameObject> gameObjects;
+	private Queue<GameObject> instantiationQueue;
 	public GameObject sample;
 	//animation
 	private double deltaTime;
@@ -60,6 +64,7 @@ public class GameCanvas extends Canvas {
 				return a.hashCode() - b.hashCode();
 			return a.getZOrder() - b.getZOrder();
 		});
+		this.instantiationQueue = new LinkedList<GameObject>();
 		setWidth(MainApp.WINDOW_WIDTH);
 		setHeight(MainApp.WINDOW_HEIGHT);
 		setViewPosition(scaledPoint2D(getPixelScreenSize().multiply(0.5)));
@@ -67,7 +72,7 @@ public class GameCanvas extends Canvas {
 		setCellDimension(13, 13);
 		//wait for manage
 		Player slime = new Player();
-
+		slime.setPosition(new Point2D(7,7));
 //		slime.setScale(new Point2D(3,2));
 		UnbreakableBlock block = new UnbreakableBlock();
 		block.getCollisionSystem().addBoxCollider(-0.5,-0.3,1,1);
@@ -112,17 +117,17 @@ public class GameCanvas extends Canvas {
 		gameObjects.add(block2);
 		gameObjects.add(block3);
 		gameObjects.add(slime);
-//		gameObjects.add(unknown);
+		gameObjects.add(unknown);
 		gameObjects.add(coins);
 		gameObjects.add(coins2);
 		gameObjects.add(coins3);
-		Bar bar = new Bar();
-		bar.gameObject = slime;
-		gameObjects.add(bar);
 		gameObjects.add(new Pointer());
-		setPursueObject(slime);
 		
-		invokeStartOverGameObjects();
+		DamagePopup damage = new DamagePopup();
+		damage.gameObject = slime;
+		instantiate(damage);
+		
+		setPursueObject(slime);
 		
 		gameLoop = new AnimationTimer() {
 			private double last = System.nanoTime();
@@ -145,13 +150,6 @@ public class GameCanvas extends Canvas {
 		gameLoop.start();
 	}
 
-	public void invokeStartOverGameObjects() {
-		for(GameObject gameObject : this.gameObjects) {
-			if(!gameObject.isStatic()) {
-				gameObject.start();
-			}
-		}
-	}
 	public void proceedOverGameObjects() {
 		//translate graphics context for drawing object depends on camera position
 		Point2D translatePos = pixeledPoint2D(getViewPosition()).subtract(getPixelScreenSize().multiply(0.5));
@@ -164,6 +162,14 @@ public class GameCanvas extends Canvas {
 				preparedDestroy.add(gameObject);
 		for(GameObject gameObject : preparedDestroy)
 			getGameObjects().remove(gameObject);
+		
+		//instantiate objects in queue (for avoiding concurrent modification)
+		while(!this.instantiationQueue.isEmpty()) {
+			GameObject gameObject = this.instantiationQueue.poll();
+			getGameObjects().add(gameObject);
+			if(!gameObject.isStatic())
+				gameObject.start();
+		}
 		
 		//iterate over gameobject and render
 		for(GameObject gameObject : getGameObjects()) {
@@ -244,5 +250,9 @@ public class GameCanvas extends Canvas {
 	}
 	public int getCellHeight() {
 		return this.cellsHeight;
+	}
+	
+	public void instantiate(GameObject gameObject) {
+		this.instantiationQueue.add(gameObject);
 	}
 }

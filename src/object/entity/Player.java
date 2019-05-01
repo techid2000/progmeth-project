@@ -17,6 +17,8 @@ import logic.GameObjectTag;
 import logic.Accessories;
 import object.GameObject;
 import object.loot.Mint;
+import object.overlay.Bar;
+import object.overlay.DamagePopup;
 import object.overlay.Pointer;
 import utility.Utility;
 
@@ -25,6 +27,9 @@ public class Player extends Entity {
 	public List<AnimationClip> clips;
 	public Player() { 
 		//config later
+		Bar healthBar = new Bar();
+		healthBar.gameObject = this;
+		SystemCache.getInstance().gameCanvas.getGameObjects().add(healthBar);
 		this.accessories = new Accessories();
 		setMoveSpeed(2);
 		setPivot(new Point2D(0.5,1));
@@ -62,6 +67,11 @@ public class Player extends Entity {
 		
 		if(gameEvent.getSingleKeyUp(KeyCode.B)) {
 			gameCanvas.sample.destroy();
+		}
+		if(gameEvent.getSingleKeyUp(KeyCode.V)) {
+			DamagePopup ok = new DamagePopup();
+			ok.gameObject = this;
+			gameCanvas.instantiate(ok);
 		}
 		
 		//wait for manage

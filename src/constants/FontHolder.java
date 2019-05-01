@@ -9,13 +9,15 @@ public class FontHolder {
 	private static final FontHolder instance = new FontHolder();
 	public static FontHolder getInstance () { return instance; }
 	
-	public Font font1;
+	public Font font36;
+	public Font font28;
 	
 	public FontHolder() {
-		font1 = loadFont("upheavtt", TTF);
+		font36 = loadFont("upheavtt", TTF, 36);
+		font28 = loadFont("upheavtt", TTF, 28);
 	}
 	
-	public Font loadFont(String name, String fontType) {
-		return Font.loadFont(ClassLoader.getSystemResourceAsStream("font/" + name + "." + fontType), 36);
+	public Font loadFont(String name, String fontType, double size) {
+		return Font.loadFont(ClassLoader.getSystemResourceAsStream("font/" + name + "." + fontType), size);
 	}
 }

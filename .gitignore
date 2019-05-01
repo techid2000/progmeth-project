@@ -1,4 +1,4 @@
-.psd
+*.psd
 .metadata
 bin/
 tmp/
