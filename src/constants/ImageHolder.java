@@ -43,15 +43,15 @@ public class ImageHolder {
 		singleCoin = loadImageList("loot/singlecoin",PNG,8);
 		ground = loadImage("block/ground", PNG);
 		
-		playerStandStill = loadImageList("player/standstill/standstill",PNG,8);
-		playerRunUp = loadImageList("player/run_up/run",PNG,6);
-		playerRunDown = loadImageList("player/run_down/run",PNG,6);
-		playerRunLeft = loadImageList("player/run_left/run",PNG,6);
-		playerRunRight = loadImageList("player/run_right/run",PNG,6);
-		playerRunLeftUp = loadImageList("player/run_leftup/run",PNG,6);
-		playerRunRightUp = loadImageList("player/run_rightup/run",PNG,6);
-		playerRunLeftDown = loadImageList("player/run_leftdown/run",PNG,6);
-		playerRunRightDown = loadImageList("player/run_rightdown/run",PNG,6);
+		playerStandStill = loadImageList("player/standstill_pistol/standstill",PNG,8);
+		playerRunUp = loadImageList("player/run_up_pistol/run",PNG,6);
+		playerRunDown = loadImageList("player/run_down_pistol/run",PNG,6);
+		playerRunLeft = loadImageList("player/run_left_pistol/run",PNG,6);
+		playerRunRight = loadImageList("player/run_right_pistol/run",PNG,6);
+		playerRunLeftUp = loadImageList("player/run_leftup_pistol/run",PNG,6);
+		playerRunRightUp = loadImageList("player/run_rightup_pistol/run",PNG,6);
+		playerRunLeftDown = loadImageList("player/run_leftdown_pistol/run",PNG,6);
+		playerRunRightDown = loadImageList("player/run_rightdown_pistol/run",PNG,6);
 	}
 	
 	public Image loadImage(String prefixName, String fileType) {
