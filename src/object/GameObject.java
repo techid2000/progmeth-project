@@ -38,9 +38,6 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	private int zOrder = 0;
 	public CollisionSystem collisionSystem = new CollisionSystem(this);
 	
-	//event
-	public EventHandler<ActionEvent> onDestroyed;
-	
 	//constructor
 	public GameObject() { }
 	
@@ -78,7 +75,6 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	
 	public void destroy() { 
 		this.isDestroyed  = true;
-		if(onDestroyed != null) onDestroyed.handle(new ActionEvent());
 	}
 
 	//getter setter

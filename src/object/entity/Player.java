@@ -11,6 +11,7 @@ import gui.GameCanvas;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.transform.Rotate;
 import logic.BoxCollider;
 import logic.GameObjectTag;
@@ -19,6 +20,7 @@ import object.GameObject;
 import object.loot.Mint;
 import object.overlay.Bar;
 import object.overlay.Popup;
+import object.weapon.projectile.Projectile;
 import object.overlay.Pointer;
 import utility.Utility;
 
@@ -76,7 +78,7 @@ public class Player extends Entity {
 		if(gameEvent.getSingleKeyUp(KeyCode.C)) {doHeal(36);}
 		
 		//wait for manage
-		Point2D dir = gameCanvas.mouseToScaledPoint2D(gameEvent.getMousePosition()).subtract(getPosition());
+		Point2D dir = gameCanvas.mouseToScaledPoint2D(gameEvent.getMousePosition()).subtract(getPosition().subtract(new Point2D(0,0.5)));
 		Rotate rot = Utility.pointToRotate(dir);
 		double MIN = Double.MAX_VALUE;
 		int index = 0;
@@ -95,6 +97,20 @@ public class Player extends Entity {
 				getAnimationClip().pause();
 		} else {
 			getAnimationClip().play();
+		}
+		
+		//junk
+		if(gameEvent.getSingleMouseDown(MouseButton.PRIMARY)) {
+			this.accessories.fireCurrentGun(getPosition().subtract(new Point2D(0,0.5)), 
+					gameCanvas.mouseToScaledPoint2D(gameEvent.getMousePosition()).subtract(getPosition().subtract(new Point2D(0,0.5))));
+		}
+		//junk2
+		if(gameEvent.getScrollChanged()) {
+			this.accessories.swapGun();
+		}
+		//junk3
+		if(gameEvent.getSingleKeyUp(KeyCode.R)) {
+			this.accessories.reloadCurrentGun();
 		}
 	}
 	
@@ -123,11 +139,15 @@ public class Player extends Entity {
 		setPosition(origin);
 	}
 	
-	public void start() {}
+	public void start() {
+		SystemCache.getInstance().accessoriesUI.updateInfo(this.accessories);
+	}
 	@Override
 	public void update(double deltaTime) {
 		moveControl(deltaTime);
 		lootControl();
+		
+		
 	}
 
 }

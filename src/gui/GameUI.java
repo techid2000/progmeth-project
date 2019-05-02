@@ -43,9 +43,9 @@ public class GameUI extends BorderPane{
 		BorderPane bottom = new BorderPane();
 		HBox hbox = new HBox(cashIcon, cashLabel);
 		hbox.setSpacing(15);
-		hbox.setAlignment(Pos.CENTER_LEFT);
+		hbox.setAlignment(Pos.BOTTOM_LEFT);
 		bottom.setLeft(hbox);
-		bottom.setRight(new Button("Weapon Info"));
+		bottom.setRight(new AccessoriesUI());
 
 		this.setTop(top);
 		this.setBottom(bottom);

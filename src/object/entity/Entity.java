@@ -21,23 +21,12 @@ public abstract class Entity extends GameObject implements IAlive {
 	//gameobject
 	protected Bar healthBar;
 	
-	//event
-	protected EventHandler<ActionEvent> onDoHeal;
-	protected EventHandler<ActionEvent> onGetDamage;
-	
 	//constructor
 	public Entity() {
 		this.health = new SimpleIntegerProperty();
 		this.maxHealth = new SimpleIntegerProperty();
 		this.healthBar = new Bar(this, Bar.Type.PLAYER_HEALTH, this.maxHealth, this.health);
 		SystemCache.getInstance().gameCanvas.instantiate(healthBar);
-		
-		this.onDestroyed = new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				Entity.this.healthBar.destroy();
-			}
-		};
 	}
 	
 	//general function
@@ -45,13 +34,15 @@ public abstract class Entity extends GameObject implements IAlive {
 		this.health.set(Math.min(100, this.health.get() + heal));
 		Popup healPopup = new Popup(this, Popup.Type.HEALTH, heal);
 		SystemCache.getInstance().gameCanvas.instantiate(healPopup);
-		if(this.onDoHeal != null) this.onDoHeal.handle(new ActionEvent());
 	}
 	public void getDamage(int damage) {
 		this.health.set(Math.max(0,this.health.get() - damage));
 		Popup damagePopup = new Popup(this, Popup.Type.HEALTH, -damage);
 		SystemCache.getInstance().gameCanvas.instantiate(damagePopup);
-		if(this.onGetDamage != null) this.onGetDamage.handle(new ActionEvent());
+	}
+	public void destroy() {
+		super.destroy();
+		Entity.this.healthBar.destroy();		
 	}
 
 	//getter and setter

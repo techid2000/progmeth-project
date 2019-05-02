@@ -25,4 +25,7 @@ public class Utility {
 			return new Rotate(360 - Math.toDegrees(Math.acos(a.getX() / a.magnitude())));
 		}
 	}
+	public static Point2D rotateToDirection(Rotate r) {
+		return new Point2D(Math.cos(Math.toRadians(r.getAngle())), Math.sin(Math.toRadians(r.getAngle())));
+	}
 }

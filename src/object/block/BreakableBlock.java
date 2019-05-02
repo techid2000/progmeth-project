@@ -5,26 +5,34 @@ import interfaces.IDestroyable;
 
 public class BreakableBlock extends Block implements IDestroyable {
 
+	public int maxDurability;
+	public int durability = 25;
+	
 	public BreakableBlock() {
 		super();
-		setRenderSprite(ImageHolder.getInstance().destroyableBlock);
+		setRenderSprite(ImageHolder.getInstance().breakableBlock);
 	}
 	
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
+		maxDurability = durability;
 	}
 
 	@Override
 	public void update(double deltaTime) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void getDamage() {
+	public void getDamage(int damage) {
 		// TODO Auto-generated method stub
-		
+		durability = Math.max(0, durability - damage);
+		if(100.0*durability/maxDurability < 50) {
+			setRenderSprite(ImageHolder.getInstance().breakableBlockCracking);
+		}
+		if(durability == 0) {
+			destroy();
+		}
 	}
 
 }

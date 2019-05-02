@@ -46,7 +46,7 @@ public class GameCanvas extends Canvas {
 
 	//gameobjects
 	private GameObject pursueObject;
-	private Set<GameObject> gameObjects;
+	private Set<GameObject> gameObjects; //todo: categorize gameobjects by tag
 	private Queue<GameObject> instantiationQueue;
 	private Queue<GameObject> destroyQueue;
 	
@@ -71,7 +71,6 @@ public class GameCanvas extends Canvas {
 		setWidth(MainApp.WINDOW_WIDTH);
 		setHeight(MainApp.WINDOW_HEIGHT);
 		setViewPosition(scaledPoint2D(getPixelScreenSize().multiply(0.5)));
-		
 		setCellDimension(13, 13);
 		//wait for manage
 		Player slime = new Player();

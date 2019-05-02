@@ -1,5 +1,5 @@
 package interfaces;
 
 public interface IDestroyable {
-	public void getDamage();
+	public void getDamage(int damage);
 }
