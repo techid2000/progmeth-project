@@ -17,8 +17,7 @@ public class ImageHolder {
 	public List<Image> slime;
 	public Image pointer;
 	public Image unbreakableBlock;
-	public Image breakableBlock;
-	public Image breakableBlockCracking;
+	public List<Image> breakableBlock;
 	public Image ground;
 	public Image coinPile0;
 	public Image coinPile1;
@@ -41,9 +40,8 @@ public class ImageHolder {
 		nothing = loadImage("nothing", PNG);
 		slime = loadImageList("slime/slime", PNG, 8);
 		pointer = loadImage("overlay/pointer",PNG);
-		unbreakableBlock = loadImage("block/unbreakable_block", PNG);
-		breakableBlock = loadImage("block/breakable_block", PNG);
-		breakableBlockCracking = loadImage("block/breakable_block_cracking", PNG);
+		unbreakableBlock = loadImage("block/unbreakableblock", PNG);
+		breakableBlock = loadImageList("block/breakableblock",PNG,4);
 		
 		coinPile0 = loadImage("loot/coinpile0", PNG);
 		coinPile1 = loadImage("loot/coinpile1",PNG);

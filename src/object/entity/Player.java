@@ -82,10 +82,11 @@ public class Player extends Entity {
 		Rotate rot = Utility.pointToRotate(dir);
 		double MIN = Double.MAX_VALUE;
 		int index = 0;
-		for(int angle = 0; angle < 360; angle += 45) {
+		System.out.println(rot.getAngle());
+		for(int angle = 0; angle <= 360; angle += 45) {
 			if(Math.abs(angle - rot.getAngle()) < MIN) {
 				MIN = Math.abs(angle - rot.getAngle());
-				index = angle / 45;
+				index = (angle % 360) / 45;
 			}
 		}
 
@@ -101,8 +102,9 @@ public class Player extends Entity {
 		
 		//junk
 		if(gameEvent.getSingleMouseDown(MouseButton.PRIMARY)) {
-			this.accessories.fireCurrentGun(getPosition().subtract(new Point2D(0,0.5)), 
-					gameCanvas.mouseToScaledPoint2D(gameEvent.getMousePosition()).subtract(getPosition().subtract(new Point2D(0,0.5))));
+			Point2D centre = getPosition().subtract(new Point2D(0,0.5));
+			Point2D bdir = gameCanvas.mouseToScaledPoint2D(gameEvent.getMousePosition()).subtract(getPosition().subtract(new Point2D(0,0.5)));
+			this.accessories.fireCurrentGun(centre.add(bdir.normalize().multiply(0.4)), bdir);
 		}
 		//junk2
 		if(gameEvent.getScrollChanged()) {
