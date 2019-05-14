@@ -7,6 +7,7 @@ public class GameObjectTag {
 	public static final long BLOCK = 2;
 	public static final long LOOT = 4;
 	public static final long ENERMY = 8;
+	public static final long PLAYER = 16;
 	
 	private long tag;
 	

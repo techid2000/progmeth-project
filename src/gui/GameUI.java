@@ -49,7 +49,6 @@ public class GameUI extends BorderPane{
 
 		this.setTop(top);
 		this.setBottom(bottom);
-		
 	}
 	
 	public void setScore(int score) {

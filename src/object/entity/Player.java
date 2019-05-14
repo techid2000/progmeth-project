@@ -42,7 +42,12 @@ public class Player extends Entity {
 	
 	private List<AnimationClip> clips;
 	
-	public Player() { 
+	double regenInterval;
+	
+	public Player() {
+		getTag().addTag(GameObjectTag.PLAYER);
+		SystemCache.getInstance().player = this;
+		
 		//config later
 		getHealth().set(100);
 		getMaxHealth().set(100);
@@ -135,6 +140,13 @@ public class Player extends Entity {
 			Point2D bdir = gameCanvas.mouseToScaledPoint2D(gameEvent.getMousePosition()).subtract(centre);
 			this.accessories.updateCurrentGun(centre, bdir.normalize());
 //		}
+		regenInterval += SystemCache.getInstance().deltaTime;
+		if(regenInterval >= 3) {
+			doHeal(1);
+		}
+		if(gameEvent.getSingleMouseUp(MouseButton.PRIMARY)) {
+			regenInterval = 0;
+		}
 		if(gameEvent.getScrollChanged()) {
 			this.accessories.swapGun();
 			Gun curGun = this.accessories.getCurrentGun();

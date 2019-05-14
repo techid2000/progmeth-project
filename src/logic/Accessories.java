@@ -17,8 +17,8 @@ public class Accessories {
 	private Gun currentGun;
 	
 	public Accessories() {
-		gunA = new Pistol();
-		gunB = new AssultRifle();
+		gunA = new AssultRifle();
+		gunB = new Shotgun();
 		currentGun = gunA;
 	}
 	

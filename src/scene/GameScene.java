@@ -5,9 +5,13 @@ import constants.SystemCache;
 import event.GameEvent;
 import gui.GameCanvas;
 import gui.GameUI;
+import gui.ShopUI;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 public class GameScene extends Scene {
@@ -28,7 +32,7 @@ public class GameScene extends Scene {
 		setCursor(Cursor.NONE);
 		setRoot(stackPane = new StackPane());
 		stackPane.setPrefSize(MainApp.WINDOW_WIDTH, MainApp.WINDOW_HEIGHT);
-		stackPane.getChildren().addAll(new GameCanvas(), new GameUI());
+		stackPane.getChildren().addAll(new GameCanvas(), new GameUI(),new Group(new ShopUI()));
 		setGameEvent(new GameEvent(this));
 	}
 	

@@ -79,6 +79,10 @@ public class GameEvent {
 				GameEvent.this.keyHolding.put(event.getCode(), false);
 				lerpValue(GameEvent.this.keyFraction.get(event.getCode()), 0.0);
 				GameEvent.this.bufferedSingleKeyUp.put(event.getCode(), true);
+				
+				if(event.getCode() == KeyCode.B) {
+					SystemCache.getInstance().shopUI.setVisible(!SystemCache.getInstance().shopUI.isVisible());
+				}
 			}
 		});
 		scene.setOnMousePressed(new EventHandler<MouseEvent>() {

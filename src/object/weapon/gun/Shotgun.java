@@ -33,13 +33,13 @@ public class Shotgun extends Gun {
 					return;
 				setRound(getRound() - 1);
 				GameCanvas gameCanvas = SystemCache.getInstance().gameCanvas;
-				for (int i = -10; i <= 10; i += 5) {
+				for (int i = -10; i <= 10; i += 3) {
 					Projectile pjt = new Projectile();
 					pjt.setPosition(aimOrigin);
 					pjt.setRotation(Utility.pointToRotate(Utility.rotatePoint2D(aimDirection, i)));
-					pjt.setLifeTime(0.25);
+					pjt.setLifeTime(0.3);
 					pjt.setSpeed(8);
-					pjt.setDamage(3);
+					pjt.setDamage(4);
 					gameCanvas.instantiate(pjt);
 				}
 			}
