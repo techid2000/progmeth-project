@@ -25,14 +25,14 @@ public class Mint extends Loot {
 	
 	@Override
 	public void pick(Player player) {
-		player.accessories.gainCash(this.type.getValue());
+		player.getAccessories().gainCash(this.type.getValue());
 		destroy();
 	}
 
 	@Override
 	public void start() { }
 	@Override
-	public void update(double deltaTime) { }
+	public void update() { }
 
 	//enum
 	public enum Type {

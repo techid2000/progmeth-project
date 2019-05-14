@@ -9,36 +9,33 @@ import javafx.scene.input.MouseButton;
 import object.weapon.projectile.Projectile;
 import utility.Utility;
 
-public class Pistol extends Gun {
-	public Pistol() {
-		setRenderSprite(ImageHolder.getInstance().pistol);
-		setMaxRound(10);
-		setMaxAmmo(10000);
+public class AssultRifle extends Gun {
+	
+	public AssultRifle() {
+		setRenderSprite(ImageHolder.getInstance().assultRifle);
+		setMaxRound(30);
+		setMaxAmmo(200);
 		setRound(getMaxRound());
 		setAmmo(getMaxAmmo());
 	}
-
+	
 	@Override
 	public void update(Point2D aimOrigin, Point2D aimDirection) {
-		// TODO Auto-generated method stub
-		if (getInterval() < 0.3) {
-			setInterval(getInterval() + SystemCache.getInstance().deltaTime);
-		}
-		if(getInterval() >= 0.3) {
+		setInterval(getInterval()+SystemCache.getInstance().deltaTime);
+		if(getInterval() >= 0.1) {
+			setInterval(0);
 			GameEvent gameEvent = SystemCache.getInstance().gameEvent;
-			if (gameEvent.getSingleMouseDown(MouseButton.PRIMARY)) {
-				setInterval(0);
-				if (getRound() == 0)
-					return;
+			if(gameEvent.getMouseHolding(MouseButton.PRIMARY)) {
+				if(getRound() == 0) return;
 				setRound(getRound() - 1);
 				GameCanvas gameCanvas = SystemCache.getInstance().gameCanvas;
 				Projectile pjt = new Projectile();
 				pjt.setPosition(aimOrigin);
-				double rand = (Math.random()-0.5) * 7;
+				double rand = (Math.random()-0.5) * 10;
 				pjt.setRotation(Utility.pointToRotate(Utility.rotatePoint2D(aimDirection,rand)));
 				pjt.setLifeTime(Integer.MAX_VALUE);
 				pjt.setSpeed(10);
-				pjt.setDamage(5);
+				pjt.setDamage(4);
 				gameCanvas.instantiate(pjt);
 			}
 		}
@@ -46,9 +43,9 @@ public class Pistol extends Gun {
 
 	@Override
 	public void reload() {
-		// TODO Auto-generated method stub
 		int tmp = getRound();
 		setRound(Math.min(getMaxRound(), getRound() + getAmmo()));
 		setAmmo(getAmmo() - (getRound() - tmp));
 	}
+
 }

@@ -14,6 +14,8 @@ public abstract class Gun extends Weapon implements IFireable, IReloadable {
 	protected int maxAmmo;
 	protected int ammoPrice;
 	
+	protected double interval;
+	
 	public Gun() { }
 	
 	public double getFireRate() {
@@ -59,7 +61,15 @@ public abstract class Gun extends Weapon implements IFireable, IReloadable {
 		this.ammoPrice = ammoPrice;
 	}
 	
+	public double getInterval() {
+		return interval;
+	}
+
+	public void setInterval(double interval) {
+		this.interval = interval;
+	}
+	
 	//not necessary
 	public void start() {}
-	public void update(double deltaTime) {}
+	public void update() {}
 }

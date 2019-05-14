@@ -6,6 +6,7 @@ public class GameObjectTag {
 	public static final long OVERLAY = 1;
 	public static final long BLOCK = 2;
 	public static final long LOOT = 4;
+	public static final long ENERMY = 8;
 	
 	private long tag;
 	

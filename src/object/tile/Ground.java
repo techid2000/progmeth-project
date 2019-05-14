@@ -28,5 +28,5 @@ public class Ground extends Tile {
 	@Override
 	public void start() {}
 	@Override
-	public void update(double deltaTime) {}
+	public void update() {}
 }

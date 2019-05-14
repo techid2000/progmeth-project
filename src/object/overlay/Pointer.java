@@ -17,7 +17,7 @@ public class Pointer extends Overlay {
 	}
 	
 	@Override
-	public void update(double deltaTime) {
+	public void update() {
 		GameEvent gameEvent = SystemCache.getInstance().gameEvent;
 		GameCanvas gameCanvas= SystemCache.getInstance().gameCanvas;
 		setPosition(gameCanvas.mouseToScaledPoint2D(gameEvent.getMousePosition()));

@@ -20,9 +20,7 @@ public class BreakableBlock extends Block implements IDestroyable {
 	}
 
 	@Override
-	public void update(double deltaTime) {
-		
-	}
+	public void update() {}
 
 	@Override
 	public void getDamage(int damage) {

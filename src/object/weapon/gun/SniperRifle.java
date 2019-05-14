@@ -9,22 +9,21 @@ import javafx.scene.input.MouseButton;
 import object.weapon.projectile.Projectile;
 import utility.Utility;
 
-public class Pistol extends Gun {
-	public Pistol() {
-		setRenderSprite(ImageHolder.getInstance().pistol);
-		setMaxRound(10);
-		setMaxAmmo(10000);
+public class SniperRifle extends Gun {
+	public SniperRifle() {
+		setRenderSprite(ImageHolder.getInstance().sniperRifle);
+		setMaxRound(7);
+		setMaxAmmo(50);
 		setRound(getMaxRound());
 		setAmmo(getMaxAmmo());
 	}
 
 	@Override
 	public void update(Point2D aimOrigin, Point2D aimDirection) {
-		// TODO Auto-generated method stub
-		if (getInterval() < 0.3) {
+		if (getInterval() < 0.7) {
 			setInterval(getInterval() + SystemCache.getInstance().deltaTime);
 		}
-		if(getInterval() >= 0.3) {
+		if(getInterval() >= 0.7) {
 			GameEvent gameEvent = SystemCache.getInstance().gameEvent;
 			if (gameEvent.getSingleMouseDown(MouseButton.PRIMARY)) {
 				setInterval(0);
@@ -34,11 +33,10 @@ public class Pistol extends Gun {
 				GameCanvas gameCanvas = SystemCache.getInstance().gameCanvas;
 				Projectile pjt = new Projectile();
 				pjt.setPosition(aimOrigin);
-				double rand = (Math.random()-0.5) * 7;
-				pjt.setRotation(Utility.pointToRotate(Utility.rotatePoint2D(aimDirection,rand)));
+				pjt.setRotation(Utility.pointToRotate(aimDirection));
 				pjt.setLifeTime(Integer.MAX_VALUE);
-				pjt.setSpeed(10);
-				pjt.setDamage(5);
+				pjt.setSpeed(20);
+				pjt.setDamage(15);
 				gameCanvas.instantiate(pjt);
 			}
 		}
@@ -46,7 +44,6 @@ public class Pistol extends Gun {
 
 	@Override
 	public void reload() {
-		// TODO Auto-generated method stub
 		int tmp = getRound();
 		setRound(Math.min(getMaxRound(), getRound() + getAmmo()));
 		setAmmo(getAmmo() - (getRound() - tmp));

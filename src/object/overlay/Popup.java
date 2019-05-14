@@ -55,7 +55,7 @@ public class Popup extends Overlay {
 		floatUp.play();
 	}
 	@Override
-	public void update(double deltaTime) { }
+	public void update() { }
 	@Override
 	public void renderOver(GameCanvas canvas) {
 		GraphicsContext gc = canvas.getGraphicsContext2D();

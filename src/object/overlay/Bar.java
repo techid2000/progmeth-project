@@ -29,7 +29,7 @@ public class Bar extends Overlay {
 	@Override
 	public void start() { }
 	@Override
-	public void update(double deltaTime) {
+	public void update() {
 		this.setPosition(gameObject.getPosition().subtract(new Point2D(0, offsetY)));
 	}
 	@Override
@@ -52,6 +52,8 @@ public class Bar extends Overlay {
 				gc.setFill(Color.YELLOW);
 			else
 				gc.setFill(Color.RED);
+		} else {
+			gc.setFill(type.getBarColor());
 		}
 		
 		canvas.getGraphicsContext2D().fillRect(pixeledTopLeft.getX(), pixeledTopLeft.getY(),
@@ -72,7 +74,7 @@ public class Bar extends Overlay {
 			case ENERMY_HEALTH:
 				return Color.RED;
 			}
-			return Color.BLACK;
+			return Color.AQUA;
 		}
 	}
 }

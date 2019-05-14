@@ -1,11 +1,13 @@
 package gui;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import animation.AnimationClip;
@@ -17,6 +19,7 @@ import javafx.animation.Transition;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
@@ -25,6 +28,7 @@ import object.GameObject;
 import object.block.BreakableBlock;
 import object.block.UnbreakableBlock;
 import object.entity.Player;
+import object.entity.Slime;
 import object.loot.Mint;
 import object.overlay.Bar;
 import object.overlay.Popup;
@@ -48,18 +52,22 @@ public class GameCanvas extends Canvas {
 	private GameObject pursueObject;
 	private Set<GameObject> gameObjects; //todo: categorize gameobjects by tag
 	private Queue<GameObject> instantiationQueue;
-	private Queue<GameObject> destroyQueue;
-	
-	public GameObject sample;
+
 	//animation
-	private double deltaTime;
 	private AnimationTimer gameLoop;
 	
 	//debug
 	private boolean debug;
 
 	public GameCanvas() {		
+		setup();
+		buildGame();
+		loop();
+	}
+
+	public void setup() {
 		SystemCache.getInstance().gameCanvas = this;
+		
 		this.gc = getGraphicsContext2D();
 		this.gameObjects = new TreeSet<GameObject>((GameObject a, GameObject b) -> {
 			if(a.getZOrder() == b.getZOrder()) 
@@ -67,17 +75,37 @@ public class GameCanvas extends Canvas {
 			return a.getZOrder() - b.getZOrder();
 		});
 		this.instantiationQueue = new LinkedList<GameObject>();
-		this.destroyQueue = new LinkedList<GameObject>();
+		
 		setWidth(MainApp.WINDOW_WIDTH);
 		setHeight(MainApp.WINDOW_HEIGHT);
-		setViewPosition(scaledPoint2D(getPixelScreenSize().multiply(0.5)));
+	}
+	
+	private void buildGame() {
 		setCellDimension(13, 13);
-		//wait for manage
-		Player slime = new Player();
-		slime.setPosition(new Point2D(7,7));
-//		slime.setScale(new Point2D(3,2));
+		setViewPosition(scaledPoint2D(getPixelScreenSize().multiply(0.5)));
+		
+		Player player = new Player();
+		instantiate(player);
+		setPursueObject(player);
+		
+		Slime slime = new Slime();
+		instantiate(slime);
+		slime.setPosition(new Point2D(10,6));
+		Slime slime2 = new Slime();
+		instantiate(slime2);
+		slime2.setPosition(new Point2D(10,6));
+		Slime slime3 = new Slime();
+		instantiate(slime3);
+		slime3.setPosition(new Point2D(10,6));
+		Slime slime4 = new Slime();
+		instantiate(slime4);
+		slime4.setPosition(new Point2D(10,6));
+		Slime slime5 = new Slime();
+		instantiate(slime5);
+		slime5.setPosition(new Point2D(10,6));
+
+		player.setPosition(new Point2D(7,7));
 		UnbreakableBlock block = new UnbreakableBlock();
-		block.getCollisionSystem().addBoxCollider(-0.5,-0.3,1,1);
 		block.setPosition(new Point2D(3,1));
 
 		BreakableBlock block2 = new BreakableBlock();
@@ -85,7 +113,6 @@ public class GameCanvas extends Canvas {
 		
 		BreakableBlock block3 = new BreakableBlock();
 		block3.setPosition(new Point2D(3,3));
-		sample = block3;
 		
 		Mint coins = new Mint(Mint.Type.COIN_PILE_1);
 		coins.setPosition(new Point2D(4,4));
@@ -104,7 +131,7 @@ public class GameCanvas extends Canvas {
 		coins5.setScale(new Point2D(0.8,0.8));
 		GameObject unknown = new GameObject() {
 			@Override
-			public void update(double deltaTime) {}
+			public void update() {}
 			@Override
 			public void start() {}
 		};
@@ -118,49 +145,50 @@ public class GameCanvas extends Canvas {
 		instantiate(block);
 		instantiate(block2);
 		instantiate(block3);
-		instantiate(slime);
 		instantiate(coins);
 		instantiate(coins2);
 		instantiate(coins3);
 		instantiate(coins4);
 		instantiate(coins5);
 		instantiate(new Pointer());
-		
-		setPursueObject(slime);
-		
+
+	}
+	
+	private void loop() {
 		gameLoop = new AnimationTimer() {
 			private double last = System.nanoTime();
 			public void handle(long now) {
+				//update deltatime
 				setDeltaTime((now - last) / 1e9);
-				//--------------------------------------------
-				//GAMEOBJECTS
+				//gameobjects management
 				clearScreen();
 				proceedOverGameObjects();
-				
-				//GAMECANVAS
+				//gamecanvas management
 				if(pursueObject != null) pursue();
 				if(SystemCache.getInstance().gameEvent.getSingleKeyUp(KeyCode.F8))
 					toggleDebug();
 				SystemCache.getInstance().gameEvent.clearSingleKeyBuffer();
-				//--------------------------------------------
+				//----------------------
 				last = now;
 			}
 		};
 		gameLoop.start();
 	}
-
+	
 	public void proceedOverGameObjects() {
 		//translate graphics context for drawing object depends on camera position
 		Point2D translatePos = pixeledPoint2D(getViewPosition()).subtract(getPixelScreenSize().multiply(0.5));
 		gc.translate(-translatePos.getX(), -translatePos.getY());	
 
 		//remove destroyed gameobject from set
-		for(GameObject gameObject : getGameObjects())
-			if(gameObject.isDestroyed())
-				destroyQueue.add(gameObject);
-		while(!destroyQueue.isEmpty())
-			getGameObjects().remove(destroyQueue.poll());
-		
+		Iterator<GameObject> iterator = getGameObjects().iterator();
+		while(iterator.hasNext()) {
+			GameObject gameObject = iterator.next();
+			if(gameObject.isDestroyed()) {
+				iterator.remove();
+			}
+		}
+
 		//instantiate objects in queue (for avoiding concurrent modification)
 		while(!this.instantiationQueue.isEmpty()) {
 			GameObject gameObject = this.instantiationQueue.poll();
@@ -173,7 +201,7 @@ public class GameCanvas extends Canvas {
 		for(GameObject gameObject : getGameObjects()) {
 			//reduce process of updating some gameobjects
 			if(!gameObject.isStatic())
-				gameObject.update(deltaTime);
+				gameObject.update();
 			gameObject.renderOver(this);
 		}
 		//(if) debug (draw hitbox/pivot)
@@ -235,11 +263,8 @@ public class GameCanvas extends Canvas {
 	public void setPursueObject(GameObject pursueObject) {
 		this.pursueObject = pursueObject;
 	}
-	public double getDeltaTime() {
-		return this.deltaTime;
-	}
 	private void setDeltaTime(double deltaTime) {
-		this.deltaTime = deltaTime;
+		SystemCache.getInstance().deltaTime = deltaTime;
 	}
 	public Set<GameObject> getGameObjects() {
 		return this.gameObjects;

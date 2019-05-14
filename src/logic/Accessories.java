@@ -2,9 +2,11 @@ package logic;
 
 import constants.SystemCache;
 import javafx.geometry.Point2D;
+import object.weapon.gun.AssultRifle;
 import object.weapon.gun.Gun;
 import object.weapon.gun.Pistol;
 import object.weapon.gun.Shotgun;
+import object.weapon.gun.SniperRifle;
 
 public class Accessories {
 	public int cash;
@@ -16,7 +18,7 @@ public class Accessories {
 	
 	public Accessories() {
 		gunA = new Pistol();
-		gunB = new Shotgun();
+		gunB = new AssultRifle();
 		currentGun = gunA;
 	}
 	
@@ -34,8 +36,8 @@ public class Accessories {
 		SystemCache.getInstance().accessoriesUI.updateInfo(this);
 	}
 	
-	public void fireCurrentGun(Point2D aimOrigin, Point2D aimDirection) {
-		this.currentGun.fire(aimOrigin, aimDirection);
+	public void updateCurrentGun(Point2D aimOrigin, Point2D aimDirection) {
+		this.currentGun.update(aimOrigin, aimDirection);
 		SystemCache.getInstance().accessoriesUI.updateInfo(this);
 	}
 	

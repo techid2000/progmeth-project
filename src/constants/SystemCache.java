@@ -17,4 +17,5 @@ public class SystemCache {
 	public GameCanvas gameCanvas;
 	public GameUI gameUI;
 	public AccessoriesUI accessoriesUI;
+	public double deltaTime;
 }
