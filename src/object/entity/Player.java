@@ -43,6 +43,7 @@ public class Player extends Entity {
 	private List<AnimationClip> clips;
 	
 	double regenInterval;
+	Thread regenThread;
 	
 	public Player() {
 		getTag().addTag(GameObjectTag.PLAYER);
@@ -100,6 +101,8 @@ public class Player extends Entity {
 		
 		clips = clipsPistol;
 		setAnimationClip(clips.get(0));
+		
+
 	}
 	
 	public void playerControl() {
@@ -126,7 +129,7 @@ public class Player extends Entity {
 		}
 		setAnimationClip(clips.get(index));
 
-		//animation controll (walking-standing)
+		//animation control (walking-standing)
 		if(fraction.magnitude() == 0) {
 			if(getAnimationClip().getFrameIndex() == 0)
 				getAnimationClip().pause();
@@ -139,14 +142,32 @@ public class Player extends Entity {
 			Point2D centre = getPosition().subtract(new Point2D(0, 0.5));
 			Point2D bdir = gameCanvas.mouseToScaledPoint2D(gameEvent.getMousePosition()).subtract(centre);
 			this.accessories.updateCurrentGun(centre, bdir.normalize());
-//		}
-		regenInterval += SystemCache.getInstance().deltaTime;
-		if(regenInterval >= 3) {
-			doHeal(1);
+		if(gameEvent.getMouseHolding(MouseButton.PRIMARY)) {
+			if(regenThread.isAlive())
+				regenThread.interrupt();
 		}
-		if(gameEvent.getSingleMouseUp(MouseButton.PRIMARY)) {
-			regenInterval = 0;
+		if(regenThread == null || !regenThread.isAlive()) {
+			regenThread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					try {
+						Thread.sleep(3000);
+						while(true) {
+							Thread.sleep(1000);
+							if(Player.this.getHealth().get() == Player.this.getMaxHealth().get()) {
+								return;
+							}
+							Player.this.doHeal(5);
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+				}
+			});
+			regenThread.start();
 		}
+
 		if(gameEvent.getScrollChanged()) {
 			this.accessories.swapGun();
 			Gun curGun = this.accessories.getCurrentGun();
@@ -204,4 +225,9 @@ public class Player extends Entity {
 		return accessories;
 	}
 
+	public void getDamage(int damage) {
+		super.getDamage(damage);
+		if(regenThread.isAlive())
+			regenThread.interrupt();
+	}
 }

@@ -81,7 +81,7 @@ public class GameEvent {
 				GameEvent.this.bufferedSingleKeyUp.put(event.getCode(), true);
 				
 				if(event.getCode() == KeyCode.B) {
-					SystemCache.getInstance().shopUI.setVisible(!SystemCache.getInstance().shopUI.isVisible());
+					SystemCache.getInstance().shopUI.toggle();
 				}
 			}
 		});

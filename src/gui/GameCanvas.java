@@ -10,6 +10,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import com.sun.org.apache.bcel.internal.generic.LASTORE;
+
 import animation.AnimationClip;
 import app.MainApp;
 import constants.ImageHolder;
@@ -17,6 +19,7 @@ import constants.SystemCache;
 import javafx.animation.AnimationTimer;
 import javafx.animation.Transition;
 import javafx.geometry.Point2D;
+import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -55,7 +58,8 @@ public class GameCanvas extends Canvas {
 
 	// animation
 	private AnimationTimer gameLoop;
-
+	private double lastNanoTime = System.nanoTime();
+	
 	// debug
 	private boolean debug;
 
@@ -89,14 +93,14 @@ public class GameCanvas extends Canvas {
 		setPursueObject(player);
 
 		Slime slime = new Slime();
-		slime.setPosition(new Point2D(5, 6));
+		slime.setPosition(new Point2D(5, 8));
 		instantiate(slime);
 		Slime slime2 = new Slime();
 		instantiate(slime2);
-		slime2.setPosition(new Point2D(5,6));
+		slime2.setPosition(new Point2D(5,8));
 		Slime slime3 = new Slime();
 		instantiate(slime3);
-		slime3.setPosition(new Point2D(5,6));
+		slime3.setPosition(new Point2D(5,8));
 //		Slime slime4 = new Slime();
 //		instantiate(slime4);
 //		slime4.setPosition(new Point2D(5,6));
@@ -177,11 +181,9 @@ public class GameCanvas extends Canvas {
 
 	private void loop() {
 		gameLoop = new AnimationTimer() {
-			private double last = System.nanoTime();
-
-			public void handle(long now) {
+			public void handle(long nowNanoTime) {
 				// update deltatime
-				setDeltaTime((now - last) / 1e9);
+				setDeltaTime((nowNanoTime - lastNanoTime) / 1e9);
 				// gameobjects management
 				clearScreen();
 				proceedOverGameObjects();
@@ -192,7 +194,7 @@ public class GameCanvas extends Canvas {
 					toggleDebug();
 				SystemCache.getInstance().gameEvent.clearSingleKeyBuffer();
 				// ----------------------
-				last = now;
+				lastNanoTime = nowNanoTime;
 			}
 		};
 		gameLoop.start();
@@ -317,5 +319,16 @@ public class GameCanvas extends Canvas {
 
 	public int getCellHeight() {
 		return this.cellsHeight;
+	}
+	
+	public void pause() {
+		gameLoop.stop();
+		setCursor(Cursor.DEFAULT);
+	}
+	
+	public void resume() {
+		gameLoop.start();
+		lastNanoTime = System.nanoTime();
+		setCursor(Cursor.NONE);
 	}
 }

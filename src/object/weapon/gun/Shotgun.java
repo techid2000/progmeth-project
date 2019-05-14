@@ -22,10 +22,10 @@ public class Shotgun extends Gun {
 	@Override
 	public void update(Point2D aimOrigin, Point2D aimDirection) {
 		// TODO Auto-generated method stub
-		if (getInterval() < 0.7) {
+		if (getInterval() < 0.5) {
 			setInterval(getInterval() + SystemCache.getInstance().deltaTime);
 		}
-		if (getInterval() >= 0.7) {
+		if (getInterval() >= 0.5) {
 			GameEvent gameEvent = SystemCache.getInstance().gameEvent;
 			if (gameEvent.getSingleMouseDown(MouseButton.PRIMARY)) {
 				setInterval(0);
@@ -33,11 +33,11 @@ public class Shotgun extends Gun {
 					return;
 				setRound(getRound() - 1);
 				GameCanvas gameCanvas = SystemCache.getInstance().gameCanvas;
-				for (int i = -10; i <= 10; i += 3) {
+				for (int i = -9; i <= 9; i += 3) {
 					Projectile pjt = new Projectile();
 					pjt.setPosition(aimOrigin);
 					pjt.setRotation(Utility.pointToRotate(Utility.rotatePoint2D(aimDirection, i)));
-					pjt.setLifeTime(0.3);
+					pjt.setLifeTime(0.5);
 					pjt.setSpeed(8);
 					pjt.setDamage(4);
 					gameCanvas.instantiate(pjt);
