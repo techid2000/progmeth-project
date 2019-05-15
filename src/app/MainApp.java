@@ -13,7 +13,7 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		sceneHolder = new SceneHolder(primaryStage);
 		sceneHolder.initialize();
-		primaryStage.setTitle("pre-alpha 0.3");
+		primaryStage.setTitle("pre-alpha 0.4");
 		primaryStage.show();
 	}
 	

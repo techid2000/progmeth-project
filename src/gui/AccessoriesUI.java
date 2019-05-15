@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import logic.Accessories;
 import object.weapon.gun.Gun;
+import object.weapon.gun.Pistol;
 
 public class AccessoriesUI extends HBox {
 	public GunsBox gunsBox;
@@ -48,7 +49,11 @@ class GunsBox extends VBox {
 		ammoLabel.setOpacity(0.5);
 		HBox labelBox = new HBox(roundLabel,ammoLabel);
 		labelBox.setAlignment(Pos.CENTER);
-		getChildren().addAll(notCurrentGunImage, currentGunImage, labelBox);
+		Label BToShop = new Label("[B] Shop");
+		BToShop.setFont(FontHolder.getInstance().font18);
+		BToShop.setTextFill(Color.WHITE);
+		BToShop.setOpacity(0.5);
+		getChildren().addAll(BToShop, notCurrentGunImage, currentGunImage, labelBox);
 		setAlignment(Pos.CENTER_RIGHT);
 	}
 	
@@ -57,6 +62,6 @@ class GunsBox extends VBox {
 		if(notCurrent != null) 
 			notCurrentGunImage.setImage(notCurrent.getRenderSprite());
 		roundLabel.setText(String.format("%d",current.getRound()));
-		ammoLabel.setText(String.format("/%d", current.getAmmo()));
+		ammoLabel.setText(String.format("/%s", (current instanceof Pistol) ? "Unlimit" : current.getAmmo()));
 	}
 }

@@ -17,10 +17,12 @@ public class Shotgun extends Gun {
 		setMaxAmmo(20);
 		setRound(getMaxRound());
 		setAmmo(getMaxAmmo());
+		setPrice(400);
+		setAmmoPrice(50);
 	}
 
 	@Override
-	public void update(Point2D aimOrigin, Point2D aimDirection) {
+	public void gunFireListener(Point2D aimOrigin, Point2D aimDirection) {
 		// TODO Auto-generated method stub
 		if (getInterval() < 0.5) {
 			setInterval(getInterval() + SystemCache.getInstance().deltaTime);

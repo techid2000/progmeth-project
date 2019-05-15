@@ -4,6 +4,8 @@ import app.MainApp;
 import constants.FontHolder;
 import constants.ImageHolder;
 import constants.SystemCache;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,6 +16,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 public class GameUI extends BorderPane{
 	private Label scoreLabel;
@@ -57,5 +60,17 @@ public class GameUI extends BorderPane{
 	
 	public void setCash(int cash) {
 		cashLabel.setText(String.format("%d", cash));
+	}
+	
+	public void notEnoughMoneyAlert() {
+		Timeline redTextAlert = new Timeline(
+			new KeyFrame(new Duration(100), e -> cashLabel.setTextFill(Color.RED)),
+			new KeyFrame(new Duration(200), e -> cashLabel.setTextFill(Color.WHITE)),
+			new KeyFrame(new Duration(300), e -> cashLabel.setTextFill(Color.RED)),
+			new KeyFrame(new Duration(400), e -> cashLabel.setTextFill(Color.WHITE)),
+			new KeyFrame(new Duration(500), e -> cashLabel.setTextFill(Color.RED)),
+			new KeyFrame(new Duration(600), e -> cashLabel.setTextFill(Color.WHITE))
+		);
+		redTextAlert.play();
 	}
 }

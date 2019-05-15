@@ -53,7 +53,7 @@ public class GameCanvas extends Canvas {
 
 	// gameobjects
 	private GameObject pursueObject;
-	private Set<GameObject> gameObjects; // todo: categorize gameobjects by tag
+	private List<GameObject> gameObjects; // todo: categorize gameobjects by tag
 	private Queue<GameObject> instantiationQueue;
 
 	// animation
@@ -73,11 +73,8 @@ public class GameCanvas extends Canvas {
 		SystemCache.getInstance().gameCanvas = this;
 
 		this.gc = getGraphicsContext2D();
-		this.gameObjects = new TreeSet<GameObject>((GameObject a, GameObject b) -> {
-			if (a.getZOrder() == b.getZOrder())
-				return a.hashCode() - b.hashCode();
-			return a.getZOrder() - b.getZOrder();
-		});
+		this.gameObjects = new ArrayList<GameObject>();
+		
 		this.instantiationQueue = new LinkedList<GameObject>();
 
 		setWidth(MainApp.WINDOW_WIDTH);
@@ -221,6 +218,17 @@ public class GameCanvas extends Canvas {
 			if (!gameObject.isStatic())
 				gameObject.start();
 		}
+		
+		// sort array list of gameobjects by z-order, y-position
+		getGameObjects().sort((GameObject a, GameObject b) -> {
+			if (a.getZOrder() == b.getZOrder()) {
+				if(a.getPosition().getY() == b.getPosition().getY()) {
+					return a.hashCode() - b.hashCode();
+				}
+				return a.getPosition().getY() < b.getPosition().getY() ? -1 : 1;
+			}
+			return a.getZOrder() - b.getZOrder();
+		});
 
 		// iterate over gameobject and render
 		for (GameObject gameObject : getGameObjects()) {
@@ -232,10 +240,7 @@ public class GameCanvas extends Canvas {
 		// (if) debug (draw hitbox/pivot)
 		if (this.debug) {
 			for (GameObject gameObject : getGameObjects()) {
-				gameObject.getCollisionSystem().renderOver(this);
-			}
-			for (GameObject gameObject : getGameObjects()) {
-				gameObject.renderPivot(this);
+				gameObject.renderDebug(this);
 			}
 		}
 
@@ -304,7 +309,7 @@ public class GameCanvas extends Canvas {
 		SystemCache.getInstance().deltaTime = deltaTime;
 	}
 
-	public Set<GameObject> getGameObjects() {
+	public List<GameObject> getGameObjects() {
 		return this.gameObjects;
 	}
 

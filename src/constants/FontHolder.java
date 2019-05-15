@@ -9,12 +9,16 @@ public class FontHolder {
 	private static final FontHolder instance = new FontHolder();
 	public static FontHolder getInstance () { return instance; }
 	
+	public Font font18;
+	public Font font64;
 	public Font font36;
 	public Font font28;
 	
 	public FontHolder() {
+		font18 = loadFont("upheavtt", TTF, 18);
 		font36 = loadFont("upheavtt", TTF, 36);
 		font28 = loadFont("upheavtt", TTF, 28);
+		font64 = loadFont("upheavtt", TTF, 64);
 	}
 	
 	public Font loadFont(String name, String fontType, double size) {

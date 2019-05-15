@@ -26,6 +26,11 @@ public class ImageHolder {
 	public Image pistol;
 	public Image assultRifle;
 	public Image sniperRifle;
+	public Image shopMenu;
+	public Image gunSlot;
+	public Image gunSlotHighlight;
+	public Image gunSlotPressed;
+	public Image coinWithBullet;
 	
 	public List<Image> singleCoin;
 
@@ -82,6 +87,12 @@ public class ImageHolder {
 		pistol = loadImage("weapon/Gun/pistol", PNG);
 		assultRifle = loadImage("weapon/Gun/assultRifle",PNG);
 		sniperRifle = loadImage("weapon/Gun/sniperRifle", PNG);
+		
+		shopMenu = loadImage("gui/shop/shopmenu",PNG);
+		gunSlot = loadImage("gui/shop/gunslot",PNG);
+		gunSlotHighlight = loadImage("gui/shop/gunslot_highlight",PNG);
+		gunSlotPressed = loadImage("gui/shop/gunslot_pressed",PNG);
+		coinWithBullet = loadImage("gui/shop/coinwithbullet",PNG);
 		
 		playerRunUpPistol = loadImageList("player/run_up_pistol/run",PNG,6);
 		playerRunDownPistol = loadImageList("player/run_down_pistol/run",PNG,6);

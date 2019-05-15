@@ -16,10 +16,12 @@ public class SniperRifle extends Gun {
 		setMaxAmmo(50);
 		setRound(getMaxRound());
 		setAmmo(getMaxAmmo());
+		setPrice(1200);
+		setAmmoPrice(100);
 	}
 
 	@Override
-	public void update(Point2D aimOrigin, Point2D aimDirection) {
+	public void gunFireListener(Point2D aimOrigin, Point2D aimDirection) {
 		if (getInterval() < 0.7) {
 			setInterval(getInterval() + SystemCache.getInstance().deltaTime);
 		}

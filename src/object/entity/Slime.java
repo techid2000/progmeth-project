@@ -24,7 +24,7 @@ public class Slime extends Enermy {
 
 		setMoveSpeed(0.5+Math.random()*1);
 		setPivot(new Point2D(0.5, 1));
-		setZOrder(1);
+		setZOrder(0);
 		getCollisionSystem().setDefaultAvailable(false);
 		getCollisionSystem().addBoxCollider(-0.35, -0.75, 0.7, 0.75);
 
@@ -46,6 +46,7 @@ public class Slime extends Enermy {
 			if(chance > 0.1) {				
 				loot = new Mint(Type.SINGLE_COIN);
 				loot.setPivot(new Point2D(0.25, 0.25));
+				loot.setScale(new Point2D(0.8, 0.8));
 			} else {
 				loot = new Mint(Type.COIN_PILE_0);
 				loot.setScale(new Point2D(0.8, 0.8));

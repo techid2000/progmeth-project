@@ -17,10 +17,12 @@ public class AssultRifle extends Gun {
 		setMaxAmmo(200);
 		setRound(getMaxRound());
 		setAmmo(getMaxAmmo());
+		setPrice(800);
+		setAmmoPrice(70);
 	}
 	
 	@Override
-	public void update(Point2D aimOrigin, Point2D aimDirection) {
+	public void gunFireListener(Point2D aimOrigin, Point2D aimDirection) {
 		setInterval(getInterval()+SystemCache.getInstance().deltaTime);
 		if(getInterval() >= 0.1) {
 			setInterval(0);

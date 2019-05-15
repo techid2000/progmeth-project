@@ -13,13 +13,13 @@ public class Pistol extends Gun {
 	public Pistol() {
 		setRenderSprite(ImageHolder.getInstance().pistol);
 		setMaxRound(10);
-		setMaxAmmo(10000);
+		setMaxAmmo(0x3f3f3f3f);
 		setRound(getMaxRound());
 		setAmmo(getMaxAmmo());
 	}
 
 	@Override
-	public void update(Point2D aimOrigin, Point2D aimDirection) {
+	public void gunFireListener(Point2D aimOrigin, Point2D aimDirection) {
 		// TODO Auto-generated method stub
 		if (getInterval() < 0.3) {
 			setInterval(getInterval() + SystemCache.getInstance().deltaTime);

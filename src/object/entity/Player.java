@@ -12,6 +12,7 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import logic.BoxCollider;
 import logic.GameObjectTag;
@@ -57,7 +58,7 @@ public class Player extends Entity {
 		setMoveSpeed(2);
 		setPivot(new Point2D(0.5,1));
 		getCollisionSystem().addBoxCollider(-0.25, -0.5, 0.5, 0.5);
-		setZOrder(1);
+		setZOrder(0);
 		
 		clipsPistol = new ArrayList<AnimationClip>();
 		clipsPistol.add(new AnimationClip(ImageHolder.getInstance().playerRunRightPistol, 500));
@@ -183,6 +184,9 @@ public class Player extends Entity {
 		}
 		if(gameEvent.getSingleKeyUp(KeyCode.R)) {
 			this.accessories.reloadCurrentGun();
+		}
+		if(gameEvent.getSingleKeyUp(KeyCode.C)) {
+			this.accessories.gainCash(1000);
 		}
 	}
 	
