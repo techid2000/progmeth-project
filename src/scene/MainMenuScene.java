@@ -1,13 +1,12 @@
 package scene;
 
+import gui.MainMenuGUI;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
 public class MainMenuScene extends Scene {
-
-	private Group group;
 	
 	private MainMenuScene(Parent root) {
 		super(root);
@@ -15,6 +14,6 @@ public class MainMenuScene extends Scene {
 	}
 	public MainMenuScene() {
 		this(new Group());
-		setRoot(group = new Group());
+		setRoot(new MainMenuGUI());
 	}
 }
