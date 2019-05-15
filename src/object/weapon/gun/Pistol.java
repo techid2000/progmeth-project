@@ -1,6 +1,7 @@
 package object.weapon.gun;
 
 import constants.ImageHolder;
+import constants.SoundHolder;
 import constants.SystemCache;
 import event.GameEvent;
 import gui.GameCanvas;
@@ -28,8 +29,10 @@ public class Pistol extends Gun {
 			GameEvent gameEvent = SystemCache.getInstance().gameEvent;
 			if (gameEvent.getSingleMouseDown(MouseButton.PRIMARY)) {
 				setInterval(0);
-				if (getRound() == 0)
+				if (getRound() == 0) {
+					SoundHolder.getInstance().empty.play();
 					return;
+				}
 				setRound(getRound() - 1);
 				GameCanvas gameCanvas = SystemCache.getInstance().gameCanvas;
 				Projectile pjt = new Projectile();
@@ -40,6 +43,8 @@ public class Pistol extends Gun {
 				pjt.setSpeed(10);
 				pjt.setDamage(5);
 				gameCanvas.instantiate(pjt);
+				
+				SoundHolder.getInstance().pistol.play();
 			}
 		}
 	}

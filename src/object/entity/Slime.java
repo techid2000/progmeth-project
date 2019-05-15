@@ -1,16 +1,20 @@
 package object.entity;
 
+import java.util.Iterator;
 import java.util.List;
 
 import animation.AnimationClip;
 import constants.ImageHolder;
 import constants.SystemCache;
+import gui.GameCanvas;
 import javafx.geometry.Point2D;
+import javafx.util.Pair;
 import logic.BoxCollider;
 import logic.GameObjectTag;
 import object.GameObject;
 import object.loot.Mint;
 import object.loot.Mint.Type;
+import utility.Utility;
 
 public class Slime extends Enermy {
 	// resources
@@ -36,6 +40,12 @@ public class Slime extends Enermy {
 	double movementInterval = 0;
 	double doDamageInterval = 0;
 	double angle = 0;
+	
+	double pathfindingTimer = 0;
+	List<Pair<Integer,Integer>> list;
+	Iterator<Pair<Integer,Integer>> iter;
+	Point2D now;
+	
 	@Override
 	public void update() {
 		if (getHealth().get() <= 0) {
@@ -55,14 +65,39 @@ public class Slime extends Enermy {
 			loot.setPosition(getPosition());
 			SystemCache.getInstance().gameCanvas.instantiate(loot);
 		}
-		movementInterval += SystemCache.getInstance().deltaTime;
-		if (movementInterval >= 1) {
-			movementInterval = 0;
-			angle = Math.random() * 360;
+		
+		Point2D scaledPosition = getPosition();
+		Pair<Integer,Integer> source = new Pair<Integer,Integer>((int)scaledPosition.getX(), (int)scaledPosition.getY());
+		scaledPosition = SystemCache.getInstance().player.getPosition();
+		Pair<Integer,Integer> target = new Pair<Integer,Integer>((int)scaledPosition.getX(), (int)scaledPosition.getY());
+		if(pathfindingTimer <= 0) {
+			pathfindingTimer = 1 + Math.random()*1;
+			list = Utility.Pathfinding(SystemCache.getInstance().gameCanvas.getObstacleMap()
+					, source, target);
+			iter = list.iterator();
+			if(iter.hasNext()) {
+				Pair<Integer,Integer> tmp = iter.next();
+				now = new Point2D(tmp.getKey(), tmp.getValue());
+			}
 		}
+		if(Math.floor(getPosition().getX()) == now.getX() && Math.floor(getPosition().getY()) == now.getY()) {
+			if(iter.hasNext()) {
+				Pair<Integer,Integer> tmp = iter.next();
+				now = new Point2D(tmp.getKey(), tmp.getValue());
+			}
+		}
+		if(now != null) {
+			setPosition(Utility.moveTowardsPoint2D(getPosition(), now.add(new Point2D(0.5,0.5)), getMoveSpeed()*SystemCache.getInstance().deltaTime));
+		}
+		pathfindingTimer -= SystemCache.getInstance().deltaTime;
+//		movementInterval += SystemCache.getInstance().deltaTime;
+//		if (movementInterval >= 1) {
+//			movementInterval = 0;
+//			angle = Math.random() * 360;
+//		}
 		Player p = SystemCache.getInstance().player;
-		Point2D direction = p.getPosition().subtract(getPosition()).normalize().multiply(getMoveSpeed() * SystemCache.getInstance().deltaTime);
-		setPosition(getPosition().add(direction));
+//		Point2D direction = p.getPosition().subtract(getPosition()).normalize().multiply(getMoveSpeed() * SystemCache.getInstance().deltaTime);
+//		setPosition(getPosition().add(direction));
 		BoxCollider mine = getCollisionSystem().getCollider(0);
 		List<BoxCollider> list;
 		doDamageInterval += SystemCache.getInstance().deltaTime;

@@ -1,6 +1,7 @@
 package object.weapon.gun;
 
 import constants.ImageHolder;
+import constants.SoundHolder;
 import constants.SystemCache;
 import event.GameEvent;
 import gui.GameCanvas;
@@ -28,7 +29,10 @@ public class AssultRifle extends Gun {
 			setInterval(0);
 			GameEvent gameEvent = SystemCache.getInstance().gameEvent;
 			if(gameEvent.getMouseHolding(MouseButton.PRIMARY)) {
-				if(getRound() == 0) return;
+				if(getRound() == 0) {
+					SoundHolder.getInstance().empty.play();
+					return;
+				}
 				setRound(getRound() - 1);
 				GameCanvas gameCanvas = SystemCache.getInstance().gameCanvas;
 				Projectile pjt = new Projectile();
@@ -39,6 +43,7 @@ public class AssultRifle extends Gun {
 				pjt.setSpeed(10);
 				pjt.setDamage(4);
 				gameCanvas.instantiate(pjt);
+				SoundHolder.getInstance().assultrifle.play();
 			}
 		}
 	}
