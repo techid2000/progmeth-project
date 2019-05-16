@@ -1,6 +1,7 @@
 package object.weapon.gun;
 
 import constants.ImageHolder;
+import constants.SoundHolder;
 import constants.SystemCache;
 import event.GameEvent;
 import gui.GameCanvas;
@@ -13,13 +14,13 @@ public class Pistol extends Gun {
 	public Pistol() {
 		setRenderSprite(ImageHolder.getInstance().pistol);
 		setMaxRound(10);
-		setMaxAmmo(10000);
+		setMaxAmmo(0x3f3f3f3f);
 		setRound(getMaxRound());
 		setAmmo(getMaxAmmo());
 	}
 
 	@Override
-	public void update(Point2D aimOrigin, Point2D aimDirection) {
+	public void gunFireListener(Point2D aimOrigin, Point2D aimDirection) {
 		// TODO Auto-generated method stub
 		if (getInterval() < 0.3) {
 			setInterval(getInterval() + SystemCache.getInstance().deltaTime);
@@ -28,8 +29,10 @@ public class Pistol extends Gun {
 			GameEvent gameEvent = SystemCache.getInstance().gameEvent;
 			if (gameEvent.getSingleMouseDown(MouseButton.PRIMARY)) {
 				setInterval(0);
-				if (getRound() == 0)
+				if (getRound() == 0) {
+					SoundHolder.getInstance().empty.play();
 					return;
+				}
 				setRound(getRound() - 1);
 				GameCanvas gameCanvas = SystemCache.getInstance().gameCanvas;
 				Projectile pjt = new Projectile();
@@ -40,6 +43,8 @@ public class Pistol extends Gun {
 				pjt.setSpeed(10);
 				pjt.setDamage(5);
 				gameCanvas.instantiate(pjt);
+				
+				SoundHolder.getInstance().pistol.play();
 			}
 		}
 	}

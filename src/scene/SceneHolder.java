@@ -15,7 +15,7 @@ public class SceneHolder {
 	}
 	
 	public void initialize() {
-		this.mainMenuScene = new MainMenuScene();
+//		this.mainMenuScene = new MainMenuScene();
 		this.gameScene = new GameScene();
 		switchScene(gameScene);
 	}

@@ -17,6 +17,8 @@ import app.MainApp;
 import constants.ImageHolder;
 import constants.SystemCache;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.Transition;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
@@ -26,8 +28,11 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+import javafx.util.Pair;
 import logic.GameObjectTag;
+import logic.WaveSystem;
 import object.GameObject;
+import object.block.Block;
 import object.block.BreakableBlock;
 import object.block.UnbreakableBlock;
 import object.entity.Player;
@@ -53,9 +58,10 @@ public class GameCanvas extends Canvas {
 
 	// gameobjects
 	private GameObject pursueObject;
-	private Set<GameObject> gameObjects; // todo: categorize gameobjects by tag
+	private List<GameObject> gameObjects; // todo: categorize gameobjects by tag
 	private Queue<GameObject> instantiationQueue;
-
+	public WaveSystem waveSystem;
+	
 	// animation
 	private AnimationTimer gameLoop;
 	private double lastNanoTime = System.nanoTime();
@@ -67,19 +73,19 @@ public class GameCanvas extends Canvas {
 		setup();
 		buildGame();
 		loop();
+		wave();
 	}
 
 	public void setup() {
 		SystemCache.getInstance().gameCanvas = this;
 
 		this.gc = getGraphicsContext2D();
-		this.gameObjects = new TreeSet<GameObject>((GameObject a, GameObject b) -> {
-			if (a.getZOrder() == b.getZOrder())
-				return a.hashCode() - b.hashCode();
-			return a.getZOrder() - b.getZOrder();
-		});
+		this.gameObjects = new ArrayList<GameObject>();
+		
 		this.instantiationQueue = new LinkedList<GameObject>();
 
+		this.waveSystem = new WaveSystem();
+		
 		setWidth(MainApp.WINDOW_WIDTH);
 		setHeight(MainApp.WINDOW_HEIGHT);
 	}
@@ -91,23 +97,7 @@ public class GameCanvas extends Canvas {
 		Player player = new Player();
 		instantiate(player);
 		setPursueObject(player);
-
-		Slime slime = new Slime();
-		slime.setPosition(new Point2D(5, 8));
-		instantiate(slime);
-		Slime slime2 = new Slime();
-		instantiate(slime2);
-		slime2.setPosition(new Point2D(5,8));
-		Slime slime3 = new Slime();
-		instantiate(slime3);
-		slime3.setPosition(new Point2D(5,8));
-//		Slime slime4 = new Slime();
-//		instantiate(slime4);
-//		slime4.setPosition(new Point2D(5,6));
-//		Slime slime5 = new Slime();
-//		instantiate(slime5);
-//		slime5.setPosition(new Point2D(5,6));
-
+		
 		player.setPosition(new Point2D(7, 7));
 
 		// border
@@ -130,37 +120,43 @@ public class GameCanvas extends Canvas {
 			bottomBlock.setPosition(new Point2D(getCellWidth()-1,j));
 			instantiate(bottomBlock);
 		}
-
-		BreakableBlock block2 = new BreakableBlock();
-		block2.setPosition(new Point2D(2, 1));
-
-		BreakableBlock block3 = new BreakableBlock();
-		block3.setPosition(new Point2D(3, 3));
-
-		Mint coins = new Mint(Mint.Type.COIN_PILE_1);
-		coins.setPosition(new Point2D(4, 4));
-		Mint coins2 = new Mint(Mint.Type.SINGLE_COIN);
-		coins2.setPosition(new Point2D(4.5, 5));
-		Mint coins3 = new Mint(Mint.Type.COIN_PILE_0);
-		coins3.setPosition(new Point2D(5.5, 5));
-		Mint coins4 = new Mint(Mint.Type.SINGLE_COIN);
-		coins4.setPosition(new Point2D(6, 4));
-		Mint coins5 = new Mint(Mint.Type.SINGLE_COIN);
-		coins5.setPosition(new Point2D(7, 5));
-		coins.setScale(new Point2D(0.8, 0.8));
-		coins2.setScale(new Point2D(0.8, 0.8));
-		coins3.setScale(new Point2D(0.8, 0.8));
-		coins4.setScale(new Point2D(0.8, 0.8));
-		coins5.setScale(new Point2D(0.8, 0.8));
-		GameObject unknown = new GameObject() {
-			@Override
-			public void update() {
+		for(int i=1; i<=2; i++) {
+			BreakableBlock block = new BreakableBlock();
+			block.setPosition(new Point2D(i, 3));
+			instantiate(block);
+		}
+		for(int i=3; i<=4; i++) {
+			for(int j=3; j<=4; j++) {
+				BreakableBlock block = new BreakableBlock();
+				block.setPosition(new Point2D(j, i));
+				instantiate(block);
 			}
-
-			@Override
-			public void start() {
+		}
+		
+		for(int i=3; i<=4; i++) {
+			for(int j=10; j<=11; j++) {
+				BreakableBlock block = new BreakableBlock();
+				block.setPosition(new Point2D(j, i));
+				instantiate(block);
 			}
-		};
+		}
+
+		for(int i=8; i<=9; i++) {
+			for(int j=3; j<=4; j++) {
+				BreakableBlock block = new BreakableBlock();
+				block.setPosition(new Point2D(j, i));
+				instantiate(block);
+			}
+		}
+		
+		for(int i=8; i<=9; i++) {
+			for(int j=10; j<=11; j++) {
+				BreakableBlock block = new BreakableBlock();
+				block.setPosition(new Point2D(j, i));
+				instantiate(block);
+			}
+		}
+		
 		for (int i = 0; i < getCellWidth(); i++) {
 			for (int j = 0; j < getCellHeight(); j++) {
 				Ground ground = new Ground(Ground.Style.GROUND);
@@ -168,15 +164,7 @@ public class GameCanvas extends Canvas {
 				instantiate(ground);
 			}
 		}
-		instantiate(block2);
-		instantiate(block3);
-		instantiate(coins);
-		instantiate(coins2);
-		instantiate(coins3);
-		instantiate(coins4);
-		instantiate(coins5);
 		instantiate(new Pointer());
-
 	}
 
 	private void loop() {
@@ -187,6 +175,11 @@ public class GameCanvas extends Canvas {
 				// gameobjects management
 				clearScreen();
 				proceedOverGameObjects();
+				
+				if(SystemCache.getInstance().gameEvent.getSingleKeyDown(KeyCode.DIGIT4)) {
+					waveSystem.nextWave();
+				}
+				
 				// gamecanvas management
 				if (pursueObject != null)
 					pursue();
@@ -200,6 +193,10 @@ public class GameCanvas extends Canvas {
 		gameLoop.start();
 	}
 
+	public void wave() {
+		new Timeline(new KeyFrame(new Duration(3000), (e) -> waveSystem.nextWave())).play();
+	}
+	
 	public void proceedOverGameObjects() {
 		// translate graphics context for drawing object depends on camera position
 		Point2D translatePos = pixeledPoint2D(getViewPosition()).subtract(getPixelScreenSize().multiply(0.5));
@@ -221,6 +218,17 @@ public class GameCanvas extends Canvas {
 			if (!gameObject.isStatic())
 				gameObject.start();
 		}
+		
+		// sort array list of gameobjects by z-order, y-position
+		getGameObjects().sort((GameObject a, GameObject b) -> {
+			if (a.getZOrder() == b.getZOrder()) {
+				if(a.getPosition().getY() == b.getPosition().getY()) {
+					return a.hashCode() - b.hashCode();
+				}
+				return a.getPosition().getY() < b.getPosition().getY() ? -1 : 1;
+			}
+			return a.getZOrder() - b.getZOrder();
+		});
 
 		// iterate over gameobject and render
 		for (GameObject gameObject : getGameObjects()) {
@@ -232,10 +240,7 @@ public class GameCanvas extends Canvas {
 		// (if) debug (draw hitbox/pivot)
 		if (this.debug) {
 			for (GameObject gameObject : getGameObjects()) {
-				gameObject.getCollisionSystem().renderOver(this);
-			}
-			for (GameObject gameObject : getGameObjects()) {
-				gameObject.renderPivot(this);
+				gameObject.renderDebug(this);
 			}
 		}
 
@@ -304,7 +309,7 @@ public class GameCanvas extends Canvas {
 		SystemCache.getInstance().deltaTime = deltaTime;
 	}
 
-	public Set<GameObject> getGameObjects() {
+	public List<GameObject> getGameObjects() {
 		return this.gameObjects;
 	}
 
@@ -330,5 +335,18 @@ public class GameCanvas extends Canvas {
 		gameLoop.start();
 		lastNanoTime = System.nanoTime();
 		setCursor(Cursor.NONE);
+	}
+	
+	public boolean[][] getObstacleMap() {
+		boolean[][] map = new boolean[getCellHeight()][getCellWidth()];
+		Iterator<GameObject> iterator = getGameObjects().iterator();
+		while(iterator.hasNext()) {
+			GameObject object = iterator.next();
+			if(object instanceof Block) {
+				Block block = (Block)object;
+				map[(int)block.getPosition().getY()][(int)block.getPosition().getX()] = true;
+			}
+		}
+		return map;
 	}
 }

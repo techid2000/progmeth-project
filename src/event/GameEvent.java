@@ -83,6 +83,9 @@ public class GameEvent {
 				if(event.getCode() == KeyCode.B) {
 					SystemCache.getInstance().shopUI.toggle();
 				}
+				if(event.getCode() == KeyCode.ESCAPE) {
+					SystemCache.getInstance().shopUI.hide();
+				}
 			}
 		});
 		scene.setOnMousePressed(new EventHandler<MouseEvent>() {

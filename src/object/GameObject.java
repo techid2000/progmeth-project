@@ -61,8 +61,6 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 		gc.translate(-pixeledPosition.getX(), -pixeledPosition.getY());
 	}
 	public void renderPivot(GameCanvas canvas) {
-		if(!this.isRenderDebug) return;
-
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
 		Point2D pixeledPosition = GameCanvas.pixeledPoint2D(getPosition());
@@ -145,5 +143,10 @@ public abstract class GameObject implements IBehaviour, IRenderable {
 	}
 	public void setRenderDebug(boolean render) { 
 		this.isRenderDebug = render; 
+	}
+	public void renderDebug(GameCanvas gameCanvas) {
+		if(!isRenderDebug()) return;
+		getCollisionSystem().renderOver(gameCanvas);
+		renderPivot(gameCanvas);
 	}
 }

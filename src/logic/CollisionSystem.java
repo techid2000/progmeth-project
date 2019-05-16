@@ -35,7 +35,6 @@ public class CollisionSystem {
 	
 
 	public void renderOver(GameCanvas canvas) {
-		if(!gameObject.isRenderDebug()) return;
 		if(isDefaultAvailable())
 			BoxCollider.getDefaultBox(gameObject).renderOver(canvas, Color.CYAN);
 		for(BoxCollider collider : boxColliders) {
