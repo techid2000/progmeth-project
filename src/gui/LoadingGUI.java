@@ -47,7 +47,7 @@ public class LoadingGUI extends StackPane {
 				}
 
 				double font_width = Toolkit.getToolkit().getFontLoader().computeStringWidth(text,
-						FontHolder.getInstance().font36);
+						FontHolder.getInstance().font48);
 				gc.fillText(text, MainApp.WINDOW_WIDTH / 2 - font_width / 2, MainApp.WINDOW_HEIGHT / 2 - 15);
 			}
 		};
@@ -65,7 +65,7 @@ public class LoadingGUI extends StackPane {
 				if (frac < 0.25 || frac > 0.75) {
 					gc.clearRect(0, MainApp.WINDOW_HEIGHT / 2, MainApp.WINDOW_WIDTH, MainApp.WINDOW_HEIGHT);
 					gc.fillRect(MainApp.WINDOW_WIDTH / 10, MainApp.WINDOW_HEIGHT / 2 + 15,
-							frac * MainApp.WINDOW_WIDTH * 8 / 10, 20);
+							2 * frac * MainApp.WINDOW_WIDTH * 4 / 10, 30);
 				}
 			}
 		};
