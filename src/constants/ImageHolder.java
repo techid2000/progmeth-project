@@ -31,7 +31,7 @@ public class ImageHolder {
 	public Image gunSlotHighlight;
 	public Image gunSlotPressed;
 	public Image coinWithBullet;
-	
+	public Image skull;
 	public List<Image> singleCoin;
 
 	public List<Image> playerRunUpPistol;
@@ -93,6 +93,7 @@ public class ImageHolder {
 		gunSlotHighlight = loadImage("gui/shop/gunslot_highlight",PNG);
 		gunSlotPressed = loadImage("gui/shop/gunslot_pressed",PNG);
 		coinWithBullet = loadImage("gui/shop/coinwithbullet",PNG);
+		skull = loadImage("gui/skull",PNG);
 		
 		playerRunUpPistol = loadImageList("player/run_up_pistol/run",PNG,6);
 		playerRunDownPistol = loadImageList("player/run_down_pistol/run",PNG,6);

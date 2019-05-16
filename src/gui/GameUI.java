@@ -31,7 +31,7 @@ public class GameUI extends StackPane {
 	private ImageView cashIcon;
 	
 	private Label waveLabel;
-	
+	private Label monsterRemainLabel;
 	public GameUI() {
 		SystemCache.getInstance().gameUI = this;
 		
@@ -50,7 +50,12 @@ public class GameUI extends StackPane {
 		cashLabel.setTextFill(Color.WHITE);
 		BorderPane top = new BorderPane();
 		top.setLeft(scoreLabel);
-		top.setRight(new Button("Enermy Info"));
+		monsterRemainLabel = new Label("0");
+		monsterRemainLabel.setFont(FontHolder.getInstance().font36);
+		monsterRemainLabel.setTextFill(Color.WHITE);
+		HBox monsterRemainHBox = new HBox(new ImageView(ImageHolder.getInstance().skull), monsterRemainLabel);
+		monsterRemainHBox.setSpacing(10);
+		top.setRight(monsterRemainHBox);
 		
 		BorderPane bottom = new BorderPane();
 		HBox hbox = new HBox(cashIcon, cashLabel);
@@ -109,5 +114,8 @@ public class GameUI extends StackPane {
 				})
 		);
 		stomp.play();
+	}
+	public void setMonsterRemain(int remain) {
+		monsterRemainLabel.setText(Integer.toString(remain));
 	}
 }

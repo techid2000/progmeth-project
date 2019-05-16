@@ -19,6 +19,7 @@ public class WaveSystem {
 			SystemCache.getInstance().gameCanvas.instantiate(s);
 		}
 		monsterCount = (int)Math.exp(1 + 0.1*waveCount);
+		SystemCache.getInstance().gameUI.setMonsterRemain(monsterCount);
 	}
 	
 	public void monsterKilled() {
@@ -29,5 +30,6 @@ public class WaveSystem {
 			);
 			delayBeforeNext.play();
 		}
+		SystemCache.getInstance().gameUI.setMonsterRemain(monsterCount);
 	}
 }
