@@ -1,11 +1,8 @@
 package object.loot;
 
-import java.util.List;
-
 import animation.AnimationClip;
 import constants.ImageHolder;
 import constants.SoundHolder;
-import constants.SystemCache;
 import javafx.scene.image.Image;
 import object.entity.Player;
 

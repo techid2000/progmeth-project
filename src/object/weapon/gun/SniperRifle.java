@@ -26,7 +26,7 @@ public class SniperRifle extends Gun {
 		if (getInterval() < 0.7) {
 			setInterval(getInterval() + SystemCache.getInstance().deltaTime);
 		}
-		if(getInterval() >= 0.7) {
+		if (getInterval() >= 0.7) {
 			GameEvent gameEvent = SystemCache.getInstance().gameEvent;
 			if (gameEvent.getSingleMouseDown(MouseButton.PRIMARY)) {
 				setInterval(0);
@@ -41,7 +41,7 @@ public class SniperRifle extends Gun {
 				pjt.setRotation(Utility.pointToRotate(aimDirection));
 				pjt.setLifeTime(Integer.MAX_VALUE);
 				pjt.setSpeed(20);
-				pjt.setDamage(15);
+				pjt.setDamage(20);
 				gameCanvas.instantiate(pjt);
 				SoundHolder.getInstance().sniperrifle.play();
 			}

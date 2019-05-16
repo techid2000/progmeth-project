@@ -10,13 +10,10 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -29,6 +26,7 @@ public class GameUI extends StackPane {
 	private Label scoreLabel;
 	private Label cashLabel;
 	private ImageView cashIcon;
+	private Label waveCount;
 	
 	private Label waveLabel;
 	private Label monsterRemainLabel;
@@ -53,9 +51,16 @@ public class GameUI extends StackPane {
 		monsterRemainLabel = new Label("0");
 		monsterRemainLabel.setFont(FontHolder.getInstance().font36);
 		monsterRemainLabel.setTextFill(Color.WHITE);
+		waveCount = new Label(String.format("Wave %d!", 0));
+		waveCount.setFont(FontHolder.getInstance().font28);
+		waveCount.setTextFill(Color.RED);
+		waveCount.setEffect(new DropShadow());
+		
+		VBox waveDetail = new VBox();
 		HBox monsterRemainHBox = new HBox(new ImageView(ImageHolder.getInstance().skull), monsterRemainLabel);
+		waveDetail.getChildren().addAll(waveCount, monsterRemainHBox);
 		monsterRemainHBox.setSpacing(10);
-		top.setRight(monsterRemainHBox);
+		top.setRight(waveDetail);
 		
 		BorderPane bottom = new BorderPane();
 		HBox hbox = new HBox(cashIcon, cashLabel);
@@ -98,7 +103,7 @@ public class GameUI extends StackPane {
 	}
 	
 	public void waveAlert() {
-		waveLabel.setText(String.format("Wave %d!", SystemCache.getInstance().gameCanvas.waveSystem.waveCount));
+		waveLabel.setText(String.format("Wave %d!", SystemCache.getInstance().gameCanvas.getWaveSystem().getWaveCount()));
 		Timeline stomp = new Timeline(
 				new KeyFrame(new Duration(1), new KeyValue(waveLabel.opacityProperty(), 1)),
 				new KeyFrame(new Duration(0), new KeyValue(waveLabel.scaleXProperty(), 5)),
@@ -117,5 +122,9 @@ public class GameUI extends StackPane {
 	}
 	public void setMonsterRemain(int remain) {
 		monsterRemainLabel.setText(Integer.toString(remain));
+	}
+	
+	public void setWaveCount(int wave) {
+		waveCount.setText(String.format("Wave %d!", wave));
 	}
 }

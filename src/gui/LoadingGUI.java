@@ -4,7 +4,6 @@ import com.sun.javafx.tk.Toolkit;
 
 import app.MainApp;
 import constants.FontHolder;
-import constants.SystemCache;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.scene.canvas.Canvas;
@@ -29,7 +28,7 @@ public class LoadingGUI extends StackPane {
 			{
 				setInterpolator(Interpolator.EASE_BOTH);
 				setCycleCount(INDEFINITE);
-				setCycleDuration(new Duration(2000));
+				setCycleDuration(new Duration(1500));
 			}
 
 			@Override
@@ -58,7 +57,7 @@ public class LoadingGUI extends StackPane {
 		loadingBar = new Transition() {
 			{
 				setInterpolator(Interpolator.EASE_BOTH);
-				setCycleDuration(new Duration(10000));
+				setCycleDuration(new Duration(5000));
 			}
 
 			@Override
@@ -67,18 +66,17 @@ public class LoadingGUI extends StackPane {
 				if (frac >= 1) {
 					textLoading.stop();
 					loadingBar.stop();
-					SystemCache.getInstance().sceneHolder.switchScene(
-							SystemCache.getInstance().sceneHolder.mainMenuScene = new MainMenuScene());
+					MainApp.sceneHolder.switchScene(new MainMenuScene());
 				}
 				if (frac <= 0.25) {
-					gc.clearRect(0, MainApp.WINDOW_HEIGHT / 2, MainApp.WINDOW_WIDTH, MainApp.WINDOW_HEIGHT / 2);
+					gc.clearRect(0, MainApp.WINDOW_HEIGHT / 2,MainApp.WINDOW_WIDTH,MainApp.WINDOW_HEIGHT / 2);
 					gc.fillRoundRect(0.1 * MainApp.WINDOW_WIDTH, MainApp.WINDOW_HEIGHT / 2,
 							MainApp.WINDOW_WIDTH * (0.5 * 0.8) * 4 * frac, 30, 20, 20);
 				}else if(0.50 <= frac && frac<=0.75) {
-					gc.fillRoundRect((0.1 + 0.5 * 0.8) * MainApp.WINDOW_WIDTH - 20, MainApp.WINDOW_HEIGHT / 2 ,
+					gc.fillRoundRect((0.1 + 0.5 * 0.8) * MainApp.WINDOW_WIDTH - 40, MainApp.WINDOW_HEIGHT / 2 ,
 							MainApp.WINDOW_WIDTH * (0.3 * 0.8) * 4 * (frac-0.5), 30, 20, 20);
 				}else if(0.88 <= frac) {
-					gc.fillRoundRect(((0.1 + 0.5 * 0.8) + (0.3*0.8)) * MainApp.WINDOW_WIDTH - 40, MainApp.WINDOW_HEIGHT / 2 ,
+					gc.fillRoundRect(((0.1 + 0.5 * 0.8) + (0.3*0.8)) * MainApp.WINDOW_WIDTH - 50, MainApp.WINDOW_HEIGHT / 2 ,
 							MainApp.WINDOW_WIDTH * (0.2 * 0.8) * (1/0.12) * (frac-0.88), 30, 20, 20);
 				}
 //				

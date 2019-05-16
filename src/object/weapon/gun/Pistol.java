@@ -25,7 +25,7 @@ public class Pistol extends Gun {
 		if (getInterval() < 0.3) {
 			setInterval(getInterval() + SystemCache.getInstance().deltaTime);
 		}
-		if(getInterval() >= 0.3) {
+		if (getInterval() >= 0.3) {
 			GameEvent gameEvent = SystemCache.getInstance().gameEvent;
 			if (gameEvent.getSingleMouseDown(MouseButton.PRIMARY)) {
 				setInterval(0);
@@ -37,13 +37,13 @@ public class Pistol extends Gun {
 				GameCanvas gameCanvas = SystemCache.getInstance().gameCanvas;
 				Projectile pjt = new Projectile();
 				pjt.setPosition(aimOrigin);
-				double rand = (Math.random()-0.5) * 7;
-				pjt.setRotation(Utility.pointToRotate(Utility.rotatePoint2D(aimDirection,rand)));
+				double rand = (Math.random() - 0.5) * 7;
+				pjt.setRotation(Utility.pointToRotate(Utility.rotatePoint2D(aimDirection, rand)));
 				pjt.setLifeTime(Integer.MAX_VALUE);
 				pjt.setSpeed(10);
 				pjt.setDamage(5);
 				gameCanvas.instantiate(pjt);
-				
+
 				SoundHolder.getInstance().pistol.play();
 			}
 		}

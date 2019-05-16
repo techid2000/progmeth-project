@@ -13,17 +13,18 @@ import object.weapon.gun.Gun;
 import object.weapon.gun.Pistol;
 
 public class AccessoriesUI extends HBox {
-	public GunsBox gunsBox;
+	private GunsBox gunsBox;
+
 	public AccessoriesUI() {
 		gunsBox = new GunsBox();
 		getChildren().add(gunsBox);
 		SystemCache.getInstance().accessoriesUI = this;
 	}
-	
+
 	public void updateInfo(Accessories accessories) {
 		Gun current = accessories.getCurrentGun();
 		Gun notCurrent = accessories.gunA;
-		if(notCurrent == current)
+		if (notCurrent == current)
 			notCurrent = accessories.gunB;
 		gunsBox.updateInfo(current, notCurrent);
 	}
@@ -34,7 +35,7 @@ class GunsBox extends VBox {
 	public ImageView currentGunImage;
 	public Label roundLabel;
 	public Label ammoLabel;
-	
+
 	public GunsBox() {
 		setSpacing(10);
 		notCurrentGunImage = new ImageView();
@@ -47,21 +48,21 @@ class GunsBox extends VBox {
 		ammoLabel.setFont(FontHolder.getInstance().font28);
 		ammoLabel.setTextFill(Color.WHITE);
 		ammoLabel.setOpacity(0.5);
-		HBox labelBox = new HBox(roundLabel,ammoLabel);
+		HBox labelBox = new HBox(roundLabel, ammoLabel);
 		labelBox.setAlignment(Pos.CENTER);
-		Label BToShop = new Label("[TAB] Shop");
-		BToShop.setFont(FontHolder.getInstance().font18);
-		BToShop.setTextFill(Color.WHITE);
-		BToShop.setOpacity(0.7);
-		getChildren().addAll(BToShop, notCurrentGunImage, currentGunImage, labelBox);
+		Label tabToShop = new Label("[TAB] Shop");
+		tabToShop.setFont(FontHolder.getInstance().font24);
+		tabToShop.setTextFill(Color.WHITE);
+		tabToShop.setOpacity(0.7);
+		getChildren().addAll(tabToShop, notCurrentGunImage, currentGunImage, labelBox);
 		setAlignment(Pos.CENTER_RIGHT);
 	}
-	
+
 	public void updateInfo(Gun current, Gun notCurrent) {
 		currentGunImage.setImage(current.getRenderSprite());
-		if(notCurrent != null) 
+		if (notCurrent != null)
 			notCurrentGunImage.setImage(notCurrent.getRenderSprite());
-		roundLabel.setText(String.format("%d",current.getRound()));
+		roundLabel.setText(String.format("%d", current.getRound()));
 		ammoLabel.setText(String.format("/%s", (current instanceof Pistol) ? "Unlimit" : current.getAmmo()));
 	}
 }

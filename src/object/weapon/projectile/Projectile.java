@@ -5,7 +5,6 @@ import java.util.List;
 import constants.ImageHolder;
 import constants.SystemCache;
 import javafx.geometry.Point2D;
-import javafx.scene.transform.Rotate;
 import logic.BoxCollider;
 import logic.GameObjectTag;
 import object.GameObject;

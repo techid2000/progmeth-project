@@ -2,17 +2,14 @@ package logic;
 
 import constants.SystemCache;
 import javafx.geometry.Point2D;
-import object.weapon.gun.AssultRifle;
 import object.weapon.gun.Gun;
 import object.weapon.gun.Pistol;
-import object.weapon.gun.Shotgun;
-import object.weapon.gun.SniperRifle;
 
 public class Accessories {
-	public int cash;
+	private int cash;
 	public Gun gunA;
 	public Gun gunB;
-	public int numberOfFragenade;
+//	private int numberOfFragenade;
 	
 	private Gun currentGun;
 	

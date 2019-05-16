@@ -5,7 +5,6 @@ import constants.SystemCache;
 import event.GameEvent;
 import gui.GameCanvas;
 import javafx.geometry.Point2D;
-import object.GameObject;
 
 public class Pointer extends Overlay {
 	

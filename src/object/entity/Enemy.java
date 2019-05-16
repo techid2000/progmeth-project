@@ -1,12 +1,6 @@
 package object.entity;
 
-import java.util.List;
-
-import animation.AnimationClip;
 import constants.SystemCache;
-import interfaces.IAlive;
-import javafx.geometry.Point2D;
-import logic.Accessories;
 import logic.GameObjectTag;
 import object.overlay.Bar;
 

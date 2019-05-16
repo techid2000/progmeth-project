@@ -3,7 +3,7 @@ package constants;
 import javafx.scene.media.AudioClip;
 
 public class SoundHolder {
-	private static String WAV = "wav";
+	private static final String WAV = "wav";
 
 	private static final SoundHolder instance = new SoundHolder();
 
@@ -31,11 +31,11 @@ public class SoundHolder {
 		shotgun_reload = loadSound("gun/shotgun_reload", WAV);
 		assultrifle_reload = loadSound("gun/assultrifle_reload", WAV);
 		sniperrifle_reload = loadSound("gun/sniperrifle_reload", WAV);
-		
+
 		pickupcoin = loadSound("loot/pickupcoin", WAV);
 		empty = loadSound("gun/empty", WAV);
-		
-		//set volume
+
+		// set volume
 //		assultrifle.setVolume();
 	}
 

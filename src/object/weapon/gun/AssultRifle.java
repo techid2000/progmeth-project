@@ -11,7 +11,7 @@ import object.weapon.projectile.Projectile;
 import utility.Utility;
 
 public class AssultRifle extends Gun {
-	
+
 	public AssultRifle() {
 		setRenderSprite(ImageHolder.getInstance().assultRifle);
 		setMaxRound(30);
@@ -21,15 +21,15 @@ public class AssultRifle extends Gun {
 		setPrice(800);
 		setAmmoPrice(40);
 	}
-	
+
 	@Override
 	public void gunFireListener(Point2D aimOrigin, Point2D aimDirection) {
-		setInterval(getInterval()+SystemCache.getInstance().deltaTime);
-		if(getInterval() >= 0.1) {
+		setInterval(getInterval() + SystemCache.getInstance().deltaTime);
+		if (getInterval() >= 0.1) {
 			setInterval(0);
 			GameEvent gameEvent = SystemCache.getInstance().gameEvent;
-			if(gameEvent.getMouseHolding(MouseButton.PRIMARY)) {
-				if(getRound() == 0) {
+			if (gameEvent.getMouseHolding(MouseButton.PRIMARY)) {
+				if (getRound() == 0) {
 					SoundHolder.getInstance().empty.play();
 					return;
 				}
@@ -37,8 +37,8 @@ public class AssultRifle extends Gun {
 				GameCanvas gameCanvas = SystemCache.getInstance().gameCanvas;
 				Projectile pjt = new Projectile();
 				pjt.setPosition(aimOrigin);
-				double rand = (Math.random()-0.5) * 10;
-				pjt.setRotation(Utility.pointToRotate(Utility.rotatePoint2D(aimDirection,rand)));
+				double rand = (Math.random() - 0.5) * 10;
+				pjt.setRotation(Utility.pointToRotate(Utility.rotatePoint2D(aimDirection, rand)));
 				pjt.setLifeTime(Integer.MAX_VALUE);
 				pjt.setSpeed(10);
 				pjt.setDamage(4);

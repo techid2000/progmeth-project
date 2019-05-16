@@ -3,21 +3,15 @@ package gui;
 import constants.FontHolder;
 import constants.ImageHolder;
 import constants.SystemCache;
-import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.animation.Transition;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -31,19 +25,19 @@ import object.weapon.gun.Shotgun;
 import object.weapon.gun.SniperRifle;
 
 public class GunSlot extends StackPane {
-	public BorderPane borderPane;
-	public ImageView slotBackground;
-	public Label gunName;
 
-	public VBox topComponents;
+	private ImageView slotBackground;
+	private Label gunName;
+
+	private VBox topComponents;
 	
-	public StackPane bottomComponents;
-	public HBox sellComponents;
-	public VBox soldComponents; 
-	public Label roundAmmoLabel;
+	private StackPane bottomComponents;
+	private HBox sellComponents;
+	private VBox soldComponents; 
+	private Label roundAmmoLabel;
 	
-	public ImageView gunImageView;
-	public Gun gun;
+	private ImageView gunImageView;
+	private Gun gun;
 	
 	public GunSlot(Gun gun) {
 		this.gun = gun;

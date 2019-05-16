@@ -1,29 +1,17 @@
 package scene;
 
 import app.MainApp;
-import constants.ImageHolder;
-import constants.SystemCache;
 import event.GameEvent;
 import gui.GameCanvas;
 import gui.GameUI;
 import gui.ShopUI;
 import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 public class GameScene extends Scene {
 	private StackPane stackPane;
-	private GameCanvas gameCanvas;
 	private GameEvent gameEvent;
 	
 	private GameScene(Parent root) {

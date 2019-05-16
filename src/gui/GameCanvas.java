@@ -4,43 +4,26 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
-import com.sun.org.apache.bcel.internal.generic.LASTORE;
-
-import animation.AnimationClip;
 import app.MainApp;
-import constants.ImageHolder;
-import constants.SystemCache;
 import constants.GameTaskManager;
+import constants.SystemCache;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.Transition;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
-import javafx.util.Pair;
-import logic.GameObjectTag;
 import logic.WaveSystem;
 import object.GameObject;
 import object.block.Block;
 import object.block.BreakableBlock;
 import object.block.UnbreakableBlock;
 import object.entity.Player;
-import object.entity.Slime;
-import object.loot.Mint;
-import object.overlay.Bar;
-import object.overlay.Popup;
 import object.overlay.Pointer;
 import object.tile.Ground;
 import utility.Utility;
@@ -59,9 +42,9 @@ public class GameCanvas extends Canvas {
 
 	// gameobjects
 	private GameObject pursueObject;
-	private List<GameObject> gameObjects; // todo: categorize gameobjects by tag
+	private List<GameObject> gameObjects; 
 	private Queue<GameObject> instantiationQueue;
-	public WaveSystem waveSystem;
+	private WaveSystem waveSystem;
 	
 	// animation
 	private AnimationTimer gameLoop;
@@ -177,9 +160,9 @@ public class GameCanvas extends Canvas {
 				clearScreen();
 				proceedOverGameObjects();
 				
-				if(SystemCache.getInstance().gameEvent.getSingleKeyDown(KeyCode.DIGIT4)) {
-					waveSystem.nextWave();
-				}
+//				if(SystemCache.getInstance().gameEvent.getSingleKeyDown(KeyCode.DIGIT4)) {
+//					waveSystem.nextWave();
+//				}
 				
 				// gamecanvas management
 				if (pursueObject != null)
@@ -328,6 +311,10 @@ public class GameCanvas extends Canvas {
 		return this.cellsHeight;
 	}
 	
+	public WaveSystem getWaveSystem() {
+		return waveSystem;
+	}
+
 	public void pause() {
 		gameLoop.stop();
 		setCursor(Cursor.DEFAULT);
