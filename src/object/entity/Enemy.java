@@ -10,8 +10,8 @@ import logic.Accessories;
 import logic.GameObjectTag;
 import object.overlay.Bar;
 
-public abstract class Enermy extends Entity {
-	public Enermy() {
+public abstract class Enemy extends Entity {
+	public Enemy() {
 		super();
 		getTag().addTag(GameObjectTag.ENERMY);
 		this.healthBar.destroy();

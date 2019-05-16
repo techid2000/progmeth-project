@@ -10,7 +10,7 @@ import logic.BoxCollider;
 import logic.GameObjectTag;
 import object.GameObject;
 import object.block.BreakableBlock;
-import object.entity.Enermy;
+import object.entity.Enemy;
 import object.entity.Player;
 import utility.Utility;
 

@@ -33,8 +33,8 @@ public class ShopUI extends StackPane {
 	public boolean showing;
 	public VBox shopVBox;
 	
-	public static GunSlot gunSlotA;
-	public static GunSlot gunSlotB;
+	public GunSlot gunSlotA;
+	public GunSlot gunSlotB;
 	
 	public ShopUI() {
 

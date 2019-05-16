@@ -1,6 +1,5 @@
 package gui;
 
-import com.sun.javafx.tk.FontLoader;
 import com.sun.javafx.tk.Toolkit;
 
 import app.MainApp;
@@ -13,17 +12,20 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import scene.MainMenuScene;
 
 public class LoadingGUI extends StackPane {
 
-	Canvas loadingCanvas;
+	private Canvas loadingCanvas;
+	private Transition loadingBar;
+	private Transition textLoading;
 
 	public LoadingGUI() {
 		loadingCanvas = new Canvas(MainApp.WINDOW_WIDTH, MainApp.WINDOW_HEIGHT);
 		GraphicsContext gc = loadingCanvas.getGraphicsContext2D();
 		this.getChildren().add(loadingCanvas);
 
-		Transition textLoaing = new Transition() {
+		textLoading = new Transition() {
 			{
 				setInterpolator(Interpolator.EASE_BOTH);
 				setCycleCount(INDEFINITE);
@@ -51,22 +53,35 @@ public class LoadingGUI extends StackPane {
 				gc.fillText(text, MainApp.WINDOW_WIDTH / 2 - font_width / 2, MainApp.WINDOW_HEIGHT / 2 - 15);
 			}
 		};
-		textLoaing.play();
+		textLoading.play();
 
-		Transition loadingBar = new Transition() {
+		loadingBar = new Transition() {
 			{
 				setInterpolator(Interpolator.EASE_BOTH);
-				setCycleDuration(new Duration(5000));
+				setCycleDuration(new Duration(10000));
 			}
 
 			@Override
 			protected void interpolate(double frac) {
 				gc.setFill(Color.BLACK);
-				if (frac < 0.25 || frac > 0.75) {
-					gc.clearRect(0, MainApp.WINDOW_HEIGHT / 2, MainApp.WINDOW_WIDTH, MainApp.WINDOW_HEIGHT);
-					gc.fillRect(MainApp.WINDOW_WIDTH / 10, MainApp.WINDOW_HEIGHT / 2 + 15,
-							2 * frac * MainApp.WINDOW_WIDTH * 4 / 10, 30);
+				if (frac >= 1) {
+					textLoading.stop();
+					loadingBar.stop();
+					SystemCache.getInstance().sceneHolder.switchScene(
+							SystemCache.getInstance().sceneHolder.mainMenuScene = new MainMenuScene());
 				}
+				if (frac <= 0.25) {
+					gc.clearRect(0, MainApp.WINDOW_HEIGHT / 2, MainApp.WINDOW_WIDTH, MainApp.WINDOW_HEIGHT / 2);
+					gc.fillRoundRect(0.1 * MainApp.WINDOW_WIDTH, MainApp.WINDOW_HEIGHT / 2,
+							MainApp.WINDOW_WIDTH * (0.5 * 0.8) * 4 * frac, 30, 20, 20);
+				}else if(0.50 <= frac && frac<=0.75) {
+					gc.fillRoundRect((0.1 + 0.5 * 0.8) * MainApp.WINDOW_WIDTH - 20, MainApp.WINDOW_HEIGHT / 2 ,
+							MainApp.WINDOW_WIDTH * (0.3 * 0.8) * 4 * (frac-0.5), 30, 20, 20);
+				}else if(0.88 <= frac) {
+					gc.fillRoundRect(((0.1 + 0.5 * 0.8) + (0.3*0.8)) * MainApp.WINDOW_WIDTH - 40, MainApp.WINDOW_HEIGHT / 2 ,
+							MainApp.WINDOW_WIDTH * (0.2 * 0.8) * (1/0.12) * (frac-0.88), 30, 20, 20);
+				}
+//				
 			}
 		};
 

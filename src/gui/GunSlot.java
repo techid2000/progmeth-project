@@ -167,17 +167,19 @@ public class GunSlot extends StackPane {
 			sellComponents.setVisible(false);
 			soldComponents.setVisible(true);
 			
-			if(ShopUI.gunSlotB != null) {
-				ShopUI.gunSlotB.updateStatus(Status.SOLD);
+			ShopUI shopUI = SystemCache.getInstance().shopUI;
+			
+			if(shopUI.gunSlotB != null) {
+				shopUI.gunSlotB.updateStatus(Status.SOLD);
 			}
-			ShopUI.gunSlotB = ShopUI.gunSlotA;
-			ShopUI.gunSlotA = this;
+			shopUI.gunSlotB = shopUI.gunSlotA;
+			shopUI.gunSlotA = this;
 			
 			Accessories accessories = SystemCache.getInstance().player.getAccessories();
-			accessories.changeGunA(ShopUI.gunSlotA.gun);
+			accessories.changeGunA(shopUI.gunSlotA.gun);
 			
-			if(ShopUI.gunSlotB != null)
-			accessories.changeGunB(ShopUI.gunSlotB.gun);
+			if(shopUI.gunSlotB != null)
+			accessories.changeGunB(shopUI.gunSlotB.gun);
 		}
 	}
 	

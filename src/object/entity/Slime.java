@@ -16,7 +16,7 @@ import object.loot.Mint;
 import object.loot.Mint.Type;
 import utility.Utility;
 
-public class Slime extends Enermy {
+public class Slime extends Enemy {
 	// resources
 	protected AnimationClip clipDeath;
 	protected AnimationClip clipBounce;

@@ -35,6 +35,15 @@ public class ImageHolder {
 	public Image coinWithBullet;
 	public Image skull;
 	
+	public Image playButton;
+	public Image resumeButton;
+	public Image quitButton;
+	public Image mainmenuButton;
+	public Image playButtonHighlight;
+	public Image resumeButtonHighlight;
+	public Image quitButtonHighlight;
+	public Image mainmenuButtonHighlight;
+	
 	public List<Image> singleCoin;
 
 	public List<Image> playerRunUpPistol;
@@ -100,6 +109,16 @@ public class ImageHolder {
 		gunSlotPressed = loadImage("gui/shop/gunslot_pressed",PNG);
 		coinWithBullet = loadImage("gui/shop/coinwithbullet",PNG);
 		skull = loadImage("gui/skull",PNG);
+		
+		playButton = loadImage("gui/mainmenu/playbutton", PNG);
+		resumeButton = loadImage("gui/mainmenu/resumebutton", PNG);
+		quitButton = loadImage("gui/mainmenu/quitbutton", PNG);
+		mainmenuButton = loadImage("gui/mainmenu/mainmenubutton", PNG);
+		
+		playButtonHighlight = loadImage("gui/mainmenu/playbutton_highlight", PNG);
+		resumeButtonHighlight = loadImage("gui/mainmenu/resumebutton_highlight", PNG);
+		quitButtonHighlight = loadImage("gui/mainmenu/quitbutton_highlight", PNG);
+		mainmenuButtonHighlight = loadImage("gui/mainmenu/mainmenubutton_highlight", PNG);
 		
 		playerRunUpPistol = loadImageList("player/run_up_pistol/run",PNG,6);
 		playerRunDownPistol = loadImageList("player/run_down_pistol/run",PNG,6);

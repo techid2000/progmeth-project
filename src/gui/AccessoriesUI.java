@@ -49,10 +49,10 @@ class GunsBox extends VBox {
 		ammoLabel.setOpacity(0.5);
 		HBox labelBox = new HBox(roundLabel,ammoLabel);
 		labelBox.setAlignment(Pos.CENTER);
-		Label BToShop = new Label("[B] Shop");
+		Label BToShop = new Label("[TAB] Shop");
 		BToShop.setFont(FontHolder.getInstance().font18);
 		BToShop.setTextFill(Color.WHITE);
-		BToShop.setOpacity(0.5);
+		BToShop.setOpacity(0.7);
 		getChildren().addAll(BToShop, notCurrentGunImage, currentGunImage, labelBox);
 		setAlignment(Pos.CENTER_RIGHT);
 	}

@@ -18,7 +18,7 @@ import object.weapon.gun.AssultRifle;
 import object.weapon.projectile.Beam;
 import utility.Utility;
 
-public class SlimeGunner extends Enermy {
+public class SlimeGunner extends Enemy {
 	// resources
 	protected AnimationClip clipDeath;
 	protected AnimationClip clipBounce;
@@ -102,7 +102,6 @@ public class SlimeGunner extends Enermy {
 			Point2D direction = SystemCache.getInstance().player.getPosition().subtract(eyePosition).normalize();
 			beam.setRotation(Utility.pointToRotate(direction));
 			SystemCache.getInstance().gameCanvas.instantiate(beam);
-			System.out.println("test");
 		}
 		shootTimer -= SystemCache.getInstance().deltaTime;
 //		movementInterval += SystemCache.getInstance().deltaTime;

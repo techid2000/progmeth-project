@@ -4,6 +4,7 @@ import java.util.List;
 
 import animation.AnimationClip;
 import constants.ImageHolder;
+import constants.SoundHolder;
 import constants.SystemCache;
 import javafx.scene.image.Image;
 import object.entity.Player;
@@ -26,6 +27,7 @@ public class Mint extends Loot {
 	@Override
 	public void pick(Player player) {
 		player.getAccessories().gainCash(this.type.getValue());
+		SoundHolder.getInstance().pickupcoin.play();
 		destroy();
 	}
 
@@ -43,7 +45,7 @@ public class Mint extends Loot {
 		public int getValue() {
 			switch(this) {
 			case SINGLE_COIN:
-				return 10;
+				return 25;
 			case COIN_PILE_0:
 				return 100;
 			case COIN_PILE_1:

@@ -53,6 +53,7 @@ public class AssultRifle extends Gun {
 		int tmp = getRound();
 		setRound(Math.min(getMaxRound(), getRound() + getAmmo()));
 		setAmmo(getAmmo() - (getRound() - tmp));
+		SoundHolder.getInstance().assultrifle_reload.play();
 	}
 
 }

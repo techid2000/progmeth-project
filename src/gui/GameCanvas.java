@@ -16,6 +16,7 @@ import animation.AnimationClip;
 import app.MainApp;
 import constants.ImageHolder;
 import constants.SystemCache;
+import constants.GameTaskManager;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -190,6 +191,7 @@ public class GameCanvas extends Canvas {
 				lastNanoTime = nowNanoTime;
 			}
 		};
+		GameTaskManager.animationTimers.add(gameLoop);
 		gameLoop.start();
 	}
 

@@ -55,5 +55,6 @@ public class Pistol extends Gun {
 		int tmp = getRound();
 		setRound(Math.min(getMaxRound(), getRound() + getAmmo()));
 		setAmmo(getAmmo() - (getRound() - tmp));
+		SoundHolder.getInstance().pistol_reload.play();
 	}
 }

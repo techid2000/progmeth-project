@@ -58,6 +58,7 @@ public class Shotgun extends Gun {
 		int tmp = getRound();
 		setRound(Math.min(getMaxRound(), getRound() + getAmmo()));
 		setAmmo(getAmmo() - (getRound() - tmp));
+		SoundHolder.getInstance().shotgun_reload.play();
 	}
 
 }

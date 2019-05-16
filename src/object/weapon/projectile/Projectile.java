@@ -10,7 +10,7 @@ import logic.BoxCollider;
 import logic.GameObjectTag;
 import object.GameObject;
 import object.block.BreakableBlock;
-import object.entity.Enermy;
+import object.entity.Enemy;
 import utility.Utility;
 
 public class Projectile extends GameObject {
@@ -48,8 +48,8 @@ public class Projectile extends GameObject {
 			for(BoxCollider b : list) {
 				if(b.gameObject instanceof BreakableBlock) {
 					((BreakableBlock)b.gameObject).getDamage(this.getDamage());
-				} else if(b.gameObject instanceof Enermy) {
-					((Enermy)b.gameObject).getDamage(this.getDamage());
+				} else if(b.gameObject instanceof Enemy) {
+					((Enemy)b.gameObject).getDamage(this.getDamage());
 				}
 			}
 			destroy();

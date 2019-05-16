@@ -6,6 +6,7 @@ import java.util.List;
 import animation.AnimationClip;
 import constants.ImageHolder;
 import constants.SystemCache;
+import constants.GameTaskManager;
 import event.GameEvent;
 import gui.GameCanvas;
 import javafx.geometry.BoundingBox;
@@ -27,6 +28,7 @@ import object.weapon.gun.Pistol;
 import object.weapon.gun.Shotgun;
 import object.weapon.gun.SniperRifle;
 import object.weapon.projectile.Projectile;
+import scene.MainMenuScene;
 import object.overlay.Pointer;
 import utility.Utility;
 
@@ -43,8 +45,8 @@ public class Player extends Entity {
 	
 	private List<AnimationClip> clips;
 	
+	double regenCooldown;
 	double regenInterval;
-	Thread regenThread;
 	
 	public Player() {
 		getTag().addTag(GameObjectTag.PLAYER);
@@ -144,31 +146,20 @@ public class Player extends Entity {
 			Point2D bdir = gameCanvas.mouseToScaledPoint2D(gameEvent.getMousePosition()).subtract(centre);
 			this.accessories.updateCurrentGun(centre, bdir.normalize());
 		if(gameEvent.getMouseHolding(MouseButton.PRIMARY)) {
-			if(regenThread.isAlive())
-				regenThread.interrupt();
+			regenCooldown = 3;
 		}
-		if(regenThread == null || !regenThread.isAlive()) {
-			regenThread = new Thread(new Runnable() {
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					try {
-						Thread.sleep(3000);
-						while(true) {
-							Thread.sleep(1000);
-							if(Player.this.getHealth().get() == Player.this.getMaxHealth().get()) {
-								return;
-							}
-							Player.this.doHeal(5);
-						}
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
+		if(regenCooldown > 0) {
+			regenCooldown -= SystemCache.getInstance().deltaTime;			
+		} else {
+			if(regenInterval > 0) {
+				regenInterval -= SystemCache.getInstance().deltaTime;
+			} else {
+				if(getHealth().get() < getMaxHealth().get()) {
+					doHeal(5);
+					regenInterval = 1;
 				}
-			});
-			regenThread.start();
+			}
 		}
-
 		if(gameEvent.getScrollChanged()) {
 			this.accessories.swapGun();
 			Gun curGun = this.accessories.getCurrentGun();
@@ -231,7 +222,10 @@ public class Player extends Entity {
 
 	public void getDamage(int damage) {
 		super.getDamage(damage);
-		if(regenThread.isAlive())
-			regenThread.interrupt();
+		regenCooldown = 3;
+		if(getHealth().get() <= 0) {
+			GameTaskManager.clearBackgroundTasks();
+			SystemCache.getInstance().sceneHolder.switchScene(new MainMenuScene());
+		}
 	}
 }

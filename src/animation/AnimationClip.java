@@ -1,6 +1,8 @@
 package animation;
 
 import java.util.List;
+
+import constants.GameTaskManager;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.scene.image.Image;
@@ -15,6 +17,7 @@ public class AnimationClip extends Transition {
 	private boolean reverseFrame;
 	
 	public AnimationClip(List<Image> spriteList, double cycleDuration) {
+		GameTaskManager.transitions.add(this);
 		setSpriteList(spriteList);
 		setCycleDuration(new Duration(cycleDuration));
 		setInterpolator(Interpolator.LINEAR);

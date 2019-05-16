@@ -10,6 +10,7 @@ import gui.GameUI;
 import gui.ShopUI;
 import object.GameObject;
 import object.entity.Player;
+import scene.SceneHolder;
 
 public class SystemCache {
 	public static SystemCache instance = new SystemCache();
@@ -22,4 +23,5 @@ public class SystemCache {
 	public ShopUI shopUI;
 	public double deltaTime;
 	public Player player;
+	public SceneHolder sceneHolder;
 }
