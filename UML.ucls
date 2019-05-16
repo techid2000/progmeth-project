@@ -1,111 +1,726 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.3" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="false" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="object.GameObject" project="MiTH_ProgMeth" 
-    file="/MiTH_ProgMeth/src/object/GameObject.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="527" y="7"/>    
+  <class id="1" language="java" name="object.weapon.gun.SniperRifle" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/weapon/gun/SniperRifle.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4764" y="7123"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="object.weapon.Weapon" project="MiTH_ProgMeth" 
-    file="/MiTH_ProgMeth/src/object/weapon/Weapon.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="343" y="499"/>    
+  <class id="2" language="java" name="constants.FontHolder" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/constants/FontHolder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="268" width="228" x="2916" y="4003"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="object.weapon.gun.Gun" project="MiTH_ProgMeth" 
-    file="/MiTH_ProgMeth/src/object/weapon/gun/Gun.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="154" y="641"/>    
+  <enumeration id="3" language="java" name="object.overlay.Popup.Type" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/overlay/Popup.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6513" y="7150"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="4" language="java" name="gui.GunSlot" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/gui/GunSlot.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="304" width="211" x="3404" y="4003"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="object.weapon.gun.Pistol" project="MiTH_ProgMeth" 
-    file="/MiTH_ProgMeth/src/object/weapon/gun/Pistol.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="117" y="807"/>    
+  <class id="5" language="java" name="object.entity.Player" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/entity/Player.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7423" y="6645"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="object.weapon.gun.Shotgun" project="MiTH_ProgMeth" 
-    file="/MiTH_ProgMeth/src/object/weapon/gun/Shotgun.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="285" y="807"/>    
+  <class id="6" language="java" name="object.overlay.Bar" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/overlay/Bar.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5992" y="6609"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="object.weapon.gun.SMG" project="MiTH_ProgMeth" 
-    file="/MiTH_ProgMeth/src/object/weapon/gun/SMG.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="88" width="141" x="394" y="719"/>    
+  <interface id="7" language="java" name="interfaces.IAlive" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/interfaces/IAlive.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7667" y="6519"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="8" language="java" name="app.MainApp" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/app/MainApp.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="178" width="180" x="3184" y="4003"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="object.weapon.gun.Sniper" project="MiTH_ProgMeth" 
-    file="/MiTH_ProgMeth/src/object/weapon/gun/Sniper.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="88" width="141" x="465" y="596"/>    
+  <class id="9" language="java" name="animation.AnimationClip" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/animation/AnimationClip.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="412" width="323" x="3655" y="4003"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="object.loot.Loot" project="MiTH_ProgMeth" 
-    file="/MiTH_ProgMeth/src/object/loot/Loot.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="691" y="480"/>    
+  <class id="10" language="java" name="logic.WaveSystem" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/logic/WaveSystem.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="232" width="173" x="4018" y="4003"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="object.loot.Mint" project="MiTH_ProgMeth" 
-    file="/MiTH_ProgMeth/src/object/loot/Mint.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="775" y="639"/>    
+  <class id="11" language="java" name="object.loot.Loot" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/loot/Loot.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5388" y="6040"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="10">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="3"/>  
+  <enumeration id="12" language="java" name="object.loot.Mint.Type" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/loot/Mint.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4529" y="7150"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="13" language="java" name="gui.AccessoriesUI" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/gui/AccessoriesUI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="124" width="191" x="4231" y="4003"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="object.weapon.Weapon" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/weapon/Weapon.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6188" y="6067"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="scene.LoadingScene" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/scene/LoadingScene.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="164" x="4462" y="4003"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="gui.LoadingGUI" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/gui/LoadingGUI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="159" x="4666" y="4003"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="object.weapon.projectile.Beam" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/weapon/projectile/Beam.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6365" y="6113"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="object.block.UnbreakableBlock" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/block/UnbreakableBlock.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6883" y="6528"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="object.overlay.Pointer" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/overlay/Pointer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6534" y="6528"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="object.overlay.Overlay" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/overlay/Overlay.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6534" y="6040"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="21" language="java" name="object.tile.Ground.Style" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/tile/Ground.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7278" y="7132"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="22" language="java" name="constants.SoundHolder" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/constants/SoundHolder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="340" width="226" x="4865" y="4003"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="gui.ShopUI" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/gui/ShopUI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="214" width="134" x="5131" y="4003"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="object.loot.Mint" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/loot/Mint.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4956" y="6546"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="scene.SceneHolder" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/scene/SceneHolder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="160" width="194" x="5305" y="4003"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="object.entity.SlimeGunner" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/entity/SlimeGunner.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7006" y="7431"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="object.weapon.gun.Shotgun" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/weapon/gun/Shotgun.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5049" y="7123"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="object.overlay.Popup" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/overlay/Popup.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6342" y="6591"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="29" language="java" name="interfaces.IProjectile" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/interfaces/IProjectile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="88" width="160" x="5539" y="4003"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="30" language="java" name="interfaces.IDestroyable" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/interfaces/IDestroyable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6696" y="7105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="31" language="java" name="object.weapon.projectile.Projectile" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/weapon/projectile/Projectile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6852" y="6140"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="object.block.Block" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/block/Block.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6678" y="6040"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="gui.MainMenuGUI" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/gui/MainMenuGUI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="202" x="5739" y="4003"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="object.tile.Ground" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/tile/Ground.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7197" y="6537"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="gui.GameUI" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/gui/GameUI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="322" width="188" x="5981" y="4003"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="36" language="java" name="interfaces.ICollectable" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/interfaces/ICollectable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5396" y="6510"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="37" language="java" name="object.entity.Entity" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/entity/Entity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7241" y="6211"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="38" language="java" name="object.weapon.gun.Pistol" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/weapon/gun/Pistol.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5334" y="7123"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="39" language="java" name="scene.GameScene" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/scene/GameScene.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="196" width="212" x="6209" y="4003"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="40" language="java" name="object.weapon.gun.AssultRifle" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/weapon/gun/AssultRifle.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5619" y="7123"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="41" language="java" name="event.GameEvent" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/event/GameEvent.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="502" width="355" x="6461" y="4003"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="42" language="java" name="object.overlay.Bar.Type" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/overlay/Bar.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6313" y="7132"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="43" language="java" name="gui.GunsBox" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/gui/AccessoriesUI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="178" width="216" x="6856" y="4003"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="44" language="java" name="interfaces.IReloadable" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/interfaces/IReloadable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5842" y="7105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="45" language="java" name="logic.CollisionSystem" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/logic/CollisionSystem.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="268" width="311" x="7112" y="4003"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="46" language="java" name="object.block.BreakableBlock" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/block/BreakableBlock.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6696" y="6555"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="47" language="java" name="object.entity.Slime" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/entity/Slime.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7052" y="7186"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="48" language="java" name="utility.Utility" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/utility/Utility.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4187" y="4779"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="49" language="java" name="interfaces.IRenderable" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/interfaces/IRenderable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7503" y="6041"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="50" language="java" name="interfaces.IBehaviour" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/interfaces/IBehaviour.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7703" y="6050"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="51" language="java" name="object.entity.Enemy" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/entity/Enemy.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7052" y="6509"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="52" language="java" name="object.weapon.gun.Gun" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/weapon/gun/Gun.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5593" y="6743"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="53" language="java" name="object.tile.Tile" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/tile/Tile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7026" y="6040"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="54" language="java" name="scene.MainMenuScene" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/scene/MainMenuScene.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4595" y="4716"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="55" language="java" name="gui.GameCanvas" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/gui/GameCanvas.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4854" y="5058"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="56" language="java" name="constants.GameTaskManager" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/constants/GameTaskManager.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5157" y="4752"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="57" language="java" name="constants.ImageHolder" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/constants/ImageHolder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5469" y="5310"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="58" language="java" name="interfaces.IFireable" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/interfaces/IFireable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6064" y="7105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="59" language="java" name="logic.Accessories" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/logic/Accessories.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5783" y="4815"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="60" language="java" name="gui.GunSlot.Status" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/gui/GunSlot.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3796" y="5196"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="61" language="java" name="logic.GameObjectTag" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/logic/GameObjectTag.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6032" y="4797"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="62" language="java" name="logic.BoxCollider" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/logic/BoxCollider.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6320" y="4779"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="63" language="java" name="object.GameObject" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/object/GameObject.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6892" y="5048"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="64" language="java" name="constants.SystemCache" project="ProgMeth_Project" 
+    file="/ProgMeth_Project/src/constants/SystemCache.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6630" y="4788"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="65">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="63"/>  
   </generalization>  
-  <generalization id="11">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="3"/>  
+  <generalization id="66">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="53"/>  
   </generalization>  
-  <generalization id="12">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="3"/>  
+  <generalization id="67">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="63"/>  
   </generalization>  
-  <generalization id="13">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
+  <generalization id="68">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="32"/>  
   </generalization>  
-  <generalization id="14">    
+  <generalization id="69">    
+    <end type="SOURCE" refId="53"/>    
+    <end type="TARGET" refId="63"/>  
+  </generalization>  
+  <generalization id="70">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <generalization id="71">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="32"/>  
+  </generalization>  
+  <generalization id="72">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="63"/>  
+  </generalization>  
+  <generalization id="73">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="47"/>  
+  </generalization>  
+  <realization id="74">    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="50"/>  
+  </realization>  
+  <generalization id="75">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="52"/>  
+  </generalization>  
+  <nesting id="76">    
     <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="42"/>  
+  </nesting>  
+  <generalization id="77">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="63"/>  
+  </generalization>  
+  <realization id="78">    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="49"/>  
+  </realization>  
+  <nesting id="79">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="12"/>  
+  </nesting>  
+  <realization id="80">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <generalization id="81">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="52"/>  
+  </generalization>  
+  <realization id="82">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="36"/>  
+  </realization>  
+  <nesting id="83">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="21"/>  
+  </nesting>  
+  <nesting id="84">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="60"/>  
+  </nesting>  
+  <generalization id="85">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="63"/>  
+  </generalization>  
+  <generalization id="86">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="37"/>  
+  </generalization>  
+  <realization id="87">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="44"/>  
+  </realization>  
+  <generalization id="88">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <generalization id="89">    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="51"/>  
+  </generalization>  
+  <generalization id="90">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <realization id="91">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="30"/>  
+  </realization>  
+  <generalization id="92">    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="37"/>  
+  </generalization>  
+  <generalization id="93">    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="52"/>  
+  </generalization>  
+  <generalization id="94">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="63"/>  
+  </generalization>  
+  <generalization id="95">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="96">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="52"/>  
+  </generalization>  
+  <realization id="97">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <generalization id="98">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="63"/>  
+  </generalization>  
+  <generalization id="99">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <nesting id="100">    
+    <end type="SOURCE" refId="28"/>    
     <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <generalization id="15">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="8"/>  
-  </generalization>  
+  </nesting>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
