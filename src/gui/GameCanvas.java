@@ -17,6 +17,8 @@ import app.MainApp;
 import constants.ImageHolder;
 import constants.SystemCache;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.Transition;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
@@ -28,6 +30,7 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import javafx.util.Pair;
 import logic.GameObjectTag;
+import logic.WaveSystem;
 import object.GameObject;
 import object.block.Block;
 import object.block.BreakableBlock;
@@ -57,7 +60,8 @@ public class GameCanvas extends Canvas {
 	private GameObject pursueObject;
 	private List<GameObject> gameObjects; // todo: categorize gameobjects by tag
 	private Queue<GameObject> instantiationQueue;
-
+	public WaveSystem waveSystem;
+	
 	// animation
 	private AnimationTimer gameLoop;
 	private double lastNanoTime = System.nanoTime();
@@ -69,6 +73,7 @@ public class GameCanvas extends Canvas {
 		setup();
 		buildGame();
 		loop();
+		wave();
 	}
 
 	public void setup() {
@@ -79,6 +84,8 @@ public class GameCanvas extends Canvas {
 		
 		this.instantiationQueue = new LinkedList<GameObject>();
 
+		this.waveSystem = new WaveSystem();
+		
 		setWidth(MainApp.WINDOW_WIDTH);
 		setHeight(MainApp.WINDOW_HEIGHT);
 	}
@@ -157,15 +164,7 @@ public class GameCanvas extends Canvas {
 				instantiate(ground);
 			}
 		}
-
-		for(int i=1; i<=15; i++) {
-			Slime s = new Slime();
-			s.setPosition(new Point2D(1,1));
-			instantiate(s);
-		}
-		
 		instantiate(new Pointer());
-
 	}
 
 	private void loop() {
@@ -176,7 +175,11 @@ public class GameCanvas extends Canvas {
 				// gameobjects management
 				clearScreen();
 				proceedOverGameObjects();
-
+				
+				if(SystemCache.getInstance().gameEvent.getSingleKeyDown(KeyCode.DIGIT4)) {
+					waveSystem.nextWave();
+				}
+				
 				// gamecanvas management
 				if (pursueObject != null)
 					pursue();
@@ -190,6 +193,10 @@ public class GameCanvas extends Canvas {
 		gameLoop.start();
 	}
 
+	public void wave() {
+		new Timeline(new KeyFrame(new Duration(3000), (e) -> waveSystem.nextWave())).play();
+	}
+	
 	public void proceedOverGameObjects() {
 		// translate graphics context for drawing object depends on camera position
 		Point2D translatePos = pixeledPoint2D(getViewPosition()).subtract(getPixelScreenSize().multiply(0.5));

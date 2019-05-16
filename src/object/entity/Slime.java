@@ -80,13 +80,13 @@ public class Slime extends Enermy {
 				now = new Point2D(tmp.getKey(), tmp.getValue());
 			}
 		}
-		if(Math.floor(getPosition().getX()) == now.getX() && Math.floor(getPosition().getY()) == now.getY()) {
-			if(iter.hasNext()) {
-				Pair<Integer,Integer> tmp = iter.next();
-				now = new Point2D(tmp.getKey(), tmp.getValue());
-			}
-		}
 		if(now != null) {
+			if(Math.floor(getPosition().getX()) == now.getX() && Math.floor(getPosition().getY()) == now.getY()) {
+				if(iter.hasNext()) {
+					Pair<Integer,Integer> tmp = iter.next();
+					now = new Point2D(tmp.getKey(), tmp.getValue());
+				}
+			}
 			setPosition(Utility.moveTowardsPoint2D(getPosition(), now.add(new Point2D(0.5,0.5)), getMoveSpeed()*SystemCache.getInstance().deltaTime));
 		}
 		pathfindingTimer -= SystemCache.getInstance().deltaTime;
@@ -107,7 +107,10 @@ public class Slime extends Enermy {
 				p.getDamage(10);
 			}
 		}
-		
 	}
 
+	public void destroy() {
+		super.destroy();
+		SystemCache.getInstance().gameCanvas.waveSystem.monsterKilled();
+	}
 }
