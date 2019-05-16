@@ -1,5 +1,6 @@
 package app;
 
+import constants.ImageHolder;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import scene.SceneHolder;
@@ -12,7 +13,8 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		sceneHolder = new SceneHolder(primaryStage);
 		sceneHolder.initialize();
-		primaryStage.setTitle("alpha-1.0");
+		primaryStage.getIcons().add(ImageHolder.getInstance().slime.get(0));
+		primaryStage.setTitle("BOBO BATTLE alpha-1.1");
 		primaryStage.show();
 	}
 	

@@ -46,6 +46,7 @@ public class WaveSystem {
 
 	private void setWaveCount(int waveCount) {
 		this.waveCount = waveCount;
+		GameStats.wave = waveCount;
 		SystemCache.getInstance().gameUI.setWaveCount(getWaveCount());
 	}
 

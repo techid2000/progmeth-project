@@ -4,6 +4,7 @@ import animation.AnimationClip;
 import constants.ImageHolder;
 import constants.SoundHolder;
 import javafx.scene.image.Image;
+import logic.GameStats;
 import object.entity.Player;
 
 public class Mint extends Loot {	
@@ -25,6 +26,7 @@ public class Mint extends Loot {
 	public void pick(Player player) {
 		player.getAccessories().gainCash(this.type.getValue());
 		SoundHolder.getInstance().pickupcoin.play();
+		GameStats.increaseScore(50);
 		destroy();
 	}
 

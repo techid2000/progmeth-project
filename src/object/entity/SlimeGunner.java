@@ -4,6 +4,7 @@ import animation.AnimationClip;
 import constants.ImageHolder;
 import constants.SystemCache;
 import javafx.geometry.Point2D;
+import logic.GameStats;
 import object.weapon.projectile.Beam;
 import utility.Utility;
 
@@ -39,6 +40,7 @@ public class SlimeGunner extends Slime {
 
 	public void destroy() {
 		super.destroy();
+		GameStats.increaseScore(500);
 		SystemCache.getInstance().gameCanvas.getWaveSystem().monsterKilled();
 	}
 }

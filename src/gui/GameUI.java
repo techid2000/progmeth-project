@@ -68,7 +68,7 @@ public class GameUI extends StackPane {
 		hbox.setAlignment(Pos.BOTTOM_LEFT);
 		bottom.setLeft(hbox);
 		bottom.setRight(new AccessoriesUI());
-
+		
 		waveLabel = new Label("Wave 15!");
 		waveLabel.setTextFill(Color.RED);
 		waveLabel.setEffect(new DropShadow());
@@ -83,7 +83,7 @@ public class GameUI extends StackPane {
 	}
 	
 	public void setScore(int score) {
-		scoreLabel.setText(String.format("Score 06%d", score));
+		scoreLabel.setText(String.format("Score %06d", score));
 	}
 	
 	public void setCash(int cash) {

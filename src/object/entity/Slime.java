@@ -10,6 +10,7 @@ import javafx.geometry.Point2D;
 import javafx.util.Pair;
 import logic.BoxCollider;
 import logic.GameObjectTag;
+import logic.GameStats;
 import object.loot.Mint;
 import object.loot.Mint.Type;
 import utility.Utility;
@@ -100,6 +101,7 @@ public class Slime extends Enemy {
 
 	public void destroy() {
 		super.destroy();
+		GameStats.increaseScore(100);
 		SystemCache.getInstance().gameCanvas.getWaveSystem().monsterKilled();
 	}
 }
