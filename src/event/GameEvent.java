@@ -80,7 +80,7 @@ public class GameEvent {
 				lerpValue(GameEvent.this.keyFraction.get(event.getCode()), 0.0);
 				GameEvent.this.bufferedSingleKeyUp.put(event.getCode(), true);
 				
-				if(event.getCode() == KeyCode.B) {
+				if(event.getCode() == KeyCode.TAB) {
 					SystemCache.getInstance().shopUI.toggle();
 				}
 				if(event.getCode() == KeyCode.ESCAPE) {

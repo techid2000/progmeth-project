@@ -18,7 +18,7 @@ public class SniperRifle extends Gun {
 		setRound(getMaxRound());
 		setAmmo(getMaxAmmo());
 		setPrice(1200);
-		setAmmoPrice(100);
+		setAmmoPrice(60);
 	}
 
 	@Override

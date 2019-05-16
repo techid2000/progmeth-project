@@ -15,6 +15,7 @@ public class ImageHolder {
 	public Image nothing;
 	
 	public List<Image> slime;
+	public List<Image> slimeGunner;
 	public Image pointer;
 	public Image unbreakableBlock;
 	public List<Image> breakableBlock;
@@ -22,6 +23,7 @@ public class ImageHolder {
 	public Image coinPile0;
 	public Image coinPile1;
 	public Image projectile;
+	public Image beam;
 	public Image shotgun;
 	public Image pistol;
 	public Image assultRifle;
@@ -32,6 +34,7 @@ public class ImageHolder {
 	public Image gunSlotPressed;
 	public Image coinWithBullet;
 	public Image skull;
+	
 	public List<Image> singleCoin;
 
 	public List<Image> playerRunUpPistol;
@@ -73,6 +76,8 @@ public class ImageHolder {
 	public ImageHolder() {
 		nothing = loadImage("nothing", PNG);
 		slime = loadImageList("slime/slime", PNG, 8);
+		slimeGunner = loadImageList("slime/slimegunner",PNG, 4);
+		
 		pointer = loadImage("overlay/pointer",PNG);
 		unbreakableBlock = loadImage("block/unbreakableblock", PNG);
 		breakableBlock = loadImageList("block/breakableblock",PNG,4);
@@ -83,6 +88,7 @@ public class ImageHolder {
 		ground = loadImage("block/ground", PNG);
 		
 		projectile = loadImage("weapon/projectile/pistol", PNG);
+		beam = loadImage("slime/beam",PNG);
 		shotgun = loadImage("weapon/Gun/shotgun", PNG);
 		pistol = loadImage("weapon/Gun/pistol", PNG);
 		assultRifle = loadImage("weapon/Gun/assultRifle",PNG);

@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 public class BreakableBlock extends Block implements IDestroyable {
 
 	public int maxDurability;
-	public int durability = 25;
+	public int durability = 50;
 	
 	public BreakableBlock() {
 		super();

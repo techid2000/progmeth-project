@@ -19,7 +19,7 @@ public class AssultRifle extends Gun {
 		setRound(getMaxRound());
 		setAmmo(getMaxAmmo());
 		setPrice(800);
-		setAmmoPrice(70);
+		setAmmoPrice(40);
 	}
 	
 	@Override

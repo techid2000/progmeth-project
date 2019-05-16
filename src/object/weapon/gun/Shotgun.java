@@ -19,7 +19,7 @@ public class Shotgun extends Gun {
 		setRound(getMaxRound());
 		setAmmo(getMaxAmmo());
 		setPrice(400);
-		setAmmoPrice(50);
+		setAmmoPrice(20);
 	}
 
 	@Override
